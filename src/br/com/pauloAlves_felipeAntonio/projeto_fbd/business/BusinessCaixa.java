@@ -6,7 +6,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoCaixa;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Caixa;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
-
+//Testando o git
 public class BusinessCaixa implements IBusinessCaixa{
 	private DaoCaixa daoCaixa;
 	public BusinessCaixa() {
