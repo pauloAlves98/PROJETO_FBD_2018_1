@@ -1,8 +1,18 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
-public class Cargo {
+import java.util.List;
+
+public class Cargo {//ComumDao para Funcionario!!!
 	private int id;
 	private  String descricao_cargo,nome;
+	private List<Funcionario>funcionarios;
+	
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
 	public int getId() {
 		return id;
 	}

@@ -7,7 +7,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Consulta;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 
 public interface IDaoConsulta {
-	public void salvar(Consulta consulta ) throws DaoException;
+	public void salvar(Consulta consulta,int id_medico,int id_paciente ) throws DaoException;
 	public void editar(Consulta consulta) throws DaoException;
 	public Consulta buscarPorId(int id)  throws DaoException;
 	public Consulta buscaPorData(Date data) throws DaoException;

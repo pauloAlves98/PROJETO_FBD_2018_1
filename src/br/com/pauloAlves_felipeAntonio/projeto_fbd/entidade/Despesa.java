@@ -1,12 +1,21 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Despesa {
 	private int id;
 	private String categoria;
 	private float valor;
 	private Date data_vencimento;
+	private List<Contas_pagar>contas_pagar;
+		
+	public List<Contas_pagar> getContas_pagar() {
+		return contas_pagar;
+	}
+	public void setContas_pagar(List<Contas_pagar> contas_pagar) {
+		this.contas_pagar = contas_pagar;
+	}
 	public int getId() {
 		return id;
 	}
