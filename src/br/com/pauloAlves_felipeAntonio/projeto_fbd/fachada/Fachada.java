@@ -19,6 +19,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessLocalEnd;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessLogAcesso;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessMedicamento;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessMedico;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessPaciente;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessCaixa;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessCargo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessClinica;
@@ -35,6 +36,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessLocalEnd;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessLogAcesso;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessMedicamento;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessMedico;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessPaciente;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Caixa;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Cargo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Clinica;
@@ -51,6 +53,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Local_end;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Log_acesso;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Medicamento;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Medico;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Paciente;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 
@@ -71,6 +74,7 @@ public class Fachada implements IFachada{
 	private IBusinessLogAcesso businessLogAcesso;
 	private IBusinessMedicamento businessMedicamento;
 	private IBusinessMedico businessMedico;
+	private IBusinessPaciente businessPaciente;
 	private static Fachada fachada;
 	
 	private Fachada() {
@@ -92,6 +96,7 @@ public class Fachada implements IFachada{
 		this.businessLogAcesso = new BusinessLogAcesso();
 		this.businessMedicamento = new BusinessMedicamento();
 		this.businessMedico = new BusinessMedico();
+		this.businessPaciente = new BusinessPaciente();
 	}
 	public static Fachada getInstance() {
 		if(fachada==null ) {
@@ -159,34 +164,31 @@ public class Fachada implements IFachada{
 
 	@Override
 	public Clinica buscarPorIdClinica(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return businessClinica.buscarPorId(id);
 	}
 
 	@Override
 	public Clinica buscaPorCnpjClinica(String cnpj) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessClinica.buscaPorCnpj(cnpj);
 	}
 
 	@Override
 	public List<Clinica> buscarPorBuscaClinica(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessClinica.buscarPorBusca(busca);
 	}
 
 	@Override
-	public void salvarConsulta(Consulta consulta) throws BusinessException {
-		businessConsulta.salvar(consulta);
-		
+	public void salvarConsulta(Consulta consulta,int id_medico,int id_paciente) throws BusinessException {
+		businessConsulta.salvar(consulta,id_medico,id_paciente);
 	}
 
 	@Override
 	public void editarConsulta(Consulta consulta) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
 	@Override
 	public Consulta buscarPorIdConsulta(int id) throws BusinessException {
 		// TODO Auto-generated method stub
@@ -312,18 +314,17 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void editarFornecedor(Fornecedor fornecedor) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		businessFornecedor.editar(fornecedor);
 	}
 	@Override
 	public Fornecedor buscarPorIdFornecedor(int id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessFornecedor.buscarPorId(id);
 	}
 	@Override
 	public List<Fornecedor> buscarPorBuscaFornecedor(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessFornecedor.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarFuncionario(Funcionario funcionario) throws BusinessException {
@@ -331,23 +332,22 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void editarFuncionario(Funcionario funcionario) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		businessFuncionario.editar(funcionario);	
 	}
 	@Override
 	public Funcionario buscarPorIdFuncionario(int id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessFuncionario.buscarPorId(id);
 	}
 	@Override
 	public Funcionario buscaPorCpfFuncionario(String cpf) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return businessFuncionario.buscaPorCpf(cpf);
 	}
 	@Override
 	public List<Funcionario> buscarPorBuscaFuncionario(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessFuncionario.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarLaudo(Laudo laudo) throws BusinessException {
@@ -355,7 +355,6 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void editarLaudo(Laudo laudo) throws BusinessException {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
@@ -399,43 +398,40 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void editarLog_acesso(Log_acesso log) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		businessLogAcesso.editar(log);
 	}
 	@Override
 	public Log_acesso buscarPorIdLog_acesso(int id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessLogAcesso.buscarPorId(id);
 	}
 	@Override
 	public Log_acesso buscaPorDataLog_acesso(Date data) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessLogAcesso.buscaPorData(data);
 	}
 	@Override
 	public List<Log_acesso> buscarPorBuscaLog_acesso(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessLogAcesso.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarMedicamento(Medicamento medicamento) throws BusinessException {
 		businessMedicamento.salvar(medicamento);
-		
 	}
 	@Override
 	public void editarMedicamento(Medicamento medicamento) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		businessMedicamento.editar(medicamento);
 	}
 	@Override
 	public Medicamento buscarPorIdMedicamento(int id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessMedicamento.buscarPorId(id);
 	}
 	@Override
 	public List<Medicamento> buscarPorBuscaMedicamento(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessMedicamento.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarMedico(Medico medico) throws DaoException {
@@ -443,20 +439,49 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void editarMedico(Medico medico) throws DaoException {
-		
+		businessMedico.editar(medico);
 	}
 	@Override
 	public Medico buscarPorIdMedico(int id) throws DaoException {
-		return null;
+		return businessMedico.buscarPorId(id);
 	}
 	@Override
 	public Medico buscarPorCpfMedico(String cpf) throws DaoException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessMedico.buscarPorCpf(cpf);
 	}
 	@Override
 	public List<Medico> buscarPorBuscaMedico(String busca) {
 		// TODO Auto-generated method stub
+		return businessMedico.buscarPorBusca(busca);
+	}
+	@Override
+	public void salvarPaciente(Paciente paciente) throws BusinessException {
+		businessPaciente.salvar(paciente);
+	}
+	@Override
+	public void editarPaciente(Paciente paciente) throws BusinessException {
+		businessPaciente.editar(paciente);
+		
+	}
+	@Override
+	public Paciente buscarPorIdPaciente(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessPaciente.buscarPorId(id);
+	}
+	@Override
+	public Paciente buscarPorCpfPaciente(String cpf) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int buscarIdPorCpfPaciente(String cpf) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessPaciente.buscarIdPorCpf(cpf);
+	}
+	@Override
+	public List<Paciente> buscarPorBuscaPaciente(String busca) {
+		
 		return null;
 	}
 

@@ -13,9 +13,12 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLUtil;
 public class DaoMedico implements IDaoMedico{
 	private Connection conexao;
 	private PreparedStatement statement;
+	private IDaoComum daoComum = new DaoComum();
 	@Override
 	public void salvar(Medico medico) throws DaoException {
 		try {
+			daoComum.salvarEndereco(medico.getEndereco());
+			int id_endereco = daoComum.getCurrentValorTabela("endereco");
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Medico.INSERT_ALL);
 			
@@ -27,6 +30,7 @@ public class DaoMedico implements IDaoMedico{
 			statement.setString(6,medico.getNome());
 			statement.setString(7,medico.getRg());
 			statement.setString(8,medico.getAdmin());
+			statement.setInt(9,id_endereco);
 			
 			statement.execute();
 			statement.close();

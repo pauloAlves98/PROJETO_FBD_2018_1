@@ -15,8 +15,9 @@ public class DaoConsulta implements IDaoConsulta{
 	private Connection conexao;
 	private PreparedStatement statement;
 	
+	
 	@Override
-	public void salvar(Consulta consulta) throws DaoException {
+	public void salvar(Consulta consulta, int id_medico, int id_paciente) throws DaoException {
 		try {
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Consulta.INSERT_ALL);
@@ -37,6 +38,7 @@ public class DaoConsulta implements IDaoConsulta{
 		
 		
 	}
+	
 
 	@Override
 	public void editar(Consulta consulta) throws DaoException {
@@ -61,5 +63,9 @@ public class DaoConsulta implements IDaoConsulta{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+
 
 }

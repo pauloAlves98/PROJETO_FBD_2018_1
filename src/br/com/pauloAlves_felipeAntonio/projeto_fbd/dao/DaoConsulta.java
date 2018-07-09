@@ -15,7 +15,7 @@ public class DaoConsulta implements IDaoConsulta{
 	private Connection conexao;
 	private PreparedStatement statement;
 	@Override
-	public void salvar(Consulta consulta) throws DaoException {
+	public void salvar(Consulta consulta,int id_medico,int id_paciente) throws DaoException {
 		
 		try {
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
@@ -23,8 +23,8 @@ public class DaoConsulta implements IDaoConsulta{
 			
 			statement.setString(1,consulta.getTipo());
 			statement.setString(2,consulta.getHorario());
-			statement.setInt(3,consulta.getId_paciente());
-			statement.setInt(4,consulta.getId_medico());
+			statement.setInt(3,id_paciente);
+			statement.setInt(4,id_medico);
 			statement.setDate(5,consulta.get_data());
 			statement.setBoolean(6,consulta.isSituacao());
 			
@@ -61,5 +61,4 @@ public class DaoConsulta implements IDaoConsulta{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

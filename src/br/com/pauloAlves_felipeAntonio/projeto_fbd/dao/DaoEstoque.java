@@ -21,8 +21,8 @@ public class DaoEstoque implements IDaoEstoque{
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Estoque.INSERT_ALL);
 			
-			statement.setInt(1,estoque.getId_fornecedores());
-			statement.setInt(2,estoque.getId_produtos());
+			statement.setInt(1,estoque.getFornecedor().getId());
+			statement.setInt(2,estoque.getProduto().getId());
 			statement.setFloat(3,estoque.getTotal_produtos());
 		
 			statement.execute();

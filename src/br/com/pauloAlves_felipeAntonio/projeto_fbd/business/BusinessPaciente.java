@@ -8,10 +8,10 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 
 public class BusinessPaciente implements IBusinessPaciente {
-	private DaoPaciente daoPaciente;
+	private static DaoPaciente daoPaciente;
 	
 	public BusinessPaciente() {
-		this.daoPaciente = new DaoPaciente();
+		daoPaciente = new DaoPaciente();
 	}
 	@Override
 	public void salvar(Paciente paciente) throws BusinessException {
@@ -39,14 +39,26 @@ public class BusinessPaciente implements IBusinessPaciente {
 
 	@Override
 	public Paciente buscarPorCpf(String cpf) throws BusinessException {
-		// TODO Auto-generated method stub
+		try {
+			daoPaciente.buscarIdPorCpf(cpf);
+		} catch (DaoException e) {
+			throw new BusinessException(e.getMessage());
+		}
 		return null;
 	}
 
 	@Override
 	public List<Paciente> buscarPorBusca(String busca) {
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+	@Override
+	public int buscarIdPorCpf(String cpf) throws BusinessException {
+		try {
+			return daoPaciente.buscarIdPorCpf(cpf);
+		} catch (DaoException e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 }

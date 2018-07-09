@@ -1,11 +1,12 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Clinica;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Funcionario;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLConnection;
@@ -14,10 +15,15 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLUtil;
 public class DaoFuncionario implements IDaoFuncionario{
 	private Connection conexao;
 	private PreparedStatement statement;
-	
+	private ResultSet result;
+	private IDaoComum daoComum = new DaoComum();
 	@Override
 	public void salvar(Funcionario funcionario) throws DaoException {
 		try {
+			daoComum.salvarEndereco(funcionario.getEndereco());
+			daoComum.salvarCargo(funcionario.getCargo());
+			int id_endereco = daoComum.getCurrentValorTabela("endereco");
+			int id_cargo = daoComum.getCurrentValorTabela("cargo");
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_ALL);
 			
@@ -25,14 +31,13 @@ public class DaoFuncionario implements IDaoFuncionario{
 			statement.setString(2,funcionario.getCpf());
 			statement.setInt(3,funcionario.getId_clinicas());
 			statement.setString(4,funcionario.getAdmim());
-			statement.setString(5,funcionario.getBairro());
-			statement.setString(6,funcionario.getSenha());
-			statement.setString(7,funcionario.getCep());
-			statement.setInt(8,funcionario.getId_cargos());
-			statement.setString(9,funcionario.getNome_usuario());
-			statement.setDate(10,funcionario.getData_acesso());
-			statement.setInt(11,funcionario.getTelefone());
-			statement.setString(12,funcionario.getRg());
+			statement.setString(5,funcionario.getSenha());
+			statement.setInt(6,id_cargo);//pega o cargo e adiciona
+			statement.setString(7,funcionario.getNome_usuario());
+			statement.setDate(8,new Date(funcionario.getData_acesso().getTime()));
+			statement.setInt(9,funcionario.getTelefone());
+			statement.setString(10,funcionario.getRg());
+			statement.setInt(11,id_endereco);
 			
 			statement.execute();
 			statement.close();

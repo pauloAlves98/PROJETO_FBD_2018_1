@@ -1,7 +1,25 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
 public class Estoque {
-	private int id,id_fornecedores,id_produtos,total_produtos;
+	private int id,total_produtos;
+	private Produto produto;
+	private Fornecedor fornecedor;
+	
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
 
 	public int getId() {
 		return id;
@@ -10,23 +28,6 @@ public class Estoque {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public int getId_fornecedores() {
-		return id_fornecedores;
-	}
-
-	public void setId_fornecedores(int id_fornecedores) {
-		this.id_fornecedores = id_fornecedores;
-	}
-
-	public int getId_produtos() {
-		return id_produtos;
-	}
-
-	public void setId_produtos(int id_produtos) {
-		this.id_produtos = id_produtos;
-	}
-
 	public int getTotal_produtos() {
 		return total_produtos;
 	}
