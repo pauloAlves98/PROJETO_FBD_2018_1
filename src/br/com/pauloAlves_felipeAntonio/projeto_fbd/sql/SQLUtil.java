@@ -18,7 +18,7 @@ public class SQLUtil {
 
 	public static String URL_POSTGRES = "jdbc:postgresql://localhost:5432/banco_fbd_2018_1";
 	public static String USUARIO_POSTGRES = "postgres";
-	public static String SENHA_POSTGRES = "padS1998";
+	public static String SENHA_POSTGRES = "p";
 
 	//os inserts
 	

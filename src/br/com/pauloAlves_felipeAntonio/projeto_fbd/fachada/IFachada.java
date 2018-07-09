@@ -19,7 +19,6 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Local_end;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Log_acesso;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Medicamento;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Medico;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Paciente;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 
@@ -40,7 +39,7 @@ public interface IFachada {
 	public Clinica buscaPorCnpjClinica (String cnpj) throws BusinessException;
 	public List<Clinica> buscarPorBuscaClinica (String busca)throws BusinessException;	
 	
-	public void salvarConsulta(Consulta consulta,int id_medico,int id_paciente) throws BusinessException;
+	public void salvarConsulta(Consulta consulta ) throws BusinessException;
 	public void editarConsulta(Consulta consulta) throws BusinessException;
 	public Consulta buscarPorIdConsulta(int id)  throws BusinessException;
 	public Consulta buscaPorDataConsulta(Date data) throws BusinessException;
@@ -117,15 +116,6 @@ public interface IFachada {
 	public Medico buscarPorIdMedico(int id)throws DaoException;
 	public Medico buscarPorCpfMedico(String cpf)throws DaoException;
 	public List<Medico> buscarPorBuscaMedico(String busca);
-	
-	public void salvarPaciente(Paciente paciente) throws BusinessException;
-	   // public void salvar_sem_convenio(Paciente paciente) throws DaoException;
-	   // public void salvar_simples(Paciente paciente) throws DaoException;
-	    public void editarPaciente(Paciente paciente)throws BusinessException;
-	    public Paciente buscarPorIdPaciente(int id)throws BusinessException;
-	    public Paciente buscarPorCpfPaciente(String cpf)throws BusinessException;
-	    public int buscarIdPorCpfPaciente(String cpf) throws BusinessException;
-	    public List<Paciente> buscarPorBuscaPaciente(String busca);
 	
 	
 }

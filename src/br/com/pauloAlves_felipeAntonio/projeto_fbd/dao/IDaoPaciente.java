@@ -14,6 +14,5 @@ public interface  IDaoPaciente {
     public void editar(Paciente paciente)throws DaoException;
     public Paciente buscarPorId(int id)throws DaoException;
     public Paciente buscarPorCpf(String cpf)throws DaoException;
-    public int buscarIdPorCpf(String cpf)throws DaoException;
     public List<Paciente> buscarPorBusca(String busca);
 }

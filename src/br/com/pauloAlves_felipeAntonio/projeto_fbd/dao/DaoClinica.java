@@ -14,23 +14,20 @@ public class DaoClinica implements IDaoClinica {
 
 	private Connection conexao;
 	private PreparedStatement statement;
-	private IDaoComum daoComum = new DaoComum();
 	@Override
 	public void salvar(Clinica clinica) throws DaoException {
 	
 		try {
-
-			daoComum.salvarEndereco(clinica.getEndereco());
-			int id_endereco = daoComum.getCurrentValorTabela("endereco");
-			
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Clinica.INSERT_ALL);
-
+			
 			statement.setString(1,clinica.getNome());
-			statement.setString(2,clinica.getCnpj());
-			statement.setString(3,clinica.getDescricao_complemento());
-			statement.setInt(4,clinica.getTelefone());
-			statement.setInt(5,id_endereco);
+			statement.setString(2,clinica.getBairro());
+			statement.setString(3,clinica.getUf());
+			statement.setString(4,clinica.getCnpj());
+			statement.setString(5,clinica.getDescricao_complemento());
+			statement.setInt(6,clinica.getTelefone());
+			statement.setString(7,clinica.getCidade());
 			
 			statement.execute();
 			statement.close();

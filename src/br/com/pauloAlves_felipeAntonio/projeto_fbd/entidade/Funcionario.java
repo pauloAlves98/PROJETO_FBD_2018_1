@@ -1,26 +1,11 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Funcionario {
 	int id,id_clinicas,id_cargos,telefone ;
-	private String nome,cpf,admim,senha,nome_usuario,rg; 
-	private Date data_acesso;
-	private Endereco endereco;
-	private Cargo cargo;
-	
-	public Cargo getCargo() {
-		return cargo;
-	}
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
-	public Endereco getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
+	String nome,cpf,admim,bairro,senha,cep,nome_usuario,rg; 
+	Date data_acesso;
 	public int getId() {
 		return id;
 	}
@@ -63,13 +48,24 @@ public class Funcionario {
 	public void setAdmim(String admim) {
 		this.admim = admim;
 	}
+	public String getBairro() {
+		return bairro;
+	}
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
 	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 	public String getNome_usuario() {
 		return nome_usuario;
 	}

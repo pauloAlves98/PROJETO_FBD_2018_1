@@ -1,4 +1,4 @@
-package br.com.pauloAlves_felipeAntonio.projeto_fbd.dao;
+package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Consulta;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.IDaoConsulta;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLConnection;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLUtil;
@@ -14,13 +14,13 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLUtil;
 public class DaoConsulta implements IDaoConsulta{
 	private Connection conexao;
 	private PreparedStatement statement;
+	
 	@Override
 	public void salvar(Consulta consulta) throws DaoException {
-		
 		try {
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Consulta.INSERT_ALL);
-			
+		
 			statement.setString(1,consulta.getTipo());
 			statement.setString(2,consulta.getHorario());
 			statement.setInt(3,consulta.getId_paciente());

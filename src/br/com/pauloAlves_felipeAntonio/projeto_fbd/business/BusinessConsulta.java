@@ -16,9 +16,9 @@ public class BusinessConsulta implements IBusinessConsulta {
 	}
 
 	@Override
-	public void salvar(Consulta consulta,int id_medico,int id_paciente) throws BusinessException {
+	public void salvar(Consulta consulta) throws BusinessException {
 		try {
-			this.daoConsulta.salvar(consulta,id_medico,id_paciente);
+			this.daoConsulta.salvar(consulta);
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

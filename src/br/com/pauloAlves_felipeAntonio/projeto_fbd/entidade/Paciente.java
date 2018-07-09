@@ -1,28 +1,11 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
-import java.util.List;
-
 public class Paciente {
 	private int id,telefone,id_prontuario,id_convenio; 
 	private String nome,rg,cpf,nome_mae,nome_pai;
 	private Prontuario prontuario;
 	private Convenio convenio;
-	private List<Laudo>laudos;
-	private Endereco endereco;
 	
-	
-	public Endereco getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-	public List<Laudo> getLaudos() {
-		return laudos;
-	}
-	public void setLaudos(List<Laudo> laudos) {
-		this.laudos = laudos;
-	}
 	public Convenio getConvenio() {
 		return convenio;
 	}

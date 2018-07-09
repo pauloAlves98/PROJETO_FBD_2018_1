@@ -22,8 +22,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.controller.ControlePacientesPanel;
-
 
 public class TelaPrincipal extends JFrame {
 	JButton btnFinanceiro ;
@@ -41,26 +39,26 @@ public class TelaPrincipal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPrincipal frame = new TelaPrincipal();
-					frame.setSize(1005,610);
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-					new  ConsultaPanel();
-					CadastroPacientePanel pacienteCadastro = new CadastroPacientePanel();
-					new ProdutoPanel();
-					new VendaPanel();
-					
-					ControlePacientesPanel contPacientes = new ControlePacientesPanel(frame.cadatrosPanel.telaPacientes,pacienteCadastro);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TelaPrincipal frame = new TelaPrincipal();
+//					frame.setSize(1005,610);
+//					frame.setVisible(true);
+//					frame.setLocationRelativeTo(null);
+//					new  ConsultaPanel();
+//					CadastroPacientePanel pacienteCadastro = new CadastroPacientePanel();
+//					new ProdutoPanel();
+//					new VendaPanel();
+//					
+//					ControlePacientesPanel contPacientes = new ControlePacientesPanel(frame.cadatrosPanel.telaPacientes,pacienteCadastro);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.

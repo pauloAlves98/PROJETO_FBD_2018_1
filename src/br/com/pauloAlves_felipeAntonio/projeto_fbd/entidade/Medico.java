@@ -1,32 +1,9 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
-import java.util.List;
-
 public class Medico {
 	private int id;
 	private String cpf,area, especialidade,nome_usuario,senha,nome,rg,admin;
-	private List<Receita>receitas;
-	private List<Consulta>consultas;
-	private Endereco endereco;
 	
-	public Endereco getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-	public List<Consulta> getConsultas() {
-		return consultas;
-	}
-	public void setConsultas(List<Consulta> consultas) {
-		this.consultas = consultas;
-	}
-	public List<Receita> getReceitas() {
-		return receitas;
-	}
-	public void setReceitas(List<Receita> receitas) {
-		this.receitas = receitas;
-	}
 	public int getId() {
 		return id;
 	}
