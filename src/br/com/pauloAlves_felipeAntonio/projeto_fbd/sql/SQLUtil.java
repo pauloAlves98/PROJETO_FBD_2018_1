@@ -113,8 +113,8 @@ public class SQLUtil {
 				"values(?,?)";
 	}
 	public static class Fornecedor{
-		public static String INSERT_ALL = "insert into fornecedor(cidade, bairro, incs_municipal, cnpj, uf, insc_estadual,cep,nome,telefone)"+
-				"values(?,?,?,?,?,?,?,?,?)";
+		public static String INSERT_ALL = "insert into fornecedor(incs_municipal, cnpj, insc_estadual,nome,telefone,id_endereco)"+
+				"values(?,?,?,?,?,?)";
 	}
 	public static class Estoque{
 		public static String INSERT_ALL = "insert into estoque(id_fornecedores, id_produtos, total_produtos)"+

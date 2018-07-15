@@ -20,6 +20,15 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Log_acesso;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Medicamento;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Medico;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Paciente;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Pagamento;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Pagamentos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Produto;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Produtos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Prontuario;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Receita;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Servico;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Servicos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Venda;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 
@@ -121,11 +130,63 @@ public interface IFachada {
 	public void salvarPaciente(Paciente paciente) throws BusinessException;
 	   // public void salvar_sem_convenio(Paciente paciente) throws DaoException;
 	   // public void salvar_simples(Paciente paciente) throws DaoException;
-	    public void editarPaciente(Paciente paciente)throws BusinessException;
-	    public Paciente buscarPorIdPaciente(int id)throws BusinessException;
-	    public Paciente buscarPorCpfPaciente(String cpf)throws BusinessException;
-	    public int buscarIdPorCpfPaciente(String cpf) throws BusinessException;
-	    public List<Paciente> buscarPorBuscaPaciente(String busca);
+	public void editarPaciente(Paciente paciente)throws BusinessException;
+	public Paciente buscarPorIdPaciente(int id)throws BusinessException;
+	public Paciente buscarPorCpfPaciente(String cpf)throws BusinessException;
+	public int buscarIdPorCpfPaciente(String cpf) throws BusinessException;
+	public List<Paciente> buscarPorBuscaPaciente(String busca);
 	
+	public void salvarPagamento(Pagamento pagamento) throws BusinessException;
+	public void editarPagamento(Pagamento pagamento) throws BusinessException;
+	public Pagamento buscarPorIdPagamento(int id)  throws BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<Pagamento> buscarPorBuscaPagamento(String busca)throws BusinessException;
 	
+	public void salvarPagamentos_vendas(Pagamentos_vendas pagamento) throws BusinessException;
+	public void editarPagamentos_vendas(Pagamentos_vendas  pagamento) throws  BusinessException;
+	public Pagamentos_vendas  buscarPorIdPagamentos_vendas(int id)  throws  BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<Pagamentos_vendas> buscarPorBuscaPagamentos_vendas(String busca)throws  BusinessException;
+	
+	public void salvarProduto(Produto produto) throws BusinessException;
+	public void editarProduto(Produto produto) throws BusinessException;
+	public Produto  buscarPorIdProduto(int id)  throws BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<Produto> buscarPorBuscaProduto(String busca)throws BusinessException;
+	
+	public void salvarProdutos_vendas(Produtos_vendas produto) throws BusinessException;
+	public void editarProdutos_vendas(Produtos_vendas produto) throws BusinessException;
+	public Produtos_vendas buscarPorIdProdutos_vendas(int id)  throws BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<Produtos_vendas> buscarPorBuscaProdutos_vendas(String busca)throws BusinessException;
+	
+	public void salvarProntuario(Prontuario prontuario ) throws BusinessException;
+	public void editarProntuario(Prontuario prontuario) throws BusinessException;
+	public Prontuario  buscarPorIdProntuario(int id)  throws BusinessException;
+	public Prontuario buscaPorDataProntuario(Date data) throws BusinessException;
+	public List<Prontuario> buscarPorBuscaProntuario(String busca)throws BusinessException;
+
+	public void salvarReceita(Receita receita) throws BusinessException;
+	public void editarReceita(Receita receita) throws BusinessException;
+	public Receita buscarPorIdReceita(int id)  throws BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<Receita> buscarPorBuscaReceita(String busca)throws BusinessException;
+	
+	public void salvarServico(Servico servico) throws BusinessException;
+	public void editarServico(Servico servico) throws BusinessException;
+	public Servico buscarPorIdServico(int id)  throws BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<Servico> buscarPorBuscaServico(String busca)throws BusinessException;
+	
+	public void salvarServicos_vendas(Servicos_vendas servico) throws BusinessException;
+	public void editarServicos_vendas(Servicos_vendas servico) throws BusinessException;
+	public Servicos_vendas buscarPorIdServicos_vendas(int id)  throws BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<Servicos_vendas> buscarPorBuscaServicos_vendas(String busca)throws BusinessException;
+
+	public void salvarVenda(Venda venda) throws BusinessException;
+	public void editarVenda(Venda venda) throws BusinessException;
+	public Venda buscarPorIdVenda(int id)  throws BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<Venda> buscarPorBuscaVenda(String busca)throws BusinessException;
 }

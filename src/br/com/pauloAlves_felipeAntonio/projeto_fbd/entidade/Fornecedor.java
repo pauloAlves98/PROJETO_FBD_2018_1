@@ -2,7 +2,9 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
 public class Fornecedor {//Endereco
 	private int id,incs_municipal,insc_estadual,telefone;   
-	private String cidade,bairro,uf,cnpj,nome,cep;
+	private String cnpj,nome;
+	private Endereco endereco;
+	
 	public int getId() {
 		return id;
 	}
@@ -23,11 +25,11 @@ public class Fornecedor {//Endereco
 	}
 	
 	
-	public String getCep() {
-		return cep;
+	public Endereco getEndereco() {
+		return endereco;
 	}
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 	public int getTelefone() {
 		return telefone;
@@ -35,24 +37,7 @@ public class Fornecedor {//Endereco
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
-	public String getCidade() {
-		return cidade;
-	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-	public String getBairro() {
-		return bairro;
-	}
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-	public String getUf() {
-		return uf;
-	}
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
+	
 	public String getCnpj() {
 		return cnpj;
 	}

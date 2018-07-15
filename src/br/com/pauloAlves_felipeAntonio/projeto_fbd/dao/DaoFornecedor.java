@@ -13,21 +13,22 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLUtil;
 public class DaoFornecedor implements IDaoFornecedor {
 	private Connection conexao;
 	private PreparedStatement statement;
+	private IDaoComum comunDao = new DaoComum();
 	@Override
 	public void salvar(Fornecedor fornecedor) throws DaoException {
 		try {
+			comunDao.salvarEndereco(fornecedor.getEndereco());
+			int id_endereco = comunDao.getCurrentValorTabela("endereco");
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Fornecedor.INSERT_ALL);
 			
-			statement.setString(1,fornecedor.getCidade());
-			statement.setString(2,fornecedor.getBairro());
-			statement.setInt(3,fornecedor.getIncs_municipal());
-			statement.setString(4,fornecedor.getCnpj());
-			statement.setString(5,fornecedor.getUf());
-			statement.setInt(6,fornecedor.getInsc_estadual());
-			statement.setString(7,fornecedor.getCep());
-			statement.setString(8,fornecedor.getNome());
-			statement.setInt(9,fornecedor.getTelefone());
+	
+			statement.setInt(1,fornecedor.getIncs_municipal());
+			statement.setString(2,fornecedor.getCnpj());
+			statement.setInt(3,fornecedor.getInsc_estadual());
+			statement.setString(4,fornecedor.getNome());
+			statement.setInt(5,fornecedor.getTelefone());
+			statement.setInt(6, id_endereco);
 			
 			statement.execute();
 			statement.close();

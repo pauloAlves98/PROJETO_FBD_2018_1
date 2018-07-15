@@ -20,6 +20,15 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessLogAcesso;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessMedicamento;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessMedico;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessPaciente;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessPagamento;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessPagamentoVendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessProduto;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessProdutos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessProntuario;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessReceita;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessServico;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessServicos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessVenda;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessCaixa;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessCargo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessClinica;
@@ -37,6 +46,15 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessLogAcesso;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessMedicamento;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessMedico;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessPaciente;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessPagamento;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessPagamentoVendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessProduto;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessProdutos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessProntuario;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessReceita;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessServico;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessServicos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessVenda;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Caixa;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Cargo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Clinica;
@@ -54,6 +72,15 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Log_acesso;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Medicamento;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Medico;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Paciente;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Pagamento;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Pagamentos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Produto;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Produtos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Prontuario;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Receita;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Servico;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Servicos_vendas;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Venda;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 
@@ -75,6 +102,16 @@ public class Fachada implements IFachada{
 	private IBusinessMedicamento businessMedicamento;
 	private IBusinessMedico businessMedico;
 	private IBusinessPaciente businessPaciente;
+	private IBusinessPagamento businessPagamento;
+	private IBusinessPagamentoVendas businessPagamentoVendas;
+	private IBusinessProduto businessProduto;
+	private IBusinessProdutos_vendas businessProdutos_vendas;
+	private IBusinessProntuario businessProntuario;
+	private IBusinessReceita businessReceita;
+	private IBusinessServico businessServico;
+	private IBusinessServicos_vendas businessServicos_vendas;
+	private IBusinessVenda businessVenda;
+
 	private static Fachada fachada;
 	
 	private Fachada() {
@@ -97,6 +134,15 @@ public class Fachada implements IFachada{
 		this.businessMedicamento = new BusinessMedicamento();
 		this.businessMedico = new BusinessMedico();
 		this.businessPaciente = new BusinessPaciente();
+		this.businessPagamento = new  BusinessPagamento();
+		this.businessPagamentoVendas = new BusinessPagamentoVendas();
+		this.businessProduto = new BusinessProduto();
+		this.businessProdutos_vendas = new BusinessProdutos_vendas();
+		this.businessProntuario  = new BusinessProntuario();
+		this.businessReceita = new BusinessReceita();
+		this.businessServico = new BusinessServico();
+		this.businessServicos_vendas = new BusinessServicos_vendas();
+		this.businessVenda = new BusinessVenda();
 	}
 	public static Fachada getInstance() {
 		if(fachada==null ) {
@@ -482,6 +528,191 @@ public class Fachada implements IFachada{
 	@Override
 	public List<Paciente> buscarPorBuscaPaciente(String busca) {
 		
+		return null;
+	}
+	@Override
+	public void salvarPagamento(Pagamento pagamento) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarPagamento(Pagamento pagamento) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Pagamento buscarPorIdPagamento(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Pagamento> buscarPorBuscaPagamento(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void salvarPagamentos_vendas(Pagamentos_vendas pagamento) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarPagamentos_vendas(Pagamentos_vendas pagamento) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Pagamentos_vendas buscarPorIdPagamentos_vendas(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Pagamentos_vendas> buscarPorBuscaPagamentos_vendas(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void salvarProduto(Produto produto) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarProduto(Produto produto) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Produto buscarPorIdProduto(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Produto> buscarPorBuscaProduto(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void salvarProdutos_vendas(Produtos_vendas produto) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarProdutos_vendas(Produtos_vendas produto) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Produtos_vendas buscarPorIdProdutos_vendas(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Produtos_vendas> buscarPorBuscaProdutos_vendas(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void salvarProntuario(Prontuario prontuario) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarProntuario(Prontuario prontuario) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Prontuario buscarPorIdProntuario(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Prontuario buscaPorDataProntuario(Date data) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Prontuario> buscarPorBuscaProntuario(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void salvarReceita(Receita receita) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarReceita(Receita receita) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Receita buscarPorIdReceita(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Receita> buscarPorBuscaReceita(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void salvarServico(Servico servico) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarServico(Servico servico) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Servico buscarPorIdServico(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Servico> buscarPorBuscaServico(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void salvarServicos_vendas(Servicos_vendas servico) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarServicos_vendas(Servicos_vendas servico) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Servicos_vendas buscarPorIdServicos_vendas(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Servicos_vendas> buscarPorBuscaServicos_vendas(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void salvarVenda(Venda venda) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void editarVenda(Venda venda) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Venda buscarPorIdVenda(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<Venda> buscarPorBuscaVenda(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
