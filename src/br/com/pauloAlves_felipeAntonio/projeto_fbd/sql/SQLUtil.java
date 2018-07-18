@@ -18,16 +18,17 @@ public class SQLUtil {
 
 	public static String URL_POSTGRES = "jdbc:postgresql://localhost:5432/banco_fbd_2018_1";
 	public static String USUARIO_POSTGRES = "postgres";
-	public static String SENHA_POSTGRES = "p";
+	public static String SENHA_POSTGRES = "padS1998";
 
 	//os inserts
 	
-
+ 
 	public static class Paciente{
-		public static String INSERT_ALL = "insert into paciente (nome, rg, cpf, telefone, nome_mae, nome_pai,id_endereco)"+
-				"values (?,?,?,?,?,?,?)";	
+		public static String INSERT_ALL = "insert into paciente (nome, rg, cpf, telefone, nome_mae, nome_pai,id_endereco,datanascimento)"+
+		"values (?,?,?,?,?,?,?,?)";	
 		public static String SELECT_ID_POR_CPF = "select id from paciente where cpf = ?";
-		public static String SELECT_ALL_EXCETO_PRONTUARIO_POR_CPF = "select paciente.id,nome,rg,cpf,telefone,nome_mae,nome_pai,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero from paciente, endereco e where paciente.id_endereco = e.id and paciente.cpf = ?";
+		public static String SELECT_NOME_POR_CPF = "select id,nascimento from paciente where paciente.cpf = ? and paciente.nome=?";
+		public static String SELECT_ALL_EXCETO_PRONTUARIO_POR_CPF = "select paciente.id,nome,rg,cpf,telefone,nome_mae,nome_pai,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,paciente.datanascimento from paciente, endereco e where paciente.id_endereco = e.id and paciente.cpf = ?";
 	}
 	public static class Endereco {
 

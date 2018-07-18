@@ -1,0 +1,293 @@
+CREATE TABLE PACIENTE(
+ id serial, 
+ nome varChar(255),
+ rg  varChar(11), 
+ cpf  varChar(11), 
+ telefone  varchar(20),
+ id_prontuario int,
+ id_endereco int,
+ nome_mae  varChar(255),
+ dataNascimento date,
+ nome_pai  varChar(255),
+ PRIMARY KEY(ID), 
+ UNIQUE(cpf)
+);
+CREATE TABLE MEDICO(
+	id serial, 
+	cpf varChar(11),
+	area varChar(255),
+	especialidade varChar(255),
+	nome_usuario varChar(255),
+	senha  varChar(255),
+	nome varChar(255),
+	rg varChar(9),
+id_endereco int,
+	admim  varChar(255),
+	Constraint id_pkey PRIMARY KEY(id), 
+	Constraint cpf_unique  UNIQUE(cpf)
+);
+CREATE TABLE CLINICA(
+	id serial,
+	nome varChar(255),
+	cnpj varChar(14),
+	descricao_complemento varChar(500),
+	 telefone  varchar(20),
+	id_endereco int,
+	CONSTRAINT id_pkey_clinicas  PRIMARY KEY(id), 
+	CONSTRAINT cnpj_unique UNIQUE(cnpj)
+);
+ALTER TABLE PACIENTE DROP CONSTRAINT paciente_pkey;
+ALTER TABLE PACIENTE ADD CONSTRAINT id_pkey_paciente PRIMARY KEY (id);
+ALTER TABLE MEDICO DROP CONSTRAINT id_pkey;
+ALTER TABLE MEDICO ADD CONSTRAINT id_pkey_medico PRIMARY KEY (id);
+CREATE TABLE FUNCIONARIO(
+	id  serial,
+	nome  varChar(255),
+	cpf  varchar(11),
+	Id_clinicas int,
+	admim  varChar(255),
+	senha  varChar(255),
+	id_cargos  int,
+	nome_usuario varChar(255),
+	data_acesso  date,
+	 telefone  varchar(20),
+	rg  varChar(9),
+	id_endereco int,
+	CONSTRAINT id_pkey_funcionarios PRIMARY KEY(id),
+	CONSTRAINT cpf_unique_funcionarios UNIQUE(cpf),
+	CONSTRAINT id_clinicas_fkey_funcionarios FOREIGN KEY(id_clinicas) REFERENCES Clinica(id)
+);
+CREATE TABLE LOG_ACESSO(
+	id  serial,
+	data_acesso  Date,
+	nome_usuario VARCHAR(255),
+	CONSTRAINT  id_pkey_log_acesso PRIMARY KEY(id)
+);
+create table endereco(
+		id serial primary key,
+		cep varChar(20),
+		estado varChar(255),
+		logradouro varChar(20),
+		complemento varChar(20),
+		bairro varChar(255),
+		rua varchar(255),
+		pais varChar(255),
+		cidade varChar(255),
+		numero int
+);
+CREATE TABLE Fornecedor(
+	id  serial ,
+	incs_municipal  int,
+	cnpj varChar(14), 
+	insc_estadual  int,
+	nome   varChar(255),
+	 telefone  varchar(20),
+id_endereco int,
+Constraint id_endereco_fkey_fornecedor Foreign key(id_endereco) references endereco(id),
+	PRIMARY KEY(id), 
+	UNIQUE(cnpj)
+);
+
+alter table paciente add Constraint id_endereco_fkey_paciente Foreign key(id_endereco) references endereco(id);
+alter table Funcionario add Constraint id_endereco_fkey_funcionario Foreign key(id_endereco) references endereco(id);
+alter table clinica add Constraint id_endereco_fkey_clinica Foreign key(id_endereco) references endereco(id);
+alter table Medico add Constraint id_endereco_fkey_medico Foreign key(id_endereco) references endereco(id);
+
+CREATE TABLE Prontuario(
+	 id serial, data_exame  Date,
+	 data_inicio  Date,
+	 data_final  Date,
+	 descricao_resultado   varChar(4000),
+	 observacao  varChar(4000),
+	 CONSTRAINT Id_pkey_prontuario PRIMARY KEY(ID)
+);
+ALTER TABLE  Paciente ADD CONSTRAINT ID_PRONTUARIO_FKEY_PACIENTE FOREIGN KEY (ID_PRONTUARIO) REFERENCES  Prontuario(id);
+CREATE TABLE Consulta(
+	id serial,
+	tipo  varChar(100),
+	horario  varChar(20),
+	Id_paciente int ,
+	id_medico int ,
+	_data Date,
+	situacao boolean,
+	constraint Id_pkey_consulta PRIMARY KEY(id),
+	constraint Id_paciente_fkey_consulta foreign key(id_paciente) references Paciente(id),
+	constraint id_medico_fkey_consulta foreign key(id_medico) references Medico(id)
+);
+CREATE TABLE LAUDO(
+	id serial,
+	_data  Date,
+	horario varChar(20),
+	descricao  varChar(4000),
+	id_paciente INT,
+	id_medico INT,
+	CONSTRAINT Id_PKEY_LAUDO PRIMARY KEY(ID),
+	CONSTRAINT Id_paciente_FKEY_LAUDO FOREIGN KEY(ID_PACIENTE) references Paciente(id),
+        CONSTRAINT id_medico_FKEY_LAUDO FOREIGN KEY(ID_MEDICO) references Medico(id)
+);
+CREATE TABLE Medicamento(
+	Id serial,
+	descricao_laboratorio  varChar(4000),
+	desricao_generica varChar(4000),
+	descricao_substancia varChar(4000),
+	nome varChar(255),
+	constraint Id_pkey_medicamentos PRIMARY KEY(id)
+);
+CREATE TABLE Receita(
+	id  serial,
+	observacoes  varChar(4000),
+	id_medicamentos int,
+	nome_clinica  varChar(255),
+	id_medico int,
+	CONSTRAINT Id_PKEY_RECEITA PRIMARY KEY(ID),
+	CONSTRAINT Id_medico_FKEY_RECEITA FOREIGN KEY(ID_MEDICO) references Medico(id),
+	CONSTRAINT id_medicamentos_PKEY_RECEITA FOREIGN KEY(ID_MEDICAMENTOS) references MEDICAMENTO(id)
+);
+CREATE TABLE Exame(
+	id serial,
+	id_receita  int,
+	observacoes varChar(4000),
+	nome varChar(255),
+	CONSTRAINT Id_PKEY_EXAMES PRIMARY KEY(ID),
+	CONSTRAINT Id_receita_FKEY_EXAMES FOREIGN KEY(ID_RECEITA) references Receita(id)
+);
+CREATE TABLE Local_end(
+	id serial,
+	rua varChar(255),
+	nome_clinica  varChar(255),
+ telefone  varchar(20),
+	bairro varChar(255),
+	id_exame INT,
+	CONSTRAINT Id_PKEY_LOCAL_END PRIMARY KEY(ID),
+	CONSTRAINT Id_exame_FKEY_LOCAL_END FOREIGN KEY(ID_EXAME) references Exame(id)
+);
+CREATE TABLE Cargo(
+	 Id  serial,
+	 descricao_cargo varChar(4000),
+	 nome varChar(255),
+	 CONSTRAINT ID_PKEY_CARGOS PRIMARY KEY(ID)
+);
+ALTER TABLE FUNCIONARIO ADD CONSTRAINT ID_CARGOS_FKEY_FUNCIONARIOS FOREIGN KEY(ID_CARGOS) REFERENCES CARGO(ID);
+CREATE TABLE Convenio(
+	id serial,
+	data_inicio  Date, 
+	descricao_regiao  varChar,
+	nome  varChar,
+	PRIMARY KEY(id)
+);
+ALTER TABLE PACIENTE ADD COLUMN ID_CONVENIO INT;
+ALTER TABLE  PACIENTE  ADD CONSTRAINT ID_CONVENIO_FKEY_PACIENTE FOREIGN KEY(ID_CONVENIO)  REFERENCES CONVENIO(ID);
+CREATE TABLE Venda(
+	id  serial ,
+	data  Date,
+	nota_fiscal  int,
+	status boolean,
+	total float,
+	desconto float,
+	valor_recebido  float,
+	troco  float, 
+	id_pacientes  int,
+	PRIMARY KEY(id),
+	UNIQUE(nota_fiscal),
+	CONSTRAINT id_paciente_fkey_vendas FOREIGN KEY(id_pacientes)
+            references Paciente(id)
+);
+CREATE TABLE Pagamento(
+	id  serial,
+	valor  float, 
+	PRIMARY KEY(id)
+);
+CREATE TABLE Pagamentos_vendas(
+	id  serial,
+	id_vendas  int,
+	id_pagamento int,
+	PRIMARY KEY(id),
+	CONSTRAINT id_vendas_fkey_pagamento_vendas FOREIGN KEY(id_vendas) 
+references Venda(id),
+	CONSTRAINT id_pagamento_fkey_pagamentos_vendas FOREIGN 
+KEY(id_pagamento) references Pagamento(id)
+);
+CREATE TABLE Produto(
+	id  serial,
+	tipo  varChar(255),
+	unidade_entrada  int,
+	unidade_saida  int,
+	quantidade  int, 
+	preco  float, 
+	nome  varChar(255),
+	PRIMARY KEY(id)
+);
+CREATE TABLE Produtos_vendas(
+	id  serial, 
+	id_produtos int, 
+	id_vendas int,
+	PRIMARY KEY(id),
+	CONSTRAINT id_produtos_fkey_produtos_vendas FOREIGN 
+KEY(id_produtos) references Produto(id),
+	CONSTRAINT id_vendas_fkey_produtos_vendas FOREIGN KEY(id_vendas) 
+references Venda(id)
+);
+CREATE TABLE Estoque( 
+	id  serial ,
+	id_fornecedores int, 
+	id_produtos int, 
+	total_produtos  int,
+ 	PRIMARY KEY(id),
+	CONSTRAINT id_fornecedores_fkey_estoque FOREIGN 
+KEY(id_fornecedores) references Fornecedor(id), 
+	CONSTRAINT id_produtos_fkey_estoque FOREIGN KEY(id_produtos)
+ references Produto(id)
+);
+CREATE TABLE Servico(
+	id  serial, 
+	valor float, 
+	tipo varChar(255), 
+	descricao  varChar(4000),
+ 	PRIMARY KEY(id)
+ );
+CREATE TABLE Servicos_vendas(
+	id  int,
+	id_vendas int, 
+	id_servicos int,
+	id_produtos int,
+	PRIMARY KEY(id),
+	CONSTRAINT id_vendas_fkey_servicos_vendas FOREIGN KEY(id_vendas) 
+references Venda(id), 
+	CONSTRAINT id_produtos_fkey_servicos_vendas FOREIGN
+KEY(id_produtos) references Produto(id)
+);
+CREATE TABLE Caixa(
+	id  serial, 
+	saldo  float, 
+	nome  varChar(255),
+	PRIMARY KEY(id)
+);
+CREATE TABLE Contas_receber(
+	id  serial, 
+	valor  float, 
+	id_caixas int, 
+	id_vendas int,
+	PRIMARY KEY(id),
+	CONSTRAINT id_caixas_fkey_contas_receber FOREIGN KEY(id_caixas) 
+references Caixa(id),
+	CONSTRAINT id_vendas_fkey_contas_receber FOREIGN KEY(id_vendas)
+references Venda(id)
+);
+CREATE TABLE Despesa(
+	id  serial, 
+	categoria  varChar(255), 
+	valor float, 
+	data_vencimento  Date,
+	PRIMARY KEY(id)
+);
+CREATE TABLE Contas_pagar(
+	id  serial, 
+	valor  float, 
+	id_caixas  int, 
+	id_dispesas  int,
+	PRIMARY KEY(id),
+	CONSTRAINT id_caixas_fkey_contas_recebr FOREIGN KEY(id_caixas) 
+references Caixa(id), 
+	CONSTRAINT id_dispesa_fkey_contas_receber FOREIGN KEY(id_dispesas)
+ references Despesa(id)
+);

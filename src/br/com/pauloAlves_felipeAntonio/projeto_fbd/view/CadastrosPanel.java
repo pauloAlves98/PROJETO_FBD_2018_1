@@ -2,69 +2,102 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
+
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 
 public class CadastrosPanel extends JPanel{
-	PacientesPanel telaPacientes;
-	JPanel panel_3;
-	JTable table;
-	JTextField filtroField,descricaoField,textField_2;
-	JButton btnNewButton,btnNewButton_1,btnNewButton_2;
+	private PacientesPanel telaPacientes;
+	private ProdutoPanel telaProduto;
+	private JPanel menuCadastro;
+	private JButton pacienteButton,servicoButton,fornecedorButton;
 	
 	public CadastrosPanel() {
 		setLayout(null);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBounds(0, 0, 140, 493);
-		panel_3.setLayout(null);
-		add(panel_3);
+		menuCadastro = new PaneGradiente(Propiedade.cor1,Color.black);
+		menuCadastro.setBackground(Color.BLUE);
+		menuCadastro.setBounds(0, 0, 809, 97);
+		menuCadastro.setLayout(null);
+		add(menuCadastro);
 		
-		JButton btnNewButton = new JButton("Pacientes");
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setBounds(10, 58, 120, 33);
-		btnNewButton.setBorder(null);
-		btnNewButton.setFocusPainted(false);
-		panel_3.add(btnNewButton);
+		pacienteButton = new JButton("  Pacientes");
+		pacienteButton.setFont( Propiedade.FONT2);
+		pacienteButton.setHorizontalAlignment(SwingConstants.LEFT);
+		pacienteButton.setBackground(Color.WHITE);
+		pacienteButton.setBounds(280, 53, 154, 33);
+		pacienteButton.setBorder(null);
+		pacienteButton.setFocusPainted(false);
+		menuCadastro.add(pacienteButton);
 		
-		JButton btnNewButton_1 = new JButton("Serviços");
-		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton_1.setBackground(Color.WHITE);
-		btnNewButton_1.setBounds(10, 91, 120, 33);
-		btnNewButton_1.setBorder(null);
-		btnNewButton_1.setFocusPainted(false);
-		panel_3.add(btnNewButton_1);
+		servicoButton = new JButton("  Serviços");
+		servicoButton.setFont(Propiedade.FONT2);
+		servicoButton.setHorizontalAlignment(SwingConstants.LEFT);
+		servicoButton.setBackground(Color.WHITE);
+		servicoButton.setBounds(140, 53, 130, 33);
+		servicoButton.setBorder(null);
+		servicoButton.setFocusPainted(false);
+		menuCadastro.add(servicoButton);
 		
-		JButton btnNewButton_2 = new JButton("Fornecedores");
-		btnNewButton_2.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton_2.setBackground(Color.WHITE);
-		btnNewButton_2.setBounds(10, 124, 120, 33);
-		btnNewButton_2.setBorder(null);
-		btnNewButton_2.setFocusPainted(false);
+		fornecedorButton = new JButton("  Fornecedores");
+		fornecedorButton.setFont(Propiedade.FONT2);
+		fornecedorButton.setHorizontalAlignment(SwingConstants.LEFT);
+		fornecedorButton.setBackground(Color.WHITE);
+		fornecedorButton.setBounds(10, 53, 120, 33);
+		fornecedorButton.setBorder(null);
+		fornecedorButton.setFocusPainted(false);
 		
-		panel_3.add(btnNewButton_2);
+		menuCadastro.add(fornecedorButton);
 		
 		JLabel lblCadastros = new JLabel("Cadastros");
-		lblCadastros.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblCadastros.setBounds(20, 11, 110, 24);
-		panel_3.add(lblCadastros);
+		lblCadastros.setForeground(Color.WHITE);
+		lblCadastros.setBackground(new Color(255, 255, 255));
+		lblCadastros.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblCadastros.setBounds(10, 11, 201, 31);
+		menuCadastro.add(lblCadastros);
 		
 		telaPacientes = new PacientesPanel();
-		telaPacientes.setBounds(141, 0, 657, 493);
+		telaPacientes.getBtnNewButton_3().setLocation(10, 41);
+		telaPacientes.setBackground(Color.WHITE);
+		telaPacientes.getBtnNewButton_3().setFont(Propiedade.FONT2);
+		telaPacientes.getTable().setBounds(11, 172, 635, 32);
+		telaPacientes.setBounds(0, 96, 796, 493);
 		//telaPacientes.setLayout(null);
 		add(telaPacientes);
 		
 		
 	}
+
+	public PacientesPanel getTelaPacientes() {
+		return telaPacientes;
+	}
+
+	public ProdutoPanel getTelaProduto() {
+		return telaProduto;
+	}
+
+	public JPanel getPanel_3() {
+		return menuCadastro;
+	}
+
+	public JButton getPacienteButton() {
+		return pacienteButton;
+	}
+
+	public JButton getServicoButton() {
+		return servicoButton;
+	}
+
+	public JButton getFornecedorButton() {
+		return fornecedorButton;
+	}
+
+
+
+	
+	
 }

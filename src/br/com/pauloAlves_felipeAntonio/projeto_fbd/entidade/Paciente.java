@@ -1,16 +1,23 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
+import java.util.Date;
 import java.util.List;
 
 public class Paciente {
-	private int id,telefone,id_prontuario,id_convenio; 
-	private String nome,rg,cpf,nome_mae,nome_pai;
+	private int id,id_prontuario,id_convenio; 
+	private String nome,rg,cpf,nome_mae,nome_pai,telefone;
 	private Prontuario prontuario;
 	private Convenio convenio;
 	private List<Laudo>laudos;
 	private Endereco endereco;
+	private Date dataNascimento;
 	
-	
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -47,10 +54,10 @@ public class Paciente {
 	public void setId_convenio(int id_convenio) {
 		this.id_convenio = id_convenio;
 	}
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	public int getId_prontuario() {

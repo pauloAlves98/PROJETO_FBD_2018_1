@@ -20,7 +20,7 @@ public class BusinessPaciente implements IBusinessPaciente {
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+			throw new BusinessException("Erro no Business!!!: "+e.getMessage());
 		}
 		
 	}
@@ -40,11 +40,11 @@ public class BusinessPaciente implements IBusinessPaciente {
 	@Override
 	public Paciente buscarPorCpf(String cpf) throws BusinessException {
 		try {
-			daoPaciente.buscarIdPorCpf(cpf);
+			return daoPaciente.buscarPorCpf(cpf);
 		} catch (DaoException e) {
 			throw new BusinessException(e.getMessage());
 		}
-		return null;
+		
 	}
 
 	@Override

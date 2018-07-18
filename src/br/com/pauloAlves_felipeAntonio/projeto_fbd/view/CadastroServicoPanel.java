@@ -39,22 +39,22 @@ public class CadastroServicoPanel extends JPanel {
 		add(textField_1);
 		textField_1.setColumns(10);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(454, 107, -454, 22);
-		add(tabbedPane);
-		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
-		panel.setLayout(null);
-		panel.setBounds(454, 107, -454, 22);
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
-		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_2, null);
-		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_3, null);
+//		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+//		tabbedPane.setBounds(454, 107, -454, 22);
+//		add(tabbedPane);
+//		
+//		JPanel panel = new JPanel();
+//		tabbedPane.addTab("New tab", null, panel, null);
+//		panel.setLayout(null);
+//		panel.setBounds(454, 107, -454, 22);
+//		JPanel panel_1 = new JPanel();
+//		tabbedPane.addTab("New tab", null, panel_1, null);
+//		
+//		JPanel panel_2 = new JPanel();
+//		tabbedPane.addTab("New tab", null, panel_2, null);
+//		
+//		JPanel panel_3 = new JPanel();
+//		tabbedPane.addTab("New tab", null, panel_3, null);
 		
 	}
 }

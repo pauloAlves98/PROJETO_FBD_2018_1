@@ -115,7 +115,7 @@ public class CadastroPacientePanel extends JFrame {
 		lblObservao.setBounds(10, 202, 72, 14);
 		getContentPane().add(lblObservao);
 		
-		textField_7 = new JTextField();
+		textField_7 = new JTextField("UW");
 		textField_7.setBounds(10, 227, 586, 20);
 		getContentPane().add(textField_7);
 		textField_7.setColumns(10);

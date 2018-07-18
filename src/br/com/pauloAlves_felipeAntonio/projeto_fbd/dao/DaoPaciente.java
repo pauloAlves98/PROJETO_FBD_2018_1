@@ -1,6 +1,7 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.dao;
 //criar ooutro IDao
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,10 +32,12 @@ public class DaoPaciente implements IDaoPaciente{
 			statement.setString(1,paciente.getNome());
 			statement.setString(2,paciente.getRg());
 			statement.setString(3,paciente.getCpf());
-			statement.setInt(4,paciente.getTelefone());
+			statement.setString(4,paciente.getTelefone());
 			statement.setString(5,paciente.getNome_mae());
 			statement.setString(6,paciente.getNome_pai());
 			statement.setInt(7,id_endereco);
+			statement.setDate(8,new Date(paciente.getDataNascimento().getTime()));
+			
 			statement.execute();
 			conexao.close();
 			statement.close();
@@ -69,14 +72,15 @@ public class DaoPaciente implements IDaoPaciente{
 			result = statement.executeQuery();
 			
 			Paciente paciente = null;
-			Endereco end = null;
+			Endereco end = null; 
+			
 			if(result.next()){
 				paciente = new Paciente();
 				paciente.setId(result.getInt(1));
 				paciente.setNome(result.getString(2));
 				paciente.setRg(result.getString(3));
 				paciente.setCpf(result.getString(4));
-				paciente.setTelefone(result.getInt(5));
+				paciente.setTelefone(result.getString(5));
 				paciente.setNome_mae(result.getString(6));
 				paciente.setNome_pai(result.getString(7));
 			
@@ -90,6 +94,8 @@ public class DaoPaciente implements IDaoPaciente{
 				end.setCidade(result.getString(14));
 				end.setRua(result.getString(15));
 				end.setNumero(result.getInt(16));
+				
+				paciente.setDataNascimento(result.getDate(17));
 				
 				paciente.setEndereco(end);
 			}

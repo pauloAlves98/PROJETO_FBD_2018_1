@@ -22,11 +22,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.app.App;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.controller.ControlePacientesPanel;
 
 
 public class TelaPrincipal extends JFrame {
-	JButton btnFinanceiro ;
+	private JButton btnFinanceiro ;
 	private PacientesPanel p;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -37,156 +39,89 @@ public class TelaPrincipal extends JFrame {
 	private JTextField textField_5;
 	private JTable table_1;
 	private JTable table_2;
-	CadastrosPanel cadatrosPanel;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPrincipal frame = new TelaPrincipal();
-					frame.setSize(1005,610);
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-					new  ConsultaPanel();
-					CadastroPacientePanel pacienteCadastro = new CadastroPacientePanel();
-					new ProdutoPanel();
-					new VendaPanel();
-					
-					ControlePacientesPanel contPacientes = new ControlePacientesPanel(frame.cadatrosPanel.telaPacientes,pacienteCadastro);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private CadastrosPanel cadatrosPanel;
+	private EstoquePanel estoquePanel;
+	private FinanceiroPanel financeiroPanel;
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaPrincipal() {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
-		
-		Panel panel = new Panel();
+
+		Panell panel = new Panell(Propiedade.cor1,Color.black);
+		//this.setContentPane(panel);
+		//JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(new Color(0,128,255));
 		panel.setBounds(0, 0, 181, 573);
 		getContentPane().add(panel);
 		
-		JButton btnCadastros = new JButton("      Cadastros",new ImageIcon("Res//mais.png"));
-		btnCadastros.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		JButton btnCadastros = new JButton("    Cadastros",new ImageIcon("Res//mais.png"));
+		btnCadastros.setOpaque(false);
+		btnCadastros.setFont(Propiedade.FONT1);
 		btnCadastros.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCadastros.setForeground(Color.WHITE);
 		btnCadastros.setBackground(new Color(0,128,255));
-		btnCadastros.setBounds(0, 199, 181, 53);
+		btnCadastros.setBounds(0, 262, 181, 68);
 		btnCadastros.setBorder(null);
 		btnCadastros.setFocusPainted(false);
 		panel.add(btnCadastros);
 		
-		JButton btnEstoque = new JButton("      Estoque",new ImageIcon("Res//est.jpg"));
+		JButton btnEstoque = new JButton("    Estoque",new ImageIcon("Res//est.png"));
 		btnEstoque.setHorizontalAlignment(SwingConstants.LEFT);
+		btnEstoque.setFont(Propiedade.FONT1);
 		btnEstoque.setForeground(Color.WHITE);
 		btnEstoque.setBackground(new Color(0,128,255));
-		btnEstoque.setBounds(0, 254, 181, 53);
+		btnEstoque.setBounds(0, 341, 181, 68);
 		btnEstoque.setBorder(null);
 		btnEstoque.setFocusPainted(false);
+		 btnEstoque.setOpaque(false);
 		panel.add(btnEstoque);
 		
-		btnFinanceiro = new JButton("      Financeiro",new ImageIcon("Res//financeiro.png"));
-		btnFinanceiro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnFinanceiro = new JButton("    Financeiro",new ImageIcon("Res//financeiro.png"));
+		btnFinanceiro.setOpaque(false);
 		btnFinanceiro.setHorizontalAlignment(SwingConstants.LEFT);
 		btnFinanceiro.setForeground(Color.WHITE);
 		btnFinanceiro.setBackground(new Color(0,128,255));
-		btnFinanceiro.setBounds(0, 145, 181, 53);
+		btnFinanceiro.setBounds(0, 183, 181, 68);
 		btnFinanceiro.setBorder(null);
+		btnFinanceiro.setFont(Propiedade.FONT1);
 		btnFinanceiro.setFocusPainted(false);
 		
 		panel.add(btnFinanceiro);
 		
-		JButton btnAgenda = new JButton("Agenda",new ImageIcon("Res//images.png"));
+		JButton btnAgenda = new JButton("   Agenda",new ImageIcon("Res//images.png"));
+		btnAgenda.setOpaque(false);
 		btnAgenda.setForeground(Color.WHITE);
 		btnAgenda.setBackground(new Color(0, 128, 255));
 		btnAgenda.setHorizontalAlignment(SwingConstants.LEFT);
-		btnAgenda.setBounds(0, 92, 181, 53);
+		btnAgenda.setBounds(5, 106, 181, 68);
 		btnAgenda.setFocusPainted(false);
 		btnAgenda.setBorder(null);
+		btnAgenda.setFont(Propiedade.FONT1);
 		panel.add(btnAgenda);
 		
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(Propiedade.FONT1);
 		tabbedPane.setBounds(182, 52, 803, 521);
 		getContentPane().add(tabbedPane);
 		
-		Financeiro panel_1 = new Financeiro();
-		tabbedPane.addTab("Financeiro", null, panel_1, null);
+		App.lookNimbus();
+		financeiroPanel = new FinanceiroPanel();
+		tabbedPane.addTab("Financeiro",new ImageIcon("Res//financeiro.png"), financeiroPanel, null);
 		
 		cadatrosPanel = new CadastrosPanel();
-		//Component component;
-		tabbedPane.addTab("Cadastros", null,cadatrosPanel, null);
+		tabbedPane.addTab("Cadastros", new ImageIcon("Res//mais.png"),cadatrosPanel, null);
 	
-		JPanel panel_5 = new JPanel();
-		tabbedPane.addTab("Estoque", null, panel_5, null);
-		panel_5.setLayout(null);
-		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(0, 0, 145, 493);
-		panel_5.add(panel_6);
-		panel_6.setLayout(null);
-		
-		JLabel lblEstoque = new JLabel("Estoque");
-		lblEstoque.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblEstoque.setBounds(36, 11, 84, 27);
-		panel_6.add(lblEstoque);
-		
-		JButton btnProdutos = new JButton("Produtos");
-		btnProdutos.setHorizontalAlignment(SwingConstants.LEFT);
-		btnProdutos.setBackground(Color.WHITE);
-		btnProdutos.setBounds(10, 48, 125, 33);
-		btnProdutos.setFocusPainted(false);
-		btnProdutos.setBorder(null);
-		panel_6.add(btnProdutos);
-		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBackground(new Color(0, 128, 255));
-		panel_7.setBounds(142, 0, 656, 493);
-		panel_5.add(panel_7);
-		panel_7.setLayout(null);
-		
-		JLabel lblCadastroDeProdutos = new JLabel("Cadastro de Produtos");
-		lblCadastroDeProdutos.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblCadastroDeProdutos.setBounds(25, 27, 241, 27);
-		panel_7.add(lblCadastroDeProdutos);
-		
-		JButton btnNovoProduto = new JButton("Novo Produto");
-		btnNovoProduto.setBounds(447, 21, 156, 49);
-		panel_7.add(btnNovoProduto);
-		
-		JLabel lblFiltro_1 = new JLabel("Filtro");
-		lblFiltro_1.setBounds(214, 94, 46, 14);
-		panel_7.add(lblFiltro_1);
-		
-		textField_3 = new JTextField();
-		textField_3.setBounds(250, 91, 86, 20);
-		panel_7.add(textField_3);
-		textField_3.setColumns(10);
-		
-		textField_4 = new JTextField();
-		textField_4.setBounds(346, 91, 146, 20);
-		panel_7.add(textField_4);
-		textField_4.setColumns(10);
-		
-		textField_5 = new JTextField();
-		textField_5.setBounds(502, 91, 86, 20);
-		panel_7.add(textField_5);
-		textField_5.setColumns(10);
+		estoquePanel = new EstoquePanel();
+		tabbedPane.addTab("Estoque", new ImageIcon("Res//est.png"), estoquePanel, null);
+		estoquePanel.setLayout(null);
+		tabbedPane.setBackground(new Color(67, 110, 238));
+		tabbedPane.setForeground(Color.WHITE);
+		setSize(1010, 620);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setVisible(true);
 	
 	
 
@@ -287,5 +222,21 @@ public class TelaPrincipal extends JFrame {
 	public void setCadatrosPanel(CadastrosPanel cadatrosPanel) {
 		this.cadatrosPanel = cadatrosPanel;
 	}
+
+	public EstoquePanel getEstoquePanel() {
+		return estoquePanel;
+	}
+
+	public FinanceiroPanel getFinanceiroPanel() {
+		return financeiroPanel;
+	}
 	
+	private class Panell extends JGradientePanel{
+
+		public Panell(Color initialColor, Color finalColor) {
+			super(initialColor,finalColor);
+		
+		}
+		
+	}
 }

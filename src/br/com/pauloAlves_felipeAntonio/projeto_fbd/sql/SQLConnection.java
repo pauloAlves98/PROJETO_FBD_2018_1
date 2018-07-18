@@ -28,7 +28,7 @@ public class SQLConnection {
 
     public static synchronized Connection getConnectionInstance(String bd) {
         try {
-            if (conexao == null || conexao.isClosed()) {
+            if (conexao == null || conexao.isClosed()) { 
 
                 switch (bd) {
                     case NOME_BD_CONNECTION_POSTGRESS: {

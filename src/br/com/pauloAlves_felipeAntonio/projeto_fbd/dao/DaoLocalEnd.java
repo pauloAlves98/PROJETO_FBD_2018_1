@@ -21,7 +21,7 @@ public class DaoLocalEnd implements IDaoLocal_end{
 			
 			statement.setString(1,local_end.getRua());
 			statement.setString(2,local_end.getNome_clinica());
-			statement.setInt(3,local_end.getTelefone());
+			statement.setString(3,local_end.getTelefone());
 			statement.setString(4,local_end.getBairro());
 			statement.setInt(5,local_end.getId_exame());
 			

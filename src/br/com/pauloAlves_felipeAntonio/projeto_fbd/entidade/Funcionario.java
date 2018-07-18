@@ -3,8 +3,8 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 import java.util.Date;
 
 public class Funcionario {
-	int id,id_clinicas,id_cargos,telefone ;
-	private String nome,cpf,admim,senha,nome_usuario,rg; 
+	int id,id_clinicas,id_cargos;
+	private String nome,cpf,admim,senha,nome_usuario,rg,telefone;
 	private Date data_acesso;
 	private Endereco endereco;
 	private Cargo cargo;
@@ -39,10 +39,10 @@ public class Funcionario {
 	public void setId_cargos(int id_cargos) {
 		this.id_cargos = id_cargos;
 	}
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	public String getNome() {

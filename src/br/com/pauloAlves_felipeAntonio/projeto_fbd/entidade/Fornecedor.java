@@ -1,8 +1,8 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
 public class Fornecedor {//Endereco
-	private int id,incs_municipal,insc_estadual,telefone;   
-	private String cnpj,nome;
+	private int id,incs_municipal,insc_estadual;  
+	private String cnpj,nome,telefone;
 	private Endereco endereco;
 	
 	public int getId() {
@@ -31,10 +31,10 @@ public class Fornecedor {//Endereco
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	

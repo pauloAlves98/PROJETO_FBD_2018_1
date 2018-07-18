@@ -35,7 +35,7 @@ public class DaoFuncionario implements IDaoFuncionario{
 			statement.setInt(6,id_cargo);//pega o cargo e adiciona
 			statement.setString(7,funcionario.getNome_usuario());
 			statement.setDate(8,new Date(funcionario.getData_acesso().getTime()));
-			statement.setInt(9,funcionario.getTelefone());
+			statement.setString(9,funcionario.getTelefone());
 			statement.setString(10,funcionario.getRg());
 			statement.setInt(11,id_endereco);
 			

@@ -517,8 +517,7 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public Paciente buscarPorCpfPaciente(String cpf) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return businessPaciente.buscarPorCpf(cpf);
 	}
 	@Override
 	public int buscarIdPorCpfPaciente(String cpf) throws BusinessException {

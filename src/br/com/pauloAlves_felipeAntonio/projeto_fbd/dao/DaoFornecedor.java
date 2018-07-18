@@ -27,7 +27,7 @@ public class DaoFornecedor implements IDaoFornecedor {
 			statement.setString(2,fornecedor.getCnpj());
 			statement.setInt(3,fornecedor.getInsc_estadual());
 			statement.setString(4,fornecedor.getNome());
-			statement.setInt(5,fornecedor.getTelefone());
+			statement.setString(5,fornecedor.getTelefone());
 			statement.setInt(6, id_endereco);
 			
 			statement.execute();
