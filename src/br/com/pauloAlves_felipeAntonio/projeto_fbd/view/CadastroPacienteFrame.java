@@ -50,6 +50,7 @@ public class CadastroPacienteFrame extends JFrame {
 	 * Create the panel.
 	 */
 	public CadastroPacienteFrame() {
+		
 		setBackground(Color.CYAN);
 		getContentPane().setLayout(null);
 		setSize(660,558);
@@ -97,7 +98,7 @@ public class CadastroPacienteFrame extends JFrame {
 		sexoBox.addItem("Feminino");
 		sexoBox.setBounds(10, 171, 134, 32);
 		getContentPane().add(sexoBox);
-
+		setLocationRelativeTo(null);
 		JLabel lblNascimento = new JLabel("Nascimento");
 		lblNascimento.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblNascimento.setBounds(154, 152, 97, 14);

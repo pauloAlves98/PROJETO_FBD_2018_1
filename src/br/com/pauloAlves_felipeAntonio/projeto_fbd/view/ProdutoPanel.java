@@ -7,36 +7,48 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class ProdutoPanel extends JPanel {
 	private JTextField DescricaoField,tipoField;
 	private JButton btnNovoProduto;
 	//private JTable
 	
 	public ProdutoPanel() {
+		setBackground(Color.WHITE);
+		setLayout(null);
 		JLabel lblCadastroDeProdutos = new JLabel("Cadastro de Produtos");
-		lblCadastroDeProdutos.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblCadastroDeProdutos.setBounds(25, 27, 241, 27);
+		lblCadastroDeProdutos.setBackground(Color.WHITE);
+		lblCadastroDeProdutos.setFont(new Font("Berlin Sans FB", Font.PLAIN, 22));
+		lblCadastroDeProdutos.setBounds(10, 28, 209, 34);
 		add(lblCadastroDeProdutos);
 		
 		btnNovoProduto = new JButton("Novo Produto");
-		btnNovoProduto.setBounds(447, 21, 156, 49);
+	
+		btnNovoProduto.setBackground(Color.WHITE);
+		btnNovoProduto.setFont(Propiedade.FONT2);
+		btnNovoProduto.setBounds(257, 29, 181, 39);
 		add(btnNovoProduto);
 		
 		JLabel lblFiltro_1 = new JLabel("Filtro");
-		lblFiltro_1.setBounds(214, 94, 46, 14);
+		lblFiltro_1.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+		lblFiltro_1.setBounds(10, 133, 64, 39);
 		add(lblFiltro_1);
 		
 		DescricaoField = new JTextField();
 		DescricaoField.setForeground(Color.YELLOW);
 		DescricaoField.setFont(new Font("tahoma",Font.ITALIC,12));
-		DescricaoField.setBounds(250, 91, 86, 20);
+		DescricaoField.setBounds(94, 139, 106, 32);
 		add(DescricaoField);
 		DescricaoField.setColumns(10);
 		
 		tipoField = new JTextField("tipo");
 		tipoField.setForeground(Color.YELLOW);
 		tipoField.setFont(new Font("tahoma",Font.ITALIC,12));
-		tipoField.setBounds(346, 91, 146, 20);
+		tipoField.setBounds(225, 139, 171, 32);
 		add(tipoField);
 		tipoField.setColumns(10);
 		

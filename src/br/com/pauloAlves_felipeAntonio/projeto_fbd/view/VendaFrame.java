@@ -5,16 +5,20 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
+
 public class VendaFrame extends JFrame{
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField codField;
+	private JTextField pacienteField;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
@@ -28,175 +32,212 @@ public class VendaFrame extends JFrame{
 	 * Create the panel.
 	 */
 	public VendaFrame() {
-		setLayout(null);
-		setSize(750,410);
-		JLabel lblVenda = new JLabel("Venda");
-		lblVenda.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblVenda.setBounds(10, 11, 82, 22);
-		add(lblVenda);
+		getContentPane().setLayout(null);
+		setSize(750,602);
 		
 		JLabel lblCod = new JLabel("Cod");
-		lblCod.setBounds(10, 44, 46, 14);
-		add(lblCod);
+		lblCod.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblCod.setBounds(10, 109, 46, 14);
+		getContentPane().add(lblCod);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 59, 38, 20);
-		add(textField);
-		textField.setColumns(10);
+		codField = new JTextField();
+		codField.setBounds(10, 134, 38, 32);
+		getContentPane().add(codField);
+		codField.setColumns(10);
 		
 		JLabel lblPaciente = new JLabel("Paciente");
-		lblPaciente.setBounds(60, 44, 65, 14);
-		add(lblPaciente);
+		lblPaciente.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblPaciente.setBounds(60, 109, 65, 14);
+		getContentPane().add(lblPaciente);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(58, 59, 86, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
+		pacienteField = new JTextField();
+		pacienteField.setBounds(58, 134, 188, 32);
+		getContentPane().add(pacienteField);
+		pacienteField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(154, 57, 30, 22);
-		add(btnNewButton);
+		JButton btnNewButton = new JButton(new ImageIcon("Res/pesquisa.png"));
+		btnNewButton .setBackground(Color.white);
+		btnNewButton.setBounds(251, 133, 32, 32);
+		getContentPane().add(btnNewButton);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(194, 59, 182, 20);
-		add(textField_2);
+		textField_2.setBounds(291, 134, 182, 32);
+		getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(386, 59, 182, 20);
-		add(comboBox);
+		comboBox.setBounds(483, 134, 134, 32);
+		getContentPane().add(comboBox);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(578, 59, 86, 20);
-		add(textField_3);
+		textField_3.setBounds(627, 134, 97, 32);
+		getContentPane().add(textField_3);
 		textField_3.setColumns(10);
 		
 		JLabel lblServiosprodutos = new JLabel("Servi\u00E7os/Produtos");
-		lblServiosprodutos.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblServiosprodutos.setBounds(10, 100, 174, 22);
-		add(lblServiosprodutos);
+		lblServiosprodutos.setFont(new Font("Berlin Sans FB", Font.PLAIN, 18));
+		lblServiosprodutos.setBounds(10, 177, 174, 22);
+		getContentPane().add(lblServiosprodutos);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 133, 319, 155);
-		add(textArea);
+		JButton btnAdcionar = new JButton(new ImageIcon("Res/adicionar32.png"));
+		btnAdcionar.setBackground(Color.white);
+		btnAdcionar.setBounds(298, 177, 32, 32);
+		getContentPane().add(btnAdcionar);
+		setLocationRelativeTo(null);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 210, 319, 147);
+		getContentPane().add(scrollPane);
 		
-		JButton btnAdcionar = new JButton("Adcionar");
-		btnAdcionar.setBounds(240, 99, 89, 23);
-		add(btnAdcionar);
 		
+		JTextArea areaServicos = new JTextArea();
+		areaServicos.setBounds(10, 216, 319, 141);
+		
+		scrollPane.setViewportView(areaServicos);
 		JLabel lblPagamentos = new JLabel("Pagamentos");
-		lblPagamentos.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPagamentos.setBounds(346, 100, 109, 23);
-		add(lblPagamentos);
+		lblPagamentos.setFont(new Font("Berlin Sans FB", Font.PLAIN, 18));
+		lblPagamentos.setBounds(341, 177, 109, 23);
+		getContentPane().add(lblPagamentos);
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(345, 133, 319, 155);
-		add(textArea_1);
-		
-		JButton btnAdcionar_1 = new JButton("Adcionar");
-		btnAdcionar_1.setBounds(575, 103, 89, 23);
-		add(btnAdcionar_1);
+		JButton btnAdicionarPagamento = new JButton(new ImageIcon("Res/adicionar32.png"));
+		btnAdicionarPagamento.setBackground(Color.white);
+		btnAdicionarPagamento.setBounds(632, 177, 32, 32);
+		getContentPane().add(btnAdicionarPagamento);
 		
 		JLabel lblCaixa = new JLabel("Caixa");
-		lblCaixa.setBounds(10, 299, 46, 14);
-		add(lblCaixa);
+		lblCaixa.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblCaixa.setBounds(10, 383, 46, 14);
+		getContentPane().add(lblCaixa);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(10, 312, 134, 20);
-		add(comboBox_1);
+		JComboBox boxCaixa = new JComboBox();
+		boxCaixa.setBounds(10, 408, 115, 32);
+		getContentPane().add(boxCaixa);
 		
 		JLabel lblNnotaFiscal = new JLabel("N\u00B0Nota Fiscal");
-		lblNnotaFiscal.setBounds(154, 299, 96, 14);
-		add(lblNnotaFiscal);
+		lblNnotaFiscal.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblNnotaFiscal.setBounds(143, 383, 96, 14);
+		getContentPane().add(lblNnotaFiscal);
 		
 		textField_4 = new JTextField();
-		textField_4.setBounds(154, 312, 86, 20);
-		add(textField_4);
+		textField_4.setBounds(143, 408, 115, 32);
+		getContentPane().add(textField_4);
 		textField_4.setColumns(10);
 		
 		JLabel lblData = new JLabel("Data");
-		lblData.setBounds(253, 299, 46, 14);
-		add(lblData);
+		lblData.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblData.setBounds(268, 384, 46, 14);
+		getContentPane().add(lblData);
 		
 		textField_5 = new JTextField();
-		textField_5.setBounds(253, 312, 86, 20);
-		add(textField_5);
+		textField_5.setBounds(268, 408, 86, 32);
+		getContentPane().add(textField_5);
 		textField_5.setColumns(10);
 		
 		JLabel lblStatus = new JLabel("Status");
-		lblStatus.setBounds(346, 299, 46, 14);
-		add(lblStatus);
+		lblStatus.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblStatus.setBounds(364, 383, 46, 14);
+		getContentPane().add(lblStatus);
 		
 		textField_6 = new JTextField();
-		textField_6.setBounds(346, 312, 86, 20);
-		add(textField_6);
+		textField_6.setBounds(364, 408, 86, 32);
+		getContentPane().add(textField_6);
 		textField_6.setColumns(10);
 		
 		JLabel lblDesconto = new JLabel("Desconto");
-		lblDesconto.setBounds(442, 299, 68, 14);
-		add(lblDesconto);
+		lblDesconto.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblDesconto.setBounds(459, 383, 68, 14);
+		getContentPane().add(lblDesconto);
 		
 		textField_7 = new JTextField();
-		textField_7.setBounds(442, 312, 86, 20);
-		add(textField_7);
+		textField_7.setBounds(459, 408, 86, 32);
+		getContentPane().add(textField_7);
 		textField_7.setColumns(10);
 		
 		JLabel lblTotal = new JLabel("Total");
-		lblTotal.setBounds(538, 299, 46, 14);
-		add(lblTotal);
+		lblTotal.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblTotal.setBounds(555, 383, 46, 14);
+		getContentPane().add(lblTotal);
 		
 		JLabel lblRecebido = new JLabel("Recebido");
-		lblRecebido.setBounds(618, 299, 79, 14);
-		add(lblRecebido);
+		lblRecebido.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblRecebido.setBounds(638, 383, 79, 14);
+		getContentPane().add(lblRecebido);
 		
 		textField_8 = new JTextField();
-		textField_8.setBounds(538, 312, 68, 20);
-		add(textField_8);
+		textField_8.setBounds(555, 408, 68, 32);
+		getContentPane().add(textField_8);
 		textField_8.setColumns(10);
 		
 		textField_9 = new JTextField();
-		textField_9.setBounds(618, 312, 79, 20);
-		add(textField_9);
+		textField_9.setBounds(638, 408, 86, 32);
+		getContentPane().add(textField_9);
 		textField_9.setColumns(10);
 		
 		btnFinalizarVenda = new JButton("Finalizar Venda");
-		btnFinalizarVenda.setBounds(10, 343, 115, 23);
-		add(btnFinalizarVenda);
+		btnFinalizarVenda.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		btnFinalizarVenda.setBackground(Color.WHITE);
+		btnFinalizarVenda.setBounds(10, 451, 115, 32);
+		getContentPane().add(btnFinalizarVenda);
 		
 		JButton btnRecibo = new JButton("Recibo");
+		btnRecibo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		btnRecibo.setBackground(Color.WHITE);
 		btnRecibo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnRecibo.setBounds(135, 343, 89, 23);
-		add(btnRecibo);
+		btnRecibo.setBounds(143, 451, 89, 32);
+		getContentPane().add(btnRecibo);
 		
 		JButton btnNotaFiscal = new JButton("Nota Fiscal");
-		btnNotaFiscal.setBounds(234, 343, 89, 23);
-		add(btnNotaFiscal);
+		btnNotaFiscal.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		btnNotaFiscal.setBackground(Color.WHITE);
+		btnNotaFiscal.setBounds(240, 451, 114, 32);
+		getContentPane().add(btnNotaFiscal);
 		
 		JButton btnCancelarVenda = new JButton("Cancelar Venda");
-		btnCancelarVenda.setBounds(333, 343, 122, 23);
-		add(btnCancelarVenda);
+		btnCancelarVenda.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		btnCancelarVenda.setBackground(Color.WHITE);
+		btnCancelarVenda.setBounds(364, 451, 120, 32);
+		getContentPane().add(btnCancelarVenda);
 		
 		JButton btnNova = new JButton("Nova");
-		btnNova.setBounds(463, 343, 89, 23);
-		add(btnNova);
-		getContentPane().setBackground(new Color(0, 128, 255));
+		btnNova.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		btnNova.setBackground(Color.WHITE);
+
+		btnNova.setBounds(494, 451, 89, 32);
+		getContentPane().add(btnNova);
+		getContentPane().setBackground(Color.WHITE);
+		
+		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.BLACK);
+		panel.setBounds(0, 0, 734, 91);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		JLabel lblVenda = new JLabel("Venda");
+		lblVenda.setBounds(10, 11, 446, 70);
+		lblVenda.setForeground(Color.WHITE);
+		panel.add(lblVenda);
+		lblVenda.setFont(new Font("Franklin Gothic Book", Font.BOLD, 28));
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(339, 210, 325, 147);
+		getContentPane().add(scrollPane_2);
+		
+		JTextArea areaPagamento = new JTextArea();
+		scrollPane_2.setViewportView(areaPagamento);
 		//setVisible(true);
 
 	}
 	public JTextField getTextField() {
-		return textField;
+		return codField;
 	}
 	public void setTextField(JTextField textField) {
-		this.textField = textField;
+		this.codField = textField;
 	}
 	public JTextField getTextField_1() {
-		return textField_1;
+		return pacienteField;
 	}
 	public void setTextField_1(JTextField textField_1) {
-		this.textField_1 = textField_1;
+		this.pacienteField = textField_1;
 	}
 	public JTextField getTextField_2() {
 		return textField_2;
@@ -252,6 +293,4 @@ public class VendaFrame extends JFrame{
 	public void setBtnFinalizarVenda(JButton btnFinalizarVenda) {
 		this.btnFinalizarVenda = btnFinalizarVenda;
 	}
-	
-	
 }

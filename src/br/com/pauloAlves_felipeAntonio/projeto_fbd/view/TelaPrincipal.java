@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.app.App;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.controller.ControlePacientesPanel;
+import javax.swing.JSeparator;
 
 
 public class TelaPrincipal extends JFrame {
@@ -47,7 +48,7 @@ public class TelaPrincipal extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
 
-		Panell panel = new Panell(Propiedade.cor1,Color.black);
+		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.black);
 		//this.setContentPane(panel);
 		//JPanel panel = new JPanel();
 		panel.setLayout(null);

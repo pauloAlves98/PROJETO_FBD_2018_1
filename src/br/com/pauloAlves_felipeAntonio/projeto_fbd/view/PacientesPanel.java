@@ -20,12 +20,13 @@ public class PacientesPanel extends JPanel{
     	//setBounds(141, 0, 657, 493);
  		setLayout(null); 
  		
- 		JLabel lblCadastroDePacientes = new JLabel("Cadastro De Pacientes");
- 		lblCadastroDePacientes.setFont(new Font("Arial", Font.PLAIN, 25));
- 		lblCadastroDePacientes.setBounds(10, 1, 365, 27);
+ 		JLabel lblCadastroDePacientes = new JLabel("Cadastro de Pacientes");
+ 		lblCadastroDePacientes.setFont(new Font("Franklin Gothic Book", Font.BOLD, 23));
+ 		lblCadastroDePacientes.setBounds(3, 11, 365, 27);
  		add(lblCadastroDePacientes);
  		
  		pacienteButton = new JButton("Novo Paciente");
+ 		pacienteButton.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
  		pacienteButton.setBackground(Color.WHITE);
  		pacienteButton.setBounds(3, 39, 208, 43);
  		pacienteButton.setBorder(null);
@@ -60,6 +61,8 @@ public class PacientesPanel extends JPanel{
  		add(buscaButton);
  		
  		table = new JTable();
+ 		table.setBackground(Color.WHITE);
+ 		table.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
  		table.setShowGrid(true);
  		table.setModel(new DefaultTableModel(
  			new Object[][] {

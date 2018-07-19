@@ -1,5 +1,6 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -7,6 +8,7 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.TratadorDeMascara;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Endereco;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Paciente;
@@ -108,6 +110,8 @@ public class ControlePacientesPanel {
 				telaPaciente.getTable().setShowGrid(true);
 				telaPaciente.getTable().setShowHorizontalLines(true);
 				telaPaciente.getTable().setShowVerticalLines(true);
+				telaPaciente.getTable().setBackground(Color.white);
+				telaPaciente.getTable().setFont(Propiedade.FONT1);
 				
 			}
 			

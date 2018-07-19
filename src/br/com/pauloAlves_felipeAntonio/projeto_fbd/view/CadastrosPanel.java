@@ -21,7 +21,7 @@ public class CadastrosPanel extends JPanel{
 		
 		menuCadastro = new PaneGradiente(Propiedade.cor1,Color.black);
 		menuCadastro.setBackground(Color.BLUE);
-		menuCadastro.setBounds(0, 0, 809, 97);
+		menuCadastro.setBounds(0, 0, 809, 99);
 		menuCadastro.setLayout(null);
 		add(menuCadastro);
 		

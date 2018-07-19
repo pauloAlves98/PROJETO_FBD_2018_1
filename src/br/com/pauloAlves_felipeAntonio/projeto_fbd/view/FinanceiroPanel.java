@@ -1,11 +1,14 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-
 import java.awt.Color;
-import java.awt.Font;
+
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
+import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 public class FinanceiroPanel extends JPanel {
@@ -18,29 +21,17 @@ public class FinanceiroPanel extends JPanel {
 	public FinanceiroPanel() {
 		setLayout(null);
 		
+		PaneGradiente panel_3 = new PaneGradiente(Color.white,Color.white);
+		panel_3.setBorder(new LineBorder(Color.BLACK,1,true));
+		panel_3.setBounds(342, 329, 329, 86);
+		add(panel_3);
+		panel_3.setLayout(null);
+		
 		JLabel lblSaldo = new JLabel("Saldo");
-		lblSaldo.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblSaldo.setBounds(149, 22, 113, 31);
-		add(lblSaldo);
-		
-//		JLabel lblFormasDePagamento = new JLabel("Formas de Pagamento");
-//		lblFormasDePagamento.setFont(new Font("Tahoma", Font.PLAIN, 25));
-//		lblFormasDePagamento.setBounds(423, 23, 264, 28);
-//		add(lblFormasDePagamento);
-		
-		JLabel lblCaixas = new JLabel("Caixas");
-		lblCaixas.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCaixas.setBounds(149, 74, 46, 14);
-		add(lblCaixas);
-		
-		JLabel lblValoresAReceber = new JLabel("Valores a Receber");
-		lblValoresAReceber.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblValoresAReceber.setBounds(149, 99, 125, 14);
-		add(lblValoresAReceber);
-		
-		btnNovaVenda = new JButton("Nova Venda");
-		btnNovaVenda.setBounds(149, 167, 113, 39);
-		add(btnNovaVenda);
+		lblSaldo.setForeground(Color.black);
+		lblSaldo.setBounds(10, 0, 100, 31);
+		panel_3.add(lblSaldo);
+		lblSaldo.setFont(Propiedade.FONT3);
 		
 //		JLabel lblServios = new JLabel("Servi\u00E7os");
 //		lblServios.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -48,41 +39,108 @@ public class FinanceiroPanel extends JPanel {
 //		add(lblServios);
 		
 		lblValorCaixa = new JLabel("R$ 0,00");
-		lblValorCaixa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblValorCaixa.setBounds(342, 74, 62, 14);
-		add(lblValorCaixa);
+		lblValorCaixa.setForeground(Color.black);
+		lblValorCaixa.setBounds(61, 24, 200, 62);
+		panel_3.add(lblValorCaixa);
+		lblValorCaixa.setFont(Propiedade.FONT2);
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setOrientation(SwingConstants.VERTICAL);
+		separator_3.setForeground(Color.BLUE);
+		separator_3.setBackground(Color.BLUE);
+		separator_3.setBounds(298, 0, 10, 86);
+		panel_3.add(separator_3);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(Color.BLACK,1,true));
+		panel_2.setBackground(Color.WHITE);
+		panel_2.setBounds(342, 232, 329, 86);
+		add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblValoresAReceber = new JLabel("Valores a Receber");
+		lblValoresAReceber.setBounds(10, 0, 202, 39);
+		panel_2.add(lblValoresAReceber);
+		lblValoresAReceber.setFont(Propiedade.FONT4);
 		
 		lblValorReceber = new JLabel("R$ 0,00");
-		lblValorReceber.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblValorReceber.setBounds(342, 99, 62, 14);
-		add(lblValorReceber);
+		lblValorReceber.setBackground(Color.WHITE);
+		lblValorReceber.setBounds(64, 61, 62, 14);
+		panel_2.add(lblValorReceber);
+		lblValorReceber.setFont(Propiedade.FONT2);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setForeground(Color.BLUE);
+		separator_2.setBackground(Color.BLUE);
+		separator_2.setOrientation(SwingConstants.VERTICAL);
+		separator_2.setBounds(298, 0, 8, 86);
+		panel_2.add(separator_2);
+		
+		btnNovaVenda = new JButton("Nova Venda");
+		btnNovaVenda.setFont(Propiedade.FONT2);
+		btnNovaVenda.setBackground(Color.WHITE);
+		btnNovaVenda.setBounds(10, 123, 145, 39);
+		add(btnNovaVenda);
 		
 		JLabel lblEntradasESaidas = new JLabel("Entradas e Saidas");
-		lblEntradasESaidas.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblEntradasESaidas.setBounds(155, 266, 218, 31);
+		lblEntradasESaidas.setFont(Propiedade.FONT3);
+		lblEntradasESaidas.setBounds(10, 206, 218, 31);
 		add(lblEntradasESaidas);
 
 		
-		setBackground(new Color(0, 128, 255));
+		setBackground(Color.WHITE);
 		
-		JPanel panel = new JPanel();
+		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.black);
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 139, 531);
+		panel.setBounds(0, 0, 809, 99);
 		add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblFinanceiro = new JLabel("Financeiro");
-		lblFinanceiro.setBounds(10, 11, 99, 27);
-		lblFinanceiro.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		panel.add(lblFinanceiro);
-		
 		btnDashoroad = new JButton("Dashoroad");
-		btnDashoroad.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDashoroad.setFont(Propiedade.FONT2);
 		btnDashoroad.setBackground(Color.WHITE);
-		btnDashoroad.setBounds(0, 67, 164, 36);
+		btnDashoroad.setBounds(10, 55, 130, 33);
 		btnDashoroad.setBorder(null);
 		btnDashoroad.setFocusPainted(false);
 		panel.add(btnDashoroad);
+		
+		JLabel lblFinanceiro = new JLabel("Financeiro");
+		lblFinanceiro.setBounds(10, 0, 201, 59);
+		panel.add(lblFinanceiro);
+		lblFinanceiro.setFont(Propiedade.FONT3);
+		lblFinanceiro.setForeground(Color.WHITE);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBounds(342, 135, 329, 86);
+		add(panel_1);
+		panel_1.setLayout(null);
+		panel_1.setBorder(new LineBorder(Color.BLACK,1,true));
+		
+//		JLabel lblFormasDePagamento = new JLabel("Formas de Pagamento");
+//		lblFormasDePagamento.setFont(new Font("Tahoma", Font.PLAIN, 25));
+//		lblFormasDePagamento.setBounds(423, 23, 264, 28);
+//		add(lblFormasDePagamento);
+		
+		JLabel lblCaixas = new JLabel("Caixas");
+		lblCaixas.setBounds(10, 0, 202, 59);
+		panel_1.add(lblCaixas);
+		lblCaixas.setBackground(Color.WHITE);
+		lblCaixas.setFont(Propiedade.FONT3);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setForeground(Color.BLUE);
+		separator_1.setBackground(Color.BLUE);
+		separator_1.setBounds(298, 0, 8, 86);
+		panel_1.add(separator_1);
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setForeground(Color.BLUE);
+		separator.setBackground(Color.BLUE);
+		separator.setBounds(324, 100, 7, 405);
+		add(separator);
 	}
 
 	public JLabel getLblValorCaixa() {
@@ -109,6 +167,4 @@ public class FinanceiroPanel extends JPanel {
 	public JButton getBtnDashoroad() {
 		return btnDashoroad;
 	}
-	
-	
 }
