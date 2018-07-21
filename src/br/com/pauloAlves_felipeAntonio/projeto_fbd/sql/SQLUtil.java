@@ -26,8 +26,10 @@ public class SQLUtil {
 	public static class Paciente{
 		public static String INSERT_ALL = "insert into paciente (nome, rg, cpf, telefone, nome_mae, nome_pai,id_endereco,datanascimento)"+
 		"values (?,?,?,?,?,?,?,?)";	
+		public static String SELECT_ALL = "select nome,rg,cpf,telefone,datanascimento from paciente";
+		public static String SELECT_ALL_POR_NOME = "select nome,rg,cpf,telefone,datanascimento from paciente where paciente.nome = ?";
 		public static String SELECT_ID_POR_CPF = "select id from paciente where cpf = ?";
-		public static String SELECT_NOME_POR_CPF = "select id,nascimento from paciente where paciente.cpf = ? and paciente.nome=?";
+		public static String SELECT_ALL_POR_NOME_E_CPF = "select nome,rg,cpf,telefone,datanascimento from paciente where paciente.cpf = ? and paciente.nome= ?";
 		public static String SELECT_ALL_EXCETO_PRONTUARIO_POR_CPF = "select paciente.id,nome,rg,cpf,telefone,nome_mae,nome_pai,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,paciente.datanascimento from paciente, endereco e where paciente.id_endereco = e.id and paciente.cpf = ?";
 	}
 	public static class Endereco {
@@ -108,6 +110,11 @@ public class SQLUtil {
 	public static class Produto{
 		public static String INSERT_ALL = "insert into produto(tipo, unidade_entrada, unidade_saida, quantidade, preco,nome)"+
 				"values(?,?,?,?,?,?)";
+		
+		public static String SELECT_ALL = "select nome,tipo,quantidade from poduto";
+		public static String SELECT_ALL_POR_NOME = "select nome,tipo,quantidade from poduto where produto.nome = ?";
+		public static String SELECT_ALL_POR_TIPO = "select nome,tipo,quantidade from poduto where produto.tipo = ?";
+		public static String SELECT_ALL_POR_NOME_E_TIPO = "select nome,tipo,preco,quantidade from poduto where produto.nome = ? and produto.tipo  = ?";
 	}
 	public static class Produtos_vendas{
 		public static String INSERT_ALL = "insert into produtos_vendas(id_produtos,id_vendas)"+
@@ -116,6 +123,10 @@ public class SQLUtil {
 	public static class Fornecedor{
 		public static String INSERT_ALL = "insert into fornecedor(incs_municipal, cnpj, insc_estadual,nome,telefone,id_endereco)"+
 				"values(?,?,?,?,?,?)";
+		public static String SELECT_ALL = "select nome,cnpj,incs_municipal,telefone from fornecedor";
+		public static String SELECT_ALL_POR_NOME = "select nome,cnpj,incs_municipal,telefone from fornecedor where fornecedor.nome = ?";
+		public static String SELECT_ALL_POR_CNPJ = "select nome,cnpj,incs_municipal,telefone from fornecedor where fornecedor.cnpj = ?";
+		public static String SELECT_ALL_POR_NOME_E_CNPJ  = "select nome,cnpj,incs_municipal,telefone from fornecedor where fornecedor.nome = ? and fornecedor.cnpj = ?";
 	}
 	public static class Estoque{
 		public static String INSERT_ALL = "insert into estoque(id_fornecedores, id_produtos, total_produtos)"+
@@ -124,6 +135,10 @@ public class SQLUtil {
 	public static class Servico{
 		public static String INSERT_ALL = "insert into servico(valor, tipo, descricao)"+
 				"values(?,?,?)";
+		public static String SELECT_ALL_EXCETO_ID = "select tipo,descricao,valor from servico";
+		public static String SELECT_ALL_EXCETO_ID_POR_DESCRICAO = "select  tipo,descricao,valor from servico where servico.descricao = ?";
+		public static String SELECT_ALL_EXCETO_ID_POR_TIPO = "select  tipo,descricao,valor from servico where servico.tipo = ?";
+		public static String SELECT_ALL_EXCETO_ID_POR_TIPO_E_DESCRICAO = "select  tipo,descricao,valor from servico where servico.tipo = ? and servico.descricao = ?";
 	}
 	public static class Servicos_vendas{
 		public static String INSERT_ALL = "insert into servicos_vendas(id_vendas, id_servicos, id_produtos)"+

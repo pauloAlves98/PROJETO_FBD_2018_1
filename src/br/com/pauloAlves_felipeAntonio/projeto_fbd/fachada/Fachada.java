@@ -364,13 +364,11 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public Fornecedor buscarPorIdFornecedor(int id) throws BusinessException {
-		// TODO Auto-generated method stub
 		return businessFornecedor.buscarPorId(id);
 	}
 	@Override
-	public List<Fornecedor> buscarPorBuscaFornecedor(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return businessFornecedor.buscarPorBusca(busca);
+	public List<Fornecedor> buscarPorBuscaFornecedor(String nome,String cnpj) throws BusinessException {
+		return businessFornecedor.buscarPorBusca(nome,cnpj);
 	}
 	@Override
 	public void salvarFuncionario(Funcionario funcionario) throws BusinessException {
@@ -525,9 +523,9 @@ public class Fachada implements IFachada{
 		return businessPaciente.buscarIdPorCpf(cpf);
 	}
 	@Override
-	public List<Paciente> buscarPorBuscaPaciente(String busca) {
+	public List<Paciente> buscarPorBuscaPaciente(String nome,String cpf) throws BusinessException {
 		
-		return null;
+		return businessPaciente.buscarPorBusca(nome, cpf);
 	}
 	@Override
 	public void salvarPagamento(Pagamento pagamento) throws BusinessException {
@@ -584,10 +582,9 @@ public class Fachada implements IFachada{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public List<Produto> buscarPorBuscaProduto(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+
+	public List<Produto> buscarPorBuscaProduto(String nome ,String tipo) throws BusinessException {
+		return businessProduto.buscarPorBusca(nome, tipo);
 	}
 	@Override
 	public void salvarProdutos_vendas(Produtos_vendas produto) throws BusinessException {
@@ -656,7 +653,7 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void salvarServico(Servico servico) throws BusinessException {
-		// TODO Auto-generated method stub
+		businessServico.salvar(servico);
 		
 	}
 	@Override
@@ -670,9 +667,9 @@ public class Fachada implements IFachada{
 		return null;
 	}
 	@Override
-	public List<Servico> buscarPorBuscaServico(String busca) throws BusinessException {
+	public List<Servico> buscarPorBuscaServico(String tipo,String descricao) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessServico.buscarPorBusca(tipo, descricao);
 	}
 	@Override
 	public void salvarServicos_vendas(Servicos_vendas servico) throws BusinessException {

@@ -5,9 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.naming.spi.DirStateFactory.Result;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Endereco;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Paciente;
@@ -59,8 +58,151 @@ public class DaoPaciente implements IDaoPaciente{
 	}
 
 	@Override
-	public List<Paciente> buscarPorBusca(String busca) {
-		// TODO Auto-generated method stub
+	public List<Paciente> buscarPorBusca(String nome,String cpf) throws DaoException {
+		if(nome.equals("")&&cpf.equals("")){
+			try{
+				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+				statement = conexao.prepareStatement(SQLUtil.Paciente.SELECT_ALL);
+				//statement.setString(1,cpf);
+				result = statement.executeQuery();
+				
+				ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+				Paciente paciente = null;
+				//Endereco end = null; 
+				while(result.next()){
+					paciente = new Paciente();
+				//	paciente.setId(result.getInt(1));
+					paciente.setNome(result.getString(1));
+					paciente.setRg(result.getString(2));
+					paciente.setCpf(result.getString(3));
+					paciente.setTelefone(result.getString(4));
+					paciente.setDataNascimento(result.getDate(5));
+					System.out.print(paciente.getNome());
+					pacientes.add(paciente);
+					
+				}
+				statement.close();
+				conexao.close();
+				return pacientes;
+			}catch (SQLException e) {
+				 e.printStackTrace();
+				 throw new DaoException("PROBLEMA AO CONSULTAR CURSO - Contate o ADM");
+			}
+		}else if(nome.equals("")){
+			
+			try {
+				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+				statement = conexao.prepareStatement(SQLUtil.Paciente.SELECT_ALL_EXCETO_PRONTUARIO_POR_CPF);
+			
+				statement.setString(1,cpf);
+				result = statement.executeQuery();
+				
+				ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+				Paciente paciente = null;
+				Endereco end = null; 
+				
+				while(result.next()){
+					paciente = new Paciente();
+					paciente.setId(result.getInt(1));
+					paciente.setNome(result.getString(2));
+					paciente.setRg(result.getString(3));
+					paciente.setCpf(result.getString(4));
+					paciente.setTelefone(result.getString(5));
+					paciente.setNome_mae(result.getString(6));
+					paciente.setNome_pai(result.getString(7));
+				
+					end = new Endereco();
+					end.setCep(result.getString(8));
+					end.setEstado(result.getString(9));
+					end.setLogradouro(result.getString(10));
+					end.setComplemento(result.getString(11));
+					end.setBairro(result.getString(12));
+					end.setPais(result.getString(13));
+					end.setCidade(result.getString(14));
+					end.setRua(result.getString(15));
+					end.setNumero(result.getInt(16));
+					
+					paciente.setDataNascimento(result.getDate(17));
+					
+					paciente.setEndereco(end);
+					
+					pacientes.add(paciente);
+					
+				}
+				statement.close();
+				conexao.close();
+				return pacientes;
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(cpf.equals("")){
+			try{
+				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+				statement = conexao.prepareStatement(SQLUtil.Paciente.SELECT_ALL_POR_NOME);
+				statement.setString(1,nome);
+				result = statement.executeQuery();
+				
+				ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+				Paciente paciente = null;
+				//Endereco end = null; 
+				
+				while(result.next()){
+					paciente = new Paciente();
+					//paciente.setId(result.getInt(1));
+					paciente.setNome(result.getString(1));
+					paciente.setRg(result.getString(2));
+					paciente.setCpf(result.getString(3));
+					paciente.setTelefone(result.getString(4));
+					paciente.setDataNascimento(result.getDate(5));
+					
+					//paciente.setEndereco(end);
+					
+					pacientes.add(paciente);
+					
+					
+				}
+				statement.close();
+				conexao.close();
+				return pacientes;
+			}catch (SQLException e) {
+				 e.printStackTrace();
+				 throw new DaoException("PROBLEMA AO CONSULTAR CURSO - Contate o ADM");
+			}
+		}else {	
+			try {
+				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+				statement = conexao.prepareStatement(SQLUtil.Paciente.SELECT_ALL_POR_NOME_E_CPF);
+			
+				statement.setString(1,cpf);
+				statement.setString(2,nome);
+				result = statement.executeQuery();
+				
+				ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+				Paciente paciente = null;
+				//Endereco end = null; 
+				
+				while(result.next()){
+					paciente = new Paciente();
+					//paciente.setId(result.getInt(1));
+					paciente.setNome(result.getString(1));
+					paciente.setRg(result.getString(2));
+					paciente.setCpf(result.getString(3));
+					paciente.setTelefone(result.getString(4));
+										
+					paciente.setDataNascimento(result.getDate(5));
+					
+					pacientes.add(paciente);
+				}
+				statement.close();
+				conexao.close();
+				return pacientes;
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		return null;
 	}
 	public Paciente buscarPorCpf(String cpf) throws DaoException {

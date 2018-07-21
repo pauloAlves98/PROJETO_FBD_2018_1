@@ -3,6 +3,7 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
@@ -33,7 +34,6 @@ public class ControlePacientesPanel {
 		telaPaciente.getBtnNewButton_3().addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-
 				pacienteCdastro.setVisible(true);
 			}
 		});
@@ -89,21 +89,23 @@ public class ControlePacientesPanel {
 	private void buscarPaciente() {
 		try {
 			//validar buscas, fazer busca por busca , tratar se nehum paciente for retornado!!!
-			if(telaPaciente.getDescricaoField().getText().equals("") && telaPaciente.getFiltroField().equals("")) {
-				
-			}else {
-				String cpf = telaPaciente.getDescricaoField().getText().trim().replace(" ","");
-				Paciente paciente = fachada.buscarPorCpfPaciente(cpf);
-				String [][] linha = new String[1][5];
-				linha[0][0] = paciente.getNome();
-				linha[0][1] = paciente.getCpf();
-				linha[0][2] = paciente.getTelefone()+"";
-				linha[0][3] = paciente.getRg();
-				Calendar c = Calendar.getInstance();
-				c.setTime(paciente.getDataNascimento());
-				linha[0][4] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
+			//if(telaPaciente.getDescricaoField().getText().equals("") && telaPaciente.getFiltroField().getText().equals("")) {
+				ArrayList<Paciente> p = new ArrayList<Paciente>();
+				p=(ArrayList<Paciente>) fachada.buscarPorBuscaPaciente(telaPaciente.getFiltroField().getText(),telaPaciente.getDescricaoField().getText());
+				String [][] linha = new String[p.size()][5];
+				int i=0;
+				for(Paciente pac:p){
+					linha[i][0] = pac.getNome();
+					linha[i][1] = pac.getRg();
+					linha[i][2] = pac.getCpf();
+					linha[i][3] = pac.getTelefone();
+					Calendar c = Calendar.getInstance();
+					c.setTime(pac.getDataNascimento());
+					linha[i][4] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
+					i++;
+				}
 				DefaultTableModel d = new DefaultTableModel(linha,new String[] {
-		 				"Nome", "CPF", "Telefone", "RG", "Nascimento"
+						"Nome","RG", "CPF", "Telefone", "Nascimento"
 		 			});
 			 			
 				telaPaciente.getTable().setModel(d);
@@ -112,8 +114,29 @@ public class ControlePacientesPanel {
 				telaPaciente.getTable().setShowVerticalLines(true);
 				telaPaciente.getTable().setBackground(Color.white);
 				telaPaciente.getTable().setFont(Propiedade.FONT1);
-				
-			}
+		//	}else {
+//				String cpf = telaPaciente.getDescricaoField().getText().trim().replace(" ","");
+//				Paciente paciente = fachada.buscarPorCpfPaciente(cpf);
+//				String [][] linha = new String[1][5];
+//				linha[0][0] = paciente.getNome();
+//				linha[0][1] = paciente.getCpf();
+//				linha[0][2] = paciente.getTelefone()+"";
+//				linha[0][3] = paciente.getRg();
+//				Calendar c = Calendar.getInstance();
+//				c.setTime(paciente.getDataNascimento());
+//				linha[0][4] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
+//				DefaultTableModel d = new DefaultTableModel(linha,new String[] {
+//		 				"Nome","RG", "CPF", "Telefone", "Nascimento"
+//		 			});
+//			 			
+//				telaPaciente.getTable().setModel(d);
+//				telaPaciente.getTable().setShowGrid(true);
+//				telaPaciente.getTable().setShowHorizontalLines(true);
+//				telaPaciente.getTable().setShowVerticalLines(true);
+//				telaPaciente.getTable().setBackground(Color.white);
+//				telaPaciente.getTable().setFont(Propiedade.FONT1);
+//				
+//			}
 			
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block

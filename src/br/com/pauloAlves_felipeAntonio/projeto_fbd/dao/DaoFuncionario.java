@@ -20,16 +20,18 @@ public class DaoFuncionario implements IDaoFuncionario{
 	@Override
 	public void salvar(Funcionario funcionario) throws DaoException {
 		try {
+			
 			daoComum.salvarEndereco(funcionario.getEndereco());
 			daoComum.salvarCargo(funcionario.getCargo());
 			int id_endereco = daoComum.getCurrentValorTabela("endereco");
 			int id_cargo = daoComum.getCurrentValorTabela("cargo");
+			int id_clinica = daoComum.getCurrentValorTabela("clinica");
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_ALL);
 			
 			statement.setString(1,funcionario.getNome());
 			statement.setString(2,funcionario.getCpf());
-			statement.setInt(3,funcionario.getId_clinicas());
+			statement.setInt(3,id_clinica);
 			statement.setString(4,funcionario.getAdmim());
 			statement.setString(5,funcionario.getSenha());
 			statement.setInt(6,id_cargo);//pega o cargo e adiciona

@@ -21,7 +21,7 @@ public class BusinessFuncionario implements IBusinessFuncionario{
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+			throw new BusinessException("Erro no Business Funcionario!!!"+e.getMessage());
 		}
 		
 	}

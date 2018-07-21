@@ -38,9 +38,13 @@ public class BusinessServico implements IBusinessServico {
 	}
 
 	@Override
-	public List<Servico> buscarPorBusca(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Servico> buscarPorBusca(String tipo,String descricao) throws BusinessException {
+		try {
+			return daoServico.buscarPorBusca(tipo, descricao);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException("Erro ao buscar servico!!!");
+		}
 	}
 
 }

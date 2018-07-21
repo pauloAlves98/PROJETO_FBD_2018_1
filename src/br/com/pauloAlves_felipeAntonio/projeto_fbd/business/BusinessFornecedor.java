@@ -39,9 +39,13 @@ public class BusinessFornecedor implements IBusinessFornecedor{
 	}
 
 	@Override
-	public List<Fornecedor> buscarPorBusca(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Fornecedor> buscarPorBusca(String nome,String cnpj) throws BusinessException {
+		try {
+			return daoFornecedor.buscarPorBusca(nome, cnpj);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException("Erro ao buscar fornecedor");
+		}
 	}
 
 }

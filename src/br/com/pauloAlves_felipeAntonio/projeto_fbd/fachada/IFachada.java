@@ -89,7 +89,7 @@ public interface IFachada {
 	public void editarFornecedor(Fornecedor fornecedor) throws BusinessException;
 	public Fornecedor buscarPorIdFornecedor(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Fornecedor> buscarPorBuscaFornecedor(String busca)throws BusinessException;
+	public List<Fornecedor> buscarPorBuscaFornecedor(String nome,String cnpj)throws BusinessException;
 	
 	public void salvarFuncionario(Funcionario funcionario ) throws BusinessException;
 	public void editarFuncionario(Funcionario funcionario ) throws BusinessException;
@@ -134,7 +134,7 @@ public interface IFachada {
 	public Paciente buscarPorIdPaciente(int id)throws BusinessException;
 	public Paciente buscarPorCpfPaciente(String cpf)throws BusinessException;
 	public int buscarIdPorCpfPaciente(String cpf) throws BusinessException;
-	public List<Paciente> buscarPorBuscaPaciente(String busca);
+	public List<Paciente> buscarPorBuscaPaciente(String nome,String cpf)throws BusinessException;
 	
 	public void salvarPagamento(Pagamento pagamento) throws BusinessException;
 	public void editarPagamento(Pagamento pagamento) throws BusinessException;
@@ -152,7 +152,7 @@ public interface IFachada {
 	public void editarProduto(Produto produto) throws BusinessException;
 	public Produto  buscarPorIdProduto(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Produto> buscarPorBuscaProduto(String busca)throws BusinessException;
+	public List<Produto> buscarPorBuscaProduto(String nome ,String tipo)throws BusinessException;
 	
 	public void salvarProdutos_vendas(Produtos_vendas produto) throws BusinessException;
 	public void editarProdutos_vendas(Produtos_vendas produto) throws BusinessException;
@@ -176,7 +176,7 @@ public interface IFachada {
 	public void editarServico(Servico servico) throws BusinessException;
 	public Servico buscarPorIdServico(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Servico> buscarPorBuscaServico(String busca)throws BusinessException;
+	public List<Servico> buscarPorBuscaServico(String tipo,String descricao)throws BusinessException;
 	
 	public void salvarServicos_vendas(Servicos_vendas servico) throws BusinessException;
 	public void editarServicos_vendas(Servicos_vendas servico) throws BusinessException;

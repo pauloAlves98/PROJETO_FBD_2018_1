@@ -2,7 +2,9 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Produto;
@@ -13,6 +15,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLUtil;
 public class DaoProduto implements IDaoProduto{
 	private Connection conexao;
 	private PreparedStatement statement;
+	private ResultSet result;
 	@Override
 	public void salvar(Produto produto) throws DaoException {
 		try {
@@ -48,9 +51,102 @@ public class DaoProduto implements IDaoProduto{
 	}
 
 	@Override
-	public List<Produto> buscarPorBusca(String busca) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Produto> buscarPorBusca(String nome ,String tipo) throws DaoException {
+		try{
+			if(nome.equals("")&&tipo.equals("")){
+				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+				statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL);
+				
+				result = statement.executeQuery();
+				
+				ArrayList<Produto> produtos = new ArrayList<Produto>();
+				
+				while(result.next()){
+					Produto produto = new Produto();
+					
+					produto.setNome(result.getString(1));
+					produto.setTipo(result.getString(2));
+					produto.setPreco(result.getFloat(3));
+					produto.setQuantidade(result.getInt(4));
+					
+					produtos.add(produto);
+				}
+				statement.execute();
+				statement.close();
+				return produtos;
+			}else if(tipo.equals("")){
+				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+				statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL_POR_NOME);
+				statement.setString(1, nome);
+				result = statement.executeQuery();
+				
+				ArrayList<Produto> produtos = new ArrayList<Produto>();
+				
+				while(result.next()){
+					Produto produto = new Produto();
+					
+					produto.setNome(result.getString(1));
+					produto.setTipo(result.getString(2));
+					produto.setPreco(result.getFloat(3));
+					produto.setQuantidade(result.getInt(4));
+					
+					produtos.add(produto);
+				}
+				statement.execute();
+				statement.close();
+				return produtos;	
+			}else if(nome.equals("")){
+				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+				statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL_POR_TIPO);
+				
+				statement.setString(1, tipo);
+				
+				result = statement.executeQuery();
+				
+				ArrayList<Produto> produtos = new ArrayList<Produto>();
+				
+				while(result.next()){
+					Produto produto = new Produto();
+					
+					produto.setNome(result.getString(1));
+					produto.setTipo(result.getString(2));
+					produto.setPreco(result.getFloat(3));
+					produto.setQuantidade(result.getInt(4));
+					
+					produtos.add(produto);
+				}
+				statement.execute();
+				statement.close();
+				return produtos;
+			}else{
+				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+				statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL_POR_NOME_E_TIPO);
+				
+				statement.setString(1, nome);
+				statement.setString(2,tipo);
+				
+				result = statement.executeQuery();
+				
+				ArrayList<Produto> produtos = new ArrayList<Produto>();
+				
+				while(result.next()){
+					Produto produto = new Produto();
+					
+					produto.setNome(result.getString(1));
+					produto.setTipo(result.getString(2));
+					produto.setPreco(result.getFloat(3));
+					produto.setQuantidade(result.getInt(4));
+					
+					produtos.add(produto);
+				}
+				statement.execute();
+				statement.close();
+				return produtos;
+			}
+		}catch (SQLException e) {
+				e.printStackTrace();
+				throw new DaoException("Erro ao buscar no banco!!!Contate o adm.");
+		}
 	}
 
 }

@@ -68,7 +68,7 @@ public class PacientesPanel extends JPanel{
  			new Object[][] {
  			},
  			new String[] {
- 				"Nome", "CPF", "Telefone", "RG", "Cadastro"
+ 					"Nome","RG", "CPF", "Telefone", "Nascimento"
  			}
  		));
  		table.setBounds(10, 146, 737, 100);
@@ -77,6 +77,7 @@ public class PacientesPanel extends JPanel{
  		JScrollPane scrollPane = new JScrollPane(table);
  		scrollPane.setBounds(10, 146, 737, 200);
  		add(scrollPane);
+ 		setVisible(false);
  	}
 	public JTextField getFiltroField() {
 		return filtroField;

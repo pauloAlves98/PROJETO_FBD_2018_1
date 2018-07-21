@@ -39,9 +39,13 @@ public class BusinessProduto implements IBusinessProduto{
 	}
 
 	@Override
-	public List<Produto> buscarPorBusca(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Produto> buscarPorBusca(String nome ,String tipo) throws BusinessException {
+		try {
+			return daoProduto.buscarPorBusca(nome, tipo);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException("Erro ao Buscar produto!!!");
+		}
 	}
 
 }

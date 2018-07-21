@@ -14,5 +14,5 @@ public interface IBusinessPaciente {
 	    public Paciente buscarPorId(int id)throws BusinessException;
 	    public Paciente buscarPorCpf(String cpf)throws BusinessException;
 	    public int buscarIdPorCpf(String cpf) throws BusinessException;
-	    public List<Paciente> buscarPorBusca(String busca);
+	    public List<Paciente> buscarPorBusca(String nome,String cpf)throws BusinessException;
 }

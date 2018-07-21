@@ -13,6 +13,8 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 public class CadastrosPanel extends JPanel{
 	private PacientesPanel telaPacientes;
 	private ProdutoPanel telaProduto;
+	private ServicoPanel telaServico;
+	private FornecedoresPanel telaFornecedor;
 	private JPanel menuCadastro;
 	private JButton pacienteButton,servicoButton,fornecedorButton;
 	
@@ -69,6 +71,15 @@ public class CadastrosPanel extends JPanel{
 		//telaPacientes.setLayout(null);
 		add(telaPacientes);
 		
+		telaServico = new ServicoPanel();
+		telaServico.setBackground(Color.WHITE);
+		telaServico.setBounds(0, 96, 796, 493);
+		add(telaServico);
+		
+		telaFornecedor = new FornecedoresPanel();
+		telaFornecedor.setBackground(Color.WHITE);
+		telaFornecedor.setBounds(0, 96, 796, 493);
+		add(telaFornecedor);
 		
 	}
 
@@ -94,6 +105,14 @@ public class CadastrosPanel extends JPanel{
 
 	public JButton getFornecedorButton() {
 		return fornecedorButton;
+	}
+
+	public ServicoPanel getTelaServico() {
+		return telaServico;
+	}
+
+	public FornecedoresPanel getTelaFornecedor() {
+		return telaFornecedor;
 	}
 
 

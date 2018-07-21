@@ -10,5 +10,5 @@ public interface IDaoProduto {
 	public void editar(Produto produto) throws DaoException;
 	public Produto  buscarPorId(int id)  throws DaoException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Produto> buscarPorBusca(String busca)throws DaoException;
+	public List<Produto> buscarPorBusca(String nome ,String tipo)throws DaoException;
 }

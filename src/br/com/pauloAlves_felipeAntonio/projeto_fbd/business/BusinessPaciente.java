@@ -48,9 +48,15 @@ public class BusinessPaciente implements IBusinessPaciente {
 	}
 
 	@Override
-	public List<Paciente> buscarPorBusca(String busca) {
+	public List<Paciente> buscarPorBusca(String nome,String cpf) throws BusinessException{
+		try {
+			return daoPaciente.buscarPorBusca(nome, cpf);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro ao buscar pacientes");
+		}
 		
-		return null;
 	}
 	@Override
 	public int buscarIdPorCpf(String cpf) throws BusinessException {
