@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public class ServicoPanel extends JPanel {
 	private JTextField tipoField;
 	private JTextField descricaoField;
-	private JTable table;
+	private JTableButton table;
 	private JButton buscaButton,servicoButton;
 
 	/**
@@ -57,23 +57,19 @@ public class ServicoPanel extends JPanel {
  		buscaButton.setBounds(407, 95, 32, 32);
  		buscaButton.setBackground(Color.white);
  		add(buscaButton);
-		
-		table = new JTable();
-		table.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
-		table.setShowGrid(true);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
+		JTableButtonModel jTableButtonModel = new JTableButtonModel();
+		jTableButtonModel.adcionar(new Object[][] {
 			},
 			new String[] {
 				"Tipo", "Descrição", "Valor", "Cadastro"
-			}
-		));
-		table.setBounds(10, 274, 478, -153);
-		add(table);
+			});
+		table = new JTableButton(jTableButtonModel);
+		table.getTable().setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
+		table.getTable().setShowGrid(true);
 		
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 146, 737, 200);
-		add(scrollPane);
+		table.getScrollPane().setBounds(10, 146, 737, 200);
+		add(table.getScrollPane());
+		
 
 		setVisible(false);
 	}
@@ -86,7 +82,9 @@ public class ServicoPanel extends JPanel {
 		return descricaoField;
 	}
 
-	public JTable getTable() {
+	
+
+	public JTableButton getTable() {
 		return table;
 	}
 

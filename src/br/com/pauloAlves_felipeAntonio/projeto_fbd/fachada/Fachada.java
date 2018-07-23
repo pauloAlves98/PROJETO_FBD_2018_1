@@ -504,8 +504,8 @@ public class Fachada implements IFachada{
 		businessPaciente.salvar(paciente);
 	}
 	@Override
-	public void editarPaciente(Paciente paciente) throws BusinessException {
-		businessPaciente.editar(paciente);
+	public void editarPaciente(Paciente paciente,int id) throws BusinessException {
+		businessPaciente.editar(paciente,id);
 		
 	}
 	@Override
@@ -710,6 +710,25 @@ public class Fachada implements IFachada{
 	public List<Venda> buscarPorBuscaVenda(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public Funcionario buscaPorLogin_senhaFuncionario(String login, String senha) throws BusinessException {
+		return businessFuncionario.buscaPorLogin_senha(login, senha);
+	}
+	@Override
+	public List<Funcionario> buscarInfoFuncionarioPorCpfFuncionario(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessFuncionario.buscarInfoCpf(busca);
+	}
+	@Override
+	public List<Funcionario> buscarInfoPorNomeCpfFuncionario(String cpf, String nome) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessFuncionario.buscarInfoPorNomeCpf(cpf, nome);
+	}
+	@Override
+	public List<Funcionario> buscarInfoPorNomeFuncionario(String nome) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessFuncionario.buscarInfoPorNome(nome);
 	}
 
 }

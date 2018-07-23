@@ -2,9 +2,16 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
 public class Endereco {
 	private String cep,logradouro,complemento,bairro,rua,pais,cidade,estado;
-	private int numero;
+	private int numero,id;
 	
 	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getEstado() {
 		return estado;
 	}

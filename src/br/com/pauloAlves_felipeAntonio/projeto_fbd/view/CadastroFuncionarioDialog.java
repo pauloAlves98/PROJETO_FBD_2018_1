@@ -269,7 +269,7 @@ public class CadastroFuncionarioDialog extends JDialog {
 		descricaoArea.setLineWrap(true);
 		descricaoArea.setFont(new Font("Arial", Font.PLAIN, 14));
 		scrollPane.setViewportView(descricaoArea);
-		setVisible(true);
+		setVisible(false);
 
 	}
 	private void mascaraCPF() {

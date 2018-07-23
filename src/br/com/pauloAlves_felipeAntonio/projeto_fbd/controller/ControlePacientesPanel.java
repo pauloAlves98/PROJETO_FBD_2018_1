@@ -3,21 +3,31 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.TratadorDeMascara;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoComum;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Endereco;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Paciente;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.ValidacaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.Fachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroFornecedoresFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroPacienteFrame;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButtonModel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.PacientesPanel;
 
 
@@ -26,51 +36,93 @@ public class ControlePacientesPanel {
 	private Paciente paciente = new Paciente();
 	private IFachada fachada;
 	PacientesPanel telaPaciente;
-	public ControlePacientesPanel(PacientesPanel telaPaciente,CadastroPacienteFrame pacienteCdastro) {
+	CadastroPacienteFrame pacienteCdastro;
+	int condicao = 0;
+	public ControlePacientesPanel(PacientesPanel telaPaciente,CadastroPacienteFrame pacienteCdastr) {
 		this.telaPaciente = telaPaciente;
 		fachada = Fachada.getInstance();
-		
+		this.pacienteCdastro =  pacienteCdastr;
+		JTableButtonMouseListener tableListner = new JTableButtonMouseListener(telaPaciente.getTable().getTable(),pacienteCdastro);
 		telaPaciente.getBuscaButton().addActionListener((ActionEvent e)-> buscarPaciente());
-		telaPaciente.getBtnNewButton_3().addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				pacienteCdastro.setVisible(true);
-			}
-		});
+		
+		telaPaciente.getTable().getTable().addMouseListener(tableListner);
+		
+		telaPaciente.getBtnNewButton_3().addActionListener((ActionEvent e)->{limparCampos(pacienteCdastro); pacienteCdastro.setVisible(true);});
+		
+		
 		pacienteCdastro.getBtnSalvar().addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					paciente = new Paciente();
-					Endereco end = new Endereco();
-					//Perguntar se o tratamento de campo vazio fica aqui  ou no Businnes
-					paciente.setEndereco(end);
-					paciente.setNome(pacienteCdastro.getNomeField().getText());
-					paciente.setCpf(pacienteCdastro.getCpfField().getText().replace(".","").replace("-",""));
-					TratadorDeMascara.isCPF(paciente.getCpf());
-					paciente.setRg(pacienteCdastro.getRgField().getText());
-					TratadorDeMascara.validaRg(paciente.getRg());
-					paciente.setTelefone(pacienteCdastro.getTelField().getText().trim());
-					paciente.setNome_mae(pacienteCdastro.getNomeMField().getText());
-					paciente.setNome_pai(pacienteCdastro.getNomePField().getText());
-					paciente.setDataNascimento(TratadorDeMascara.coletorDeData(pacienteCdastro.getNascField().getText()));
-					paciente.getEndereco().setBairro(pacienteCdastro.getBairroField().getText());
-					paciente.getEndereco().setCep(pacienteCdastro.getCepField().getText());
-					paciente.getEndereco().setCidade(pacienteCdastro.getCidadeField().getText());
-					paciente.getEndereco().setComplemento(pacienteCdastro.getComplementoField().getText());
-					paciente.getEndereco().setEstado(""+pacienteCdastro.getEstadoBox().getItemAt(pacienteCdastro.getEstadoBox().getSelectedIndex()));
-					paciente.getEndereco().setLogradouro(pacienteCdastro.getLogradouroField().getText().trim().replace(" ",""));
-					paciente.getEndereco().setNumero(Integer.parseInt(pacienteCdastro.getNumeroField().getText()));
-					paciente.getEndereco().setPais(""+pacienteCdastro.getPaisBox().getItemAt(pacienteCdastro.getPaisBox().getSelectedIndex()));
-					paciente.getEndereco().setRua(pacienteCdastro.getRuaField().getText());
-					
-					fachada.salvarPaciente(paciente);
-					if((JOptionPane.showConfirmDialog(null, "Deseja Cadastrar Mais algum?"))==0){
-						limparCampos(pacienteCdastro);
-					}else {
-						pacienteCdastro.setVisible(false);
-						limparCampos(pacienteCdastro);
+					if(condicao==0){//Se for pra inserir
+						paciente = new Paciente();
+						Endereco end = new Endereco();
+						//Perguntar se o tratamento de campo vazio fica aqui  ou no Businnes
+						paciente.setEndereco(end);
+						paciente.setNome(pacienteCdastro.getNomeField().getText());
+						paciente.setCpf(pacienteCdastro.getCpfField().getText().replace(".","").replace("-",""));
+						TratadorDeMascara.isCPF(paciente.getCpf());
+						paciente.setRg(pacienteCdastro.getRgField().getText());
+						TratadorDeMascara.validaRg(paciente.getRg());
+						paciente.setTelefone(pacienteCdastro.getTelField().getText().trim());
+						paciente.setNome_mae(pacienteCdastro.getNomeMField().getText());
+						paciente.setNome_pai(pacienteCdastro.getNomePField().getText());
+						paciente.setDataNascimento(TratadorDeMascara.coletorDeData(pacienteCdastro.getNascField().getText()));
+						paciente.getEndereco().setBairro(pacienteCdastro.getBairroField().getText());
+						paciente.getEndereco().setCep(pacienteCdastro.getCepField().getText());
+						paciente.getEndereco().setCidade(pacienteCdastro.getCidadeField().getText());
+						paciente.getEndereco().setComplemento(pacienteCdastro.getComplementoField().getText());
+						paciente.getEndereco().setEstado(""+pacienteCdastro.getEstadoBox().getItemAt(pacienteCdastro.getEstadoBox().getSelectedIndex()));
+						paciente.getEndereco().setLogradouro(pacienteCdastro.getLogradouroField().getText().trim().replace(" ",""));
+						paciente.getEndereco().setNumero(Integer.parseInt(pacienteCdastro.getNumeroField().getText()));
+						paciente.getEndereco().setPais(""+pacienteCdastro.getPaisBox().getItemAt(pacienteCdastro.getPaisBox().getSelectedIndex()));
+						paciente.getEndereco().setRua(pacienteCdastro.getRuaField().getText());
+						
+						fachada.salvarPaciente(paciente);
+						if((JOptionPane.showConfirmDialog(null, "Deseja Cadastrar Mais algum?"))==0){
+							limparCampos(pacienteCdastro);
+						}else {
+							pacienteCdastro.setVisible(false);
+							limparCampos(pacienteCdastro);
+						}
+					}else{//se for pra editar
+						
+						Endereco end = new Endereco();
+						end.setId(paciente.getEndereco().getId());//transfere o id  do endereco a ser editado
+						
+						pacienteCdastro.getProntuarioField().setEditable(false);
+						//pacienteCdastro.getProntuarioField().setText(paciente.getP);
+						paciente.setEndereco(end);
+						paciente.setNome(pacienteCdastro.getNomeField().getText());
+						paciente.setCpf(pacienteCdastro.getCpfField().getText().replace(".","").replace("-",""));
+						TratadorDeMascara.isCPF(paciente.getCpf());
+						paciente.setRg(pacienteCdastro.getRgField().getText());
+						TratadorDeMascara.validaRg(paciente.getRg());
+						paciente.setTelefone(pacienteCdastro.getTelField().getText().trim());
+						paciente.setNome_mae(pacienteCdastro.getNomeMField().getText());
+						paciente.setNome_pai(pacienteCdastro.getNomePField().getText());
+						paciente.setDataNascimento(TratadorDeMascara.coletorDeData(pacienteCdastro.getNascField().getText()));
+						paciente.getEndereco().setBairro(pacienteCdastro.getBairroField().getText());
+						paciente.getEndereco().setCep(pacienteCdastro.getCepField().getText());
+						paciente.getEndereco().setCidade(pacienteCdastro.getCidadeField().getText());
+						paciente.getEndereco().setComplemento(pacienteCdastro.getComplementoField().getText());
+						paciente.getEndereco().setEstado(""+pacienteCdastro.getEstadoBox().getItemAt(pacienteCdastro.getEstadoBox().getSelectedIndex()));
+						paciente.getEndereco().setLogradouro(pacienteCdastro.getLogradouroField().getText().trim().replace(" ",""));
+						paciente.getEndereco().setNumero(Integer.parseInt(pacienteCdastro.getNumeroField().getText()));
+						paciente.getEndereco().setPais(""+pacienteCdastro.getPaisBox().getItemAt(pacienteCdastro.getPaisBox().getSelectedIndex()));
+						paciente.getEndereco().setRua(pacienteCdastro.getRuaField().getText());
+						paciente.setId(condicao);//seta o id para realizar a comparação na busca
+						System.out.print(paciente.getId()+ paciente.getNome());
+
+
+						fachada.editarPaciente(paciente,paciente.getEndereco().getId());
+						if((JOptionPane.showConfirmDialog(null, "Deseja modificar novamente?"))==0){
+							limparCampos(pacienteCdastro);
+						}else {
+							pacienteCdastro.setVisible(false);
+							limparCampos(pacienteCdastro);
+						}
+						condicao=0;
 					}
 				} catch (BusinessException e) {
 					e.printStackTrace();
@@ -92,28 +144,38 @@ public class ControlePacientesPanel {
 			//if(telaPaciente.getDescricaoField().getText().equals("") && telaPaciente.getFiltroField().getText().equals("")) {
 				ArrayList<Paciente> p = new ArrayList<Paciente>();
 				p=(ArrayList<Paciente>) fachada.buscarPorBuscaPaciente(telaPaciente.getFiltroField().getText(),telaPaciente.getDescricaoField().getText());
-				String [][] linha = new String[p.size()][5];
+				Object [][] linha = new Object[p.size()][5];
 				int i=0;
 				for(Paciente pac:p){
 					linha[i][0] = pac.getNome();
-					linha[i][1] = pac.getRg();
-					linha[i][2] = pac.getCpf();
-					linha[i][3] = pac.getTelefone();
+					linha[i][1] = pac.getCpf();
+					linha[i][2] = pac.getTelefone();
 					Calendar c = Calendar.getInstance();
 					c.setTime(pac.getDataNascimento());
-					linha[i][4] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
+					linha[i][3] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
+					JButton b = new JButton("Abrir");
+					b.setForeground(Color.BLACK);
+					b.setBackground(Color.white);
+					b.setFont(Propiedade.FONT2);
+					linha[i][4] = b;
 					i++;
 				}
-				DefaultTableModel d = new DefaultTableModel(linha,new String[] {
-						"Nome","RG", "CPF", "Telefone", "Nascimento"
+				
+				JTableButtonModel jtableButtonModel = new JTableButtonModel();
+				jtableButtonModel.adcionar(linha,new String[] {
+						"Nome","CPF", "Telefone", "Nascimento","Cadastro"
 		 			});
+				
+				
 			 			
-				telaPaciente.getTable().setModel(d);
-				telaPaciente.getTable().setShowGrid(true);
-				telaPaciente.getTable().setShowHorizontalLines(true);
-				telaPaciente.getTable().setShowVerticalLines(true);
-				telaPaciente.getTable().setBackground(Color.white);
-				telaPaciente.getTable().setFont(Propiedade.FONT1);
+				telaPaciente.getTable().getTable().setModel(jtableButtonModel);
+				telaPaciente.getTable().getTable().setRowHeight(40);
+				
+				telaPaciente.getTable().getTable().setShowGrid(true);
+				telaPaciente.getTable().getTable().setShowHorizontalLines(true);
+				telaPaciente.getTable().getTable().setShowVerticalLines(true);
+				telaPaciente.getTable().getTable().setBackground(Color.white);
+				telaPaciente.getTable().getTable().setFont(Propiedade.FONT2);
 		//	}else {
 //				String cpf = telaPaciente.getDescricaoField().getText().trim().replace(" ","");
 //				Paciente paciente = fachada.buscarPorCpfPaciente(cpf);
@@ -162,4 +224,102 @@ public class ControlePacientesPanel {
 		pacienteCdastro.getRuaField().setText("");
 		pacienteCdastro.getNascField().setText("");
 	}
+	 private class JTableButtonMouseListener implements MouseListener {
+		  private JTable table;
+		  
+		  public JTable getTable() {
+			return table;
+		}
+
+		public void setTable(JTable table) {
+			this.table = table;
+		}
+
+		private CadastroPacienteFrame pacientes = pacienteCdastro;
+
+		  private void __forwardEventToButton(MouseEvent e) {
+		    TableColumnModel columnModel = this.table.getColumnModel();
+		    int column = columnModel.getColumnIndexAtX(e.getX());
+		    int row    = e.getY() / this.table.getRowHeight();
+		    Object value;
+		    JButton button;
+		    MouseEvent buttonEvent;
+
+		    if(row >= this.table.getRowCount() || row < 0 ||
+		       column >= this.table.getColumnCount() || column < 0)
+		      return;
+
+		    value = this.table.getValueAt(row, column);
+
+		    if(!(value instanceof JButton))
+		      return;
+
+		    button = (JButton)value;
+
+		    buttonEvent =
+		      (MouseEvent)SwingUtilities.convertMouseEvent(this.table, e, button);
+		  
+		    
+		    button.dispatchEvent(buttonEvent);
+		    if(button == buttonEvent.getSource()) { 
+		    	
+				try {
+					condicao = fachada.buscarIdPorCpfPaciente(""+getTable().getValueAt(getTable().getSelectedRow(),1));
+					paciente = fachada.buscarPorCpfPaciente(""+getTable().getValueAt(getTable().getSelectedRow(),1));
+					pacienteCdastro.getNomeField().setText(paciente.getNome());
+					pacienteCdastro.getCpfField().setText(paciente.getCpf());
+					pacienteCdastro.getRgField().setText(paciente.getRg());
+					pacienteCdastro.getTelField().setText(paciente.getTelefone());
+					pacienteCdastro.getNomeMField().setText(paciente.getNome_mae());
+					pacienteCdastro.getNomePField().setText(paciente.getNome_pai());
+					pacienteCdastro.getBairroField().setText(paciente.getEndereco().getBairro());
+					pacienteCdastro.getCepField().setText(paciente.getEndereco().getCep());
+					pacienteCdastro.getCidadeField().setText(paciente.getEndereco().getCidade());
+					pacienteCdastro.getComplementoField().setText(paciente.getEndereco().getComplemento());
+					pacienteCdastro.getLogradouroField().setText(paciente.getEndereco().getLogradouro());
+					pacienteCdastro.getNumeroField().setText(""+paciente.getEndereco().getNumero());
+					pacienteCdastro.getRuaField().setText(paciente.getEndereco().getRua());
+					Calendar c = Calendar.getInstance();
+					c.setTime(paciente.getDataNascimento());
+					pacienteCdastro.getNascField().setText(""+c.get(c.DAY_OF_MONTH)+""+(c.get(c.MONTH)+1)+""+c.get(c.YEAR));
+					pacientes.setVisible(true);
+				} catch (BusinessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			 }
+		    // This is necessary so that when a button is pressed and released
+		    // it gets rendered properly.  Otherwise, the button may still appear
+		    // pressed down when it has been released.
+		    this.table.repaint();
+		  }
+
+		  public JTableButtonMouseListener(JTable table,CadastroPacienteFrame pacientes) {
+		    this.table = table;
+		    this.pacientes =pacientes;
+		  }
+
+		  public void mouseClicked(MouseEvent e) {
+		    __forwardEventToButton(e);
+		    
+		    
+		  }
+
+		  public void mouseEntered(MouseEvent e) {
+		   // __forwardEventToButton(e);
+		  }
+
+		  public void mouseExited(MouseEvent e) {
+		  //  __forwardEventToButton(e);
+		  }
+
+		  public void mousePressed(MouseEvent e) {
+		 //   __forwardEventToButton(e);
+		  }
+
+		  public void mouseReleased(MouseEvent e) {
+		   // __forwardEventToButton(e);
+		  }
+		}
+
 }

@@ -23,7 +23,7 @@ public class DaoPaciente implements IDaoPaciente{
 	@Override
 	public void salvar(Paciente paciente) throws DaoException {
 		try {
-			comunDao.salvarEndereco(paciente.getEndereco());
+			
 			int id_endereco = comunDao.getCurrentValorTabela("endereco");
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Paciente.INSERT_ALL);
@@ -47,8 +47,30 @@ public class DaoPaciente implements IDaoPaciente{
 	}
 
 	@Override
-	public void editar(Paciente paciente) throws DaoException {
-	
+	public void editar(Paciente paciente,int id) throws DaoException {
+		try {
+			comunDao.editarEndereco(paciente.getEndereco(),id);
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Paciente.UPDATE_All_PACIENTE);
+			
+			statement.setString(1,paciente.getNome());
+			statement.setString(2,paciente.getRg());
+			statement.setString(3,paciente.getCpf());
+			statement.setString(4,paciente.getTelefone());
+			statement.setString(5,paciente.getNome_mae());
+			statement.setString(6,paciente.getNome_pai());
+			//statement.setInt(7,id_endereco);
+			statement.setDate(7,new Date(paciente.getDataNascimento().getTime()));
+			statement.setInt(8, paciente.getId());
+			
+			statement.execute();
+			conexao.close();
+			statement.close();
+		}catch (SQLException e1) {
+		   e1.printStackTrace();
+		   
+		}
+
 
 	}
 	@Override
@@ -59,7 +81,7 @@ public class DaoPaciente implements IDaoPaciente{
 
 	@Override
 	public List<Paciente> buscarPorBusca(String nome,String cpf) throws DaoException {
-		if(nome.equals("")&&cpf.equals("")){
+		if(nome.equals("") && cpf.equals("")){
 			try{
 				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 				statement = conexao.prepareStatement(SQLUtil.Paciente.SELECT_ALL);
@@ -73,11 +95,10 @@ public class DaoPaciente implements IDaoPaciente{
 					paciente = new Paciente();
 				//	paciente.setId(result.getInt(1));
 					paciente.setNome(result.getString(1));
-					paciente.setRg(result.getString(2));
-					paciente.setCpf(result.getString(3));
-					paciente.setTelefone(result.getString(4));
-					paciente.setDataNascimento(result.getDate(5));
-					System.out.print(paciente.getNome());
+					paciente.setCpf(result.getString(2));
+					paciente.setTelefone(result.getString(3));
+					paciente.setDataNascimento(result.getDate(4));
+					//System.out.print(paciente.getNome());
 					pacientes.add(paciente);
 					
 				}
@@ -102,6 +123,7 @@ public class DaoPaciente implements IDaoPaciente{
 				Endereco end = null; 
 				
 				while(result.next()){
+					
 					paciente = new Paciente();
 					paciente.setId(result.getInt(1));
 					paciente.setNome(result.getString(2));
@@ -125,7 +147,7 @@ public class DaoPaciente implements IDaoPaciente{
 					paciente.setDataNascimento(result.getDate(17));
 					
 					paciente.setEndereco(end);
-					
+					paciente.getEndereco().setId(result.getInt(18));
 					pacientes.add(paciente);
 					
 				}
@@ -151,10 +173,9 @@ public class DaoPaciente implements IDaoPaciente{
 					paciente = new Paciente();
 					//paciente.setId(result.getInt(1));
 					paciente.setNome(result.getString(1));
-					paciente.setRg(result.getString(2));
-					paciente.setCpf(result.getString(3));
-					paciente.setTelefone(result.getString(4));
-					paciente.setDataNascimento(result.getDate(5));
+					paciente.setCpf(result.getString(2));
+					paciente.setTelefone(result.getString(3));
+					paciente.setDataNascimento(result.getDate(4));
 					
 					//paciente.setEndereco(end);
 					
@@ -198,8 +219,8 @@ public class DaoPaciente implements IDaoPaciente{
 				conexao.close();
 				return pacientes;
 			}catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new DaoException("Erro ao Atualizar banco!");
 			}
 			
 		}
@@ -240,6 +261,7 @@ public class DaoPaciente implements IDaoPaciente{
 				paciente.setDataNascimento(result.getDate(17));
 				
 				paciente.setEndereco(end);
+				paciente.getEndereco().setId(result.getInt(18));
 			}
 			else
 				throw new DaoException("CPF Não Existe no Banco!!!");
@@ -253,28 +275,29 @@ public class DaoPaciente implements IDaoPaciente{
 		}
 		
 	}
+
 	@Override
 	public int buscarIdPorCpf(String cpf) throws DaoException {
+		
 		try {
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Paciente.SELECT_ID_POR_CPF);
 			statement.setString(1,cpf);
-			result = statement.executeQuery();
 			
+			result = statement.executeQuery();
 			int id = 0;
-			if(result.next())
+			while(result.next())
 				id = result.getInt(1);
-			else
-				throw new DaoException("CPF Não Existe no Banco!!!");
+			result.close();
 			statement.close();
 			conexao.close();
 			return id;
-			//Buscar o laudo separado pos retorna uma lista
+			
 		} catch (SQLException e) {
-			 e.printStackTrace();
-			 throw new DaoException("PROBLEMA AO CONSULTAR CURSO - Contate o ADM");
+			e.printStackTrace();
+			throw new DaoException("PROBLEMA AO CONSULTAR CURSO - Contate o ADM");
 		}
-		
-		
 	}
+	
+	
 }

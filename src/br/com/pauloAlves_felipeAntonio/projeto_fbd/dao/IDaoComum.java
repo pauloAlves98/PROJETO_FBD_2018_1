@@ -8,4 +8,5 @@ public interface IDaoComum {
 	 public void salvarEndereco(Endereco endereco) throws DaoException;
 	 public void salvarCargo(Cargo cargo) throws DaoException;
 	 public int getCurrentValorTabela(String nomeTabela) throws DaoException;
+	 public void editarEndereco(Endereco endereco,int k) throws DaoException;
 }

@@ -26,8 +26,13 @@ public class BusinessPaciente implements IBusinessPaciente {
 	}
 
 	@Override
-	public void editar(Paciente paciente) throws BusinessException {
-		// TODO Auto-generated method stub
+	public void editar(Paciente paciente,int id) throws BusinessException {
+		try {
+			daoPaciente.editar(paciente, id);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

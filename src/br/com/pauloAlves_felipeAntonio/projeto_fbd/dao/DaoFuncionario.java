@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Funcionario;
@@ -52,7 +53,7 @@ public class DaoFuncionario implements IDaoFuncionario{
 
 	@Override
 	public void editar(Funcionario funcionario) throws DaoException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -73,4 +74,117 @@ public class DaoFuncionario implements IDaoFuncionario{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Funcionario buscaPorLogin_senha(String login , String senha) throws DaoException {
+		
+		try {
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_POR_LOGIN_SENHA);
+			
+			statement.setString(1,login);
+			statement.setString(2, senha);
+			result = statement.executeQuery();
+			Funcionario func = null;
+			if(result.next()){
+				func = new Funcionario();
+				func.setId(result.getInt(1));
+				func.setNome(result.getString(2));
+				func.setCpf(result.getString(3));
+				func.setAdmim(result.getString(4));
+				func.setNome_usuario(result.getString(5));
+				func.setSenha(result.getString(6));
+			}else
+				 throw new DaoException("Login ou Senha Inválidos!!!");
+			return func;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Login ou Senha Inválidos!!!");
+		}
+		
+	}
+
+	@Override
+	public List<Funcionario> buscarInfoPorCpf(String busca) throws DaoException {
+		try {
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_INFO_POR_CPF);
+			
+			statement.setString(1,busca);
+
+			result = statement.executeQuery();
+			List<Funcionario>funcs = new ArrayList<Funcionario>();
+			Funcionario func = null;
+			while(result.next()){
+				func = new Funcionario();
+
+				func.setNome(result.getString(1));
+				func.setCpf(result.getString(2));
+				func.setTelefone(result.getString(3));
+				func.setData_acesso(result.getDate(4));
+				funcs.add(func);
+			}
+			return funcs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao Buscar Funcionarios!!");
+		}
+		
+	}
+
+	@Override
+	public List<Funcionario> buscarInfoPorNomeCpf(String cpf, String nome) throws DaoException {
+		try {
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_INFO_POR_NOME_CPF);
+			
+			statement.setString(1,cpf);
+			statement.setString(2,nome);
+			
+			result = statement.executeQuery();
+			List<Funcionario>funcs = new ArrayList<Funcionario>();
+			Funcionario func = null;
+			while(result.next()){
+				func = new Funcionario();
+				func.setNome(result.getString(1));
+				func.setCpf(result.getString(2));
+				func.setTelefone(result.getString(3));
+				func.setData_acesso(result.getDate(4));
+				funcs.add(func);
+			}
+			return funcs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao Buscar Funcionarios!!");
+		}
+	}
+
+	@Override
+	public List<Funcionario> buscarInfoPorNome( String nome) throws DaoException {
+		try {//Transformar em funcao
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_INFO_POR_NOME);
+			
+			statement.setString(1,nome);
+
+			result = statement.executeQuery();
+			List<Funcionario>funcs = new ArrayList<Funcionario>();
+			Funcionario func = null;
+			while(result.next()){
+				func = new Funcionario();
+
+				func.setNome(result.getString(1));
+				func.setCpf(result.getString(2));
+				func.setTelefone(result.getString(3));
+				func.setData_acesso(result.getDate(4));
+				funcs.add(func);
+			}
+			return funcs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao Buscar Funcionarios!!");
+		}
+	}
+
+	
 }

@@ -14,19 +14,22 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.ValidacaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.Fachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroFuncionarioDialog;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroPacienteFrame;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.FuncionarioPanel;
 
 public class ControleFuncionario {
-	CadastroFuncionarioDialog cdtFuncDialog;
-	IFachada fachada;
+	private CadastroFuncionarioDialog cdtFuncDialog;
+	private IFachada fachada;
+	private Funcionario funcionario;
+	private FuncionarioPanel funcPanel;
 	
-	public ControleFuncionario(CadastroFuncionarioDialog cdtFuncDialog) {
+	public ControleFuncionario(FuncionarioPanel funcPanel,CadastroFuncionarioDialog cdtFuncDialog) {
 		this.cdtFuncDialog = cdtFuncDialog;
 		fachada = Fachada.getInstance();
+		this.funcPanel = funcPanel;
+		
+		this.funcPanel.getFuncionarioButton().addActionListener((ActionEvent e)->cdtFuncDialog.setVisible(true));
 		this.cdtFuncDialog.getBtnSalvar().addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				
 				try {
 					Funcionario func = new Funcionario();
 					Endereco end = new Endereco();

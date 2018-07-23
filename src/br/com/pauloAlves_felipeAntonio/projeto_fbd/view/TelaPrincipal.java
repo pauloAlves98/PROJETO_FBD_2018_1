@@ -40,7 +40,6 @@ public class TelaPrincipal extends JFrame {
 	private JTextField textField_5;
 	private JTable table_1;
 	private JTable table_2;
-	private LoginFrame loginPanel;
 	private CadastrosPanel cadatrosPanel;
 	private EstoquePanel estoquePanel;
 	private FinanceiroPanel financeiroPanel;
@@ -48,6 +47,7 @@ public class TelaPrincipal extends JFrame {
 	public TelaPrincipal() {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
+
 		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.black);
 		//this.setContentPane(panel);
 		//JPanel panel = new JPanel();
@@ -124,6 +124,8 @@ public class TelaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(false);
 	
+	
+
 	}
 
 	public JButton getBtnFinanceiro() {

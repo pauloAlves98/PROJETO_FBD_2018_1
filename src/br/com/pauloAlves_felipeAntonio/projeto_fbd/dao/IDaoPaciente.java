@@ -11,7 +11,7 @@ public interface  IDaoPaciente {
     public void salvar(Paciente paciente) throws DaoException;
    // public void salvar_sem_convenio(Paciente paciente) throws DaoException;
    // public void salvar_simples(Paciente paciente) throws DaoException;
-    public void editar(Paciente paciente)throws DaoException;
+    public void editar(Paciente paciente,int id)throws DaoException;
     public Paciente buscarPorId(int id)throws DaoException;
     public Paciente buscarPorCpf(String cpf)throws DaoException;
     public int buscarIdPorCpf(String cpf)throws DaoException;

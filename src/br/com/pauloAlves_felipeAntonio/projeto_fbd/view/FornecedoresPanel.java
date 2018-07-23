@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 
 public class FornecedoresPanel extends JPanel {
-	private JTable table;
+	private JTableButton table;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton buscaButton,NovoFornecedorButton;
@@ -44,20 +44,18 @@ public class FornecedoresPanel extends JPanel {
  		buscaButton.setBackground(Color.white);
  		add(buscaButton);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
+ 		JTableButtonModel jtableButtonModel= new JTableButtonModel();
+ 		jtableButtonModel.adcionar(new Object[][] {
+		},new String[] {
 				"Nome", "CPF", "Incs. municipal","Telefone", "Cadastro"
-			}
-		));
-		table.setBounds(10, 132, 449, 201);
-		add(table);
+			});
+		table = new JTableButton(jtableButtonModel);
+		table.getScrollPane().setBounds(10, 146, 737, 200);
+		add(table.getScrollPane());
 		
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 146, 737, 200);
-		add(scrollPane);
+//		JScrollPane scrollPane = new JScrollPane(table);
+//		scrollPane.setBounds(10, 146, 737, 200);
+//		add(scrollPane);
 		
 		JLabel lblFiltro = new JLabel("Filtro");
 		lblFiltro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
@@ -83,13 +81,17 @@ public class FornecedoresPanel extends JPanel {
 	}
 
 
-	public JTable getTable() {
+	
+
+	public JTableButton getTable() {
 		return table;
 	}
 
-	public void setTable(JTable table) {
+
+	public void setTable(JTableButton table) {
 		this.table = table;
 	}
+
 
 	public JTextField getTextField() {
 		return textField;

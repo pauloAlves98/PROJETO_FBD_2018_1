@@ -28,7 +28,14 @@ public class BusinessFornecedor implements IBusinessFornecedor{
 
 	@Override
 	public void editar(Fornecedor fornecedor) throws BusinessException {
-		// TODO Auto-generated method stub
+		try {
+			this.daoFornecedor.editar(fornecedor);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+		
 		
 	}
 

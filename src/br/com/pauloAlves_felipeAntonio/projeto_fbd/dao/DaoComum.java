@@ -85,4 +85,29 @@ public class DaoComum implements IDaoComum {
 		}
 		
 	}
+	public void editarEndereco(Endereco endereco,int k) throws DaoException{
+		
+		try {
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Endereco.UPDATE_ALL_ENDERECO);
+			
+			 statement.setString(1, endereco.getCep());
+	         statement.setString(2, endereco.getEstado());
+	         statement.setString(3, endereco.getLogradouro());
+	         statement.setString(4, endereco.getComplemento());
+	         statement.setString(5, endereco.getBairro());
+	         statement.setString(6, endereco.getPais());
+	         statement.setString(7, endereco.getCidade());
+	         statement.setString(8, endereco.getRua());
+	         statement.setInt(9, endereco.getNumero());
+	         statement.setInt(10,k);
+	            
+	         statement.execute();
+	         this.conexao.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

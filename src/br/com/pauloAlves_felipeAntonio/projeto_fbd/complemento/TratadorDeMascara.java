@@ -85,7 +85,7 @@ public class TratadorDeMascara {
 		  }
 	public static void validaRg(String rg) throws ValidacaoException {
 		if(rg.length() !=9)
-			throw new ValidacaoException("CPF Inválido");
+			throw new ValidacaoException("RG Inválido");
 	}
 //	 public static Boolean ValidaCep(string cep)
 //     {

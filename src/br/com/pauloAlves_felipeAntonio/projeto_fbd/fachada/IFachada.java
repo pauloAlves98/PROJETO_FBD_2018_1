@@ -95,7 +95,11 @@ public interface IFachada {
 	public void editarFuncionario(Funcionario funcionario ) throws BusinessException;
 	public Funcionario buscarPorIdFuncionario(int id)  throws BusinessException;
 	public  Funcionario buscaPorCpfFuncionario(String cpf) throws BusinessException;
+	public Funcionario buscaPorLogin_senhaFuncionario(String login, String senha) throws BusinessException;
 	public List<Funcionario > buscarPorBuscaFuncionario(String busca)throws BusinessException;
+	public List <Funcionario > buscarInfoFuncionarioPorCpfFuncionario(String busca) throws BusinessException;
+	public List <Funcionario > buscarInfoPorNomeCpfFuncionario(String cpf,String nome) throws  BusinessException;
+	public List <Funcionario > buscarInfoPorNomeFuncionario(String nome)  throws BusinessException;
 	
 	public void salvarLaudo(Laudo laudo ) throws BusinessException;
 	public void editarLaudo(Laudo laudo) throws BusinessException;
@@ -130,7 +134,7 @@ public interface IFachada {
 	public void salvarPaciente(Paciente paciente) throws BusinessException;
 	   // public void salvar_sem_convenio(Paciente paciente) throws DaoException;
 	   // public void salvar_simples(Paciente paciente) throws DaoException;
-	public void editarPaciente(Paciente paciente)throws BusinessException;
+	public void editarPaciente(Paciente paciente,int id)throws BusinessException;
 	public Paciente buscarPorIdPaciente(int id)throws BusinessException;
 	public Paciente buscarPorCpfPaciente(String cpf)throws BusinessException;
 	public int buscarIdPorCpfPaciente(String cpf) throws BusinessException;

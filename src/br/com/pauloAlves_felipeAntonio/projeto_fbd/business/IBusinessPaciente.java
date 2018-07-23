@@ -10,7 +10,7 @@ public interface IBusinessPaciente {
 	public void salvar(Paciente paciente) throws BusinessException;
 	   // public void salvar_sem_convenio(Paciente paciente) throws DaoException;
 	   // public void salvar_simples(Paciente paciente) throws DaoException;
-	    public void editar(Paciente paciente)throws BusinessException;
+	    public void editar(Paciente paciente,int id)throws BusinessException;
 	    public Paciente buscarPorId(int id)throws BusinessException;
 	    public Paciente buscarPorCpf(String cpf)throws BusinessException;
 	    public int buscarIdPorCpf(String cpf) throws BusinessException;

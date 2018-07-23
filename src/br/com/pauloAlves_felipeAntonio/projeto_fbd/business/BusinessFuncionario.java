@@ -21,15 +21,18 @@ public class BusinessFuncionario implements IBusinessFuncionario{
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new BusinessException("Erro no Business Funcionario!!!"+e.getMessage());
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
 		}
 		
 	}
 
 	@Override
 	public void editar(Funcionario funcionario) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		try {
+			daoFuncionario.editar(funcionario);
+		} catch (DaoException e) {
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}	
 	}
 
 	@Override
@@ -40,14 +43,63 @@ public class BusinessFuncionario implements IBusinessFuncionario{
 
 	@Override
 	public Funcionario buscaPorCpf(String cpf) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoFuncionario.buscaPorCpf(cpf);
+		} catch (DaoException e) {
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+		
 	}
 
 	@Override
 	public List<Funcionario> buscarPorBusca(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoFuncionario.buscarPorBusca(busca);
+		} catch (DaoException e) {
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public Funcionario buscaPorLogin_senha(String login, String senha) throws BusinessException {
+		try {
+			return this.daoFuncionario.buscaPorLogin_senha(login,senha);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Funcionario> buscarInfoCpf(String busca) throws BusinessException {
+		try {
+			return daoFuncionario.buscarInfoPorCpf(busca);
+		} catch (DaoException e) {
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public List<Funcionario> buscarInfoPorNomeCpf(String cpf, String nome) throws BusinessException {
+		try {
+			return daoFuncionario.buscarInfoPorNomeCpf(cpf, nome);
+		} catch (DaoException e) {
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public List<Funcionario> buscarInfoPorNome(String nome) throws BusinessException {
+		try {
+			return daoFuncionario.buscarInfoPorNome(nome);
+		} catch (DaoException e) {
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+		
 	}
 
 }

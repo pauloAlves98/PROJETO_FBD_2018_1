@@ -7,33 +7,29 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 
-public class PacientesPanel extends JPanel{
-	private JTextField filtroField,descricaoField,textField_2;
+public class FuncionarioPanel extends JPanel{
+	private JTextField filtroField,cpfPesqField,terceiroField;
 	private JTableButton table;
-	private JButton pacienteButton,buscaButton ;
-	public PacientesPanel() {
-    	//setBounds(141, 0, 657, 493);
+	private JButton funcionarioButton,buscaButton ;
+	public FuncionarioPanel() {
+    	setBounds(0, 0, 657, 493);
  		setLayout(null); 
- 		
- 		JLabel lblCadastroDePacientes = new JLabel("Cadastro de Pacientes");
+ 		JLabel lblCadastroDePacientes = new JLabel("Cadastro de Funcionário");
  		lblCadastroDePacientes.setFont(new Font("Franklin Gothic Book", Font.BOLD, 23));
  		lblCadastroDePacientes.setBounds(3, 11, 365, 27);
  		add(lblCadastroDePacientes);
  		
- 		pacienteButton = new JButton("Novo Paciente");
- 		pacienteButton.setFont(Propiedade.FONT2);
- 		pacienteButton.setBackground(Color.WHITE);
- 		pacienteButton.setBounds(3, 39, 208, 43);
- 		pacienteButton.setBorder(null);
- 		pacienteButton.setFocusPainted(false);
- 		add(pacienteButton);
+ 		funcionarioButton = new JButton("Novo Funcionário");
+ 		funcionarioButton.setFont(Propiedade.FONT2);
+ 		funcionarioButton.setBackground(Color.WHITE);
+ 		funcionarioButton.setBounds(3, 39, 208, 43);
+ 		funcionarioButton.setBorder(null);
+ 		funcionarioButton.setFocusPainted(false);
+ 		add(funcionarioButton);
  		
  		JLabel lblFiltro = new JLabel("Filtro");
  		lblFiltro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
@@ -46,15 +42,15 @@ public class PacientesPanel extends JPanel{
  		setBackground(Color.WHITE);
  		filtroField.setColumns(10);
  		
- 		descricaoField = new JTextField();
- 		descricaoField.setBounds(221, 95, 176, 32);
- 		add(descricaoField);
- 		descricaoField.setColumns(10);
+ 		cpfPesqField = new JTextField();
+ 		cpfPesqField.setBounds(221, 95, 176, 32);
+ 		add(cpfPesqField);
+ 		cpfPesqField.setColumns(10);
  		
- 		textField_2 = new JTextField();
- 		textField_2.setBounds(407, 95, 176, 32);
- 		add(textField_2);
- 		textField_2.setColumns(10);
+ 		terceiroField = new JTextField();
+ 		terceiroField.setBounds(407, 95, 176, 32);
+ 		add(terceiroField);
+ 		terceiroField.setColumns(10);
  		
  		buscaButton = new JButton(new ImageIcon("Res/pesquisa.png"));
  		
@@ -87,36 +83,29 @@ public class PacientesPanel extends JPanel{
 	public void setFiltroField(JTextField filtroField) {
 		this.filtroField = filtroField;
 	}
-	public JTextField getDescricaoField() {
-		return descricaoField;
+	public JTextField getCpfPesqField() {
+		return cpfPesqField;
 	}
-	public void setDescricaoField(JTextField descricaoField) {
-		this.descricaoField = descricaoField;
+	public void setCpfPesqField(JTextField cpfPesqField) {
+		this.cpfPesqField = cpfPesqField;
 	}
-	public JTextField getTextField_2() {
-		return textField_2;
+	public JTextField getTerceiroField() {
+		return terceiroField;
 	}
-	public void setTextField_2(JTextField textField_2) {
-		this.textField_2 = textField_2;
+	public void setTerceiroField(JTextField terceiroField) {
+		this.terceiroField = terceiroField;
 	}
-	
 	public JTableButton getTable() {
 		return table;
 	}
 	public void setTable(JTableButton table) {
 		this.table = table;
 	}
-	public JButton getBtnNewButton_3() {
-		return pacienteButton;
+	public JButton getFuncionarioButton() {
+		return funcionarioButton;
 	}
-	public void setBtnNewButton_3(JButton btnNewButton_3) {
-		this.pacienteButton = btnNewButton_3;
-	}
-	public JButton getPacienteButton() {
-		return pacienteButton;
-	}
-	public void setPacienteButton(JButton pacienteButton) {
-		this.pacienteButton = pacienteButton;
+	public void setFuncionarioButton(JButton pacienteButton) {
+		this.funcionarioButton = pacienteButton;
 	}
 	public JButton getBuscaButton() {
 		return buscaButton;
@@ -124,6 +113,5 @@ public class PacientesPanel extends JPanel{
 	public void setBuscaButton(JButton buscaButton) {
 		this.buscaButton = buscaButton;
 	}
-	
 	
 }

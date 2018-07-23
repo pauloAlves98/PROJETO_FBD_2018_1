@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Endereco;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Fornecedor;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLConnection;
@@ -44,8 +45,27 @@ public class DaoFornecedor implements IDaoFornecedor {
 
 	@Override
 	public void editar(Fornecedor fornecedor) throws DaoException {
-		// TODO Auto-generated method stub
 		
+		try {
+			comunDao.editarEndereco(fornecedor.getEndereco(),fornecedor.getEndereco().getId());
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Fornecedor.UPDATE_ALL);
+			statement.setInt(1,fornecedor.getIncs_municipal());
+			statement.setString(2,fornecedor.getCnpj());
+			statement.setInt(3,fornecedor.getInsc_estadual());
+			statement.setString(4,fornecedor.getNome());
+			statement.setString(5,fornecedor.getTelefone());
+			statement.setInt(6,fornecedor.getId());
+			 
+			statement.execute();
+			statement.close();
+			conexao.close();
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+			throw new DaoException("Erro ao atualizar Fornecedor");
+		}
 	}
 
 	@Override
@@ -89,13 +109,26 @@ public class DaoFornecedor implements IDaoFornecedor {
 				
 				while(result.next()){
 					Fornecedor f = new Fornecedor();
+					f.setEndereco(new Endereco());
 					
 					f.setNome(result.getString(1));
 					f.setCnpj(result.getString(2));
 					f.setIncs_municipal(result.getInt(3));
 					f.setTelefone(result.getString(4));
-					
+					f.getEndereco().setId(result.getInt(5));
+					f.setId(result.getInt(6));
+					f.getEndereco().setCep(result.getString(7));
+					f.getEndereco().setEstado(result.getString(8));
+					f.getEndereco().setLogradouro(result.getString(9));
+					f.getEndereco().setComplemento(result.getString(10));
+					f.getEndereco().setBairro(result.getString(11));
+					f.getEndereco().setPais(result.getString(12));
+					f.getEndereco().setCidade(result.getString(13));
+					f.getEndereco().setRua(result.getString(14));
+					f.getEndereco().setNumero(result.getInt(15));
+					f.setInsc_estadual(result.getInt(16));
 					fornecedores.add(f);
+					
 				}
 				statement.close();
 				conexao.close();
