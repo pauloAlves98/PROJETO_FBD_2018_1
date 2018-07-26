@@ -1,6 +1,8 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -21,57 +23,56 @@ public class CadastrosPanel extends JPanel{
 	
 	private  JButton funcionarioButton;
 	public CadastrosPanel() {
-		setLayout(null);
+		setLayout(new BorderLayout());
 		
 		menuCadastro = new PaneGradiente(Propiedade.cor1,Color.black);
 		menuCadastro.setBackground(Color.BLUE);
 		menuCadastro.setBounds(0, 0, 1000, 99);
+		menuCadastro.setPreferredSize(new Dimension(1000,99));
+		add(menuCadastro,BorderLayout.NORTH);
 		menuCadastro.setLayout(null);
-		add(menuCadastro);
 		
-		pacienteButton = new JButton("Pacientes");
-		pacienteButton.setFont( Propiedade.FONT2);
-		pacienteButton.setHorizontalAlignment(SwingConstants.CENTER);
-		pacienteButton.setBackground(Color.WHITE);
-		pacienteButton.setBounds(297, 53, 154, 33);
-		pacienteButton.setBorder(null);
-		pacienteButton.setFocusPainted(false);
+		JLabel lblCadastros = new JLabel("Cadastros");
+		lblCadastros.setBounds(10, 0, 201, 59);
+		lblCadastros.setForeground(Color.WHITE);
+		lblCadastros.setBackground(new Color(255, 255, 255));
+		lblCadastros.setFont(new Font("Franklin Gothic Book", Font.BOLD, 24));
+		menuCadastro.add(lblCadastros);
 		
-		menuCadastro.add(pacienteButton);
-		funcionarioButton = new JButton("Funcionarios");
-		funcionarioButton .setFont( Propiedade.FONT2);
-		funcionarioButton .setHorizontalAlignment(SwingConstants.CENTER);
-		funcionarioButton .setBackground(Color.WHITE);
-		funcionarioButton .setBounds(454, 53, 154, 33);
-		funcionarioButton.setBorder(null);
-		funcionarioButton .setFocusPainted(false);
-		menuCadastro.add(funcionarioButton);
+		fornecedorButton = new JButton("  Fornecedores");
+		fornecedorButton.setBounds(10, 55, 132, 33);
+		fornecedorButton.setFont(Propiedade.FONT2);
+		fornecedorButton.setHorizontalAlignment(SwingConstants.LEFT);
+		fornecedorButton.setBackground(Color.WHITE);
+		fornecedorButton.setBorder(null);
+		fornecedorButton.setFocusPainted(false);
+		menuCadastro.add(fornecedorButton);
 		
 		servicoButton = new JButton("  Serviços");
+		servicoButton.setBounds(147, 55, 125, 33);
 		servicoButton.setFont(Propiedade.FONT2);
 		servicoButton.setHorizontalAlignment(SwingConstants.LEFT);
 		servicoButton.setBackground(Color.WHITE);
-		servicoButton.setBounds(157, 53, 130, 33);
 		servicoButton.setBorder(null);
 		servicoButton.setFocusPainted(false);
 		menuCadastro.add(servicoButton);
 		
-		fornecedorButton = new JButton("  Fornecedores");
-		fornecedorButton.setFont(Propiedade.FONT2);
-		fornecedorButton.setHorizontalAlignment(SwingConstants.LEFT);
-		fornecedorButton.setBackground(Color.WHITE);
-		fornecedorButton.setBounds(10, 53, 137, 33);
-		fornecedorButton.setBorder(null);
-		fornecedorButton.setFocusPainted(false);
-		
-		menuCadastro.add(fornecedorButton);
-		
-		JLabel lblCadastros = new JLabel("Cadastros");
-		lblCadastros.setForeground(Color.WHITE);
-		lblCadastros.setBackground(new Color(255, 255, 255));
-		lblCadastros.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblCadastros.setBounds(10, 11, 201, 31);
-		menuCadastro.add(lblCadastros);
+		pacienteButton = new JButton("Pacientes");
+		pacienteButton.setBounds(278, 55, 145, 33);
+		pacienteButton.setFont( Propiedade.FONT2);
+		pacienteButton.setHorizontalAlignment(SwingConstants.CENTER);
+		pacienteButton.setBackground(Color.WHITE);
+		pacienteButton.setBorder(null);
+		pacienteButton.setFocusPainted(false);
+		menuCadastro.add(pacienteButton);
+		funcionarioButton = new JButton("Funcionarios");
+		funcionarioButton.setBounds(429, 55, 154, 33);
+		funcionarioButton .setFont( Propiedade.FONT2);
+		funcionarioButton .setHorizontalAlignment(SwingConstants.CENTER);
+		funcionarioButton .setBackground(Color.WHITE);
+		funcionarioButton.setBorder(null);
+		funcionarioButton .setFocusPainted(false);
+		menuCadastro.add(funcionarioButton);
 		
 		telaPacientes = new PacientesPanel();
 		telaPacientes.getBtnNewButton_3().setLocation(10, 41);

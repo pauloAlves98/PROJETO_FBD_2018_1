@@ -13,6 +13,9 @@ import javax.swing.JTextField;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class CadastroFuncionarioDialog extends JDialog {
 	private JTextField codField;
@@ -30,245 +33,524 @@ public class CadastroFuncionarioDialog extends JDialog {
 	private JTextArea descricaoArea;
 	public CadastroFuncionarioDialog() {
 		setBackground(Color.CYAN);
-		getContentPane().setLayout(null);
 		setSize(660,558);
-		
-		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.BLACK);
-		panel.setBackground(Propiedade.cor1);
-		panel.setBounds(0, 0, 644, 81);
-		getContentPane().add(panel);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{90, 26, 152, 46, 73, 25, 16, 35, 13, 147, 0};
+		gridBagLayout.rowHeights = new int[]{81, 16, 32, 20, 32, 14, 32, 2, 1, 14, 32, 14, 32, 37, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
+				
+				PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.BLACK);
+				panel.setBackground(Propiedade.cor1);
+				GridBagConstraints gbc_panel = new GridBagConstraints();
+				gbc_panel.fill = GridBagConstraints.BOTH;
+				gbc_panel.insets = new Insets(0, 0, 5, 0);
+				gbc_panel.gridwidth = 10;
+				gbc_panel.gridx = 0;
+				gbc_panel.gridy = 0;
+				getContentPane().add(panel, gbc_panel);
 				panel.setLayout(null);
+				
+						JLabel lblCadastroDePacientes = new JLabel("Cadastro de Funcionario");
+						lblCadastroDePacientes.setForeground(Color.WHITE);
+						lblCadastroDePacientes.setBounds(10, 11, 446, 70);
+						panel.add(lblCadastroDePacientes);
+						lblCadastroDePacientes.setBackground(Color.WHITE);
+						lblCadastroDePacientes.setFont(new Font("Franklin Gothic Book", Font.BOLD, 28));
+						JLabel lblProntuario = new JLabel("Cod");
+						lblProntuario.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+						GridBagConstraints gbc_lblProntuario = new GridBagConstraints();
+						gbc_lblProntuario.weightx = 1.0;
+						gbc_lblProntuario.fill = GridBagConstraints.BOTH;
+						gbc_lblProntuario.insets = new Insets(0, 0, 5, 5);
+						gbc_lblProntuario.gridx = 0;
+						gbc_lblProntuario.gridy = 1;
+						getContentPane().add(lblProntuario, gbc_lblProntuario);
+				
+						JLabel lblNome = new JLabel("Nome");
+						lblNome.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+						GridBagConstraints gbc_lblNome = new GridBagConstraints();
+						gbc_lblNome.weightx = 1.0;
+						gbc_lblNome.anchor = GridBagConstraints.WEST;
+						gbc_lblNome.insets = new Insets(0, 0, 5, 5);
+						gbc_lblNome.gridwidth = 2;
+						gbc_lblNome.gridx = 1;
+						gbc_lblNome.gridy = 1;
+						getContentPane().add(lblNome, gbc_lblNome);
+				
+				JLabel lblCpf = new JLabel("CPF");
+				lblCpf.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				GridBagConstraints gbc_lblCpf = new GridBagConstraints();
+				gbc_lblCpf.weightx = 1.0;
+				gbc_lblCpf.anchor = GridBagConstraints.NORTHWEST;
+				gbc_lblCpf.insets = new Insets(0, 0, 5, 5);
+				gbc_lblCpf.gridx = 4;
+				gbc_lblCpf.gridy = 1;
+				getContentPane().add(lblCpf, gbc_lblCpf);
+				
+				JLabel lblRg = new JLabel("RG");
+				lblRg.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				GridBagConstraints gbc_lblRg = new GridBagConstraints();
+				gbc_lblRg.weightx = 1.0;
+				gbc_lblRg.anchor = GridBagConstraints.NORTH;
+				gbc_lblRg.fill = GridBagConstraints.HORIZONTAL;
+				gbc_lblRg.insets = new Insets(0, 0, 5, 5);
+				gbc_lblRg.gridwidth = 2;
+				gbc_lblRg.gridx = 7;
+				gbc_lblRg.gridy = 1;
+				getContentPane().add(lblRg, gbc_lblRg);
 		
-				JLabel lblCadastroDePacientes = new JLabel("Cadastro de Funcionario");
-				lblCadastroDePacientes.setForeground(Color.WHITE);
-				lblCadastroDePacientes.setBounds(10, 11, 446, 70);
-				panel.add(lblCadastroDePacientes);
-				lblCadastroDePacientes.setBackground(Color.WHITE);
-				lblCadastroDePacientes.setFont(new Font("Franklin Gothic Book", Font.BOLD, 28));
-		JLabel lblProntuario = new JLabel("Cod");
-		lblProntuario.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblProntuario.setBounds(10, 92, 72, 16);
-		getContentPane().add(lblProntuario);
-
-		JLabel lblNome = new JLabel("Nome");
-		lblNome.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblNome.setBounds(116, 93, 94, 14);
-		getContentPane().add(lblNome);
-
-		codField = new JTextField();
-		codField.setBackground(new Color(255, 255, 255));
-		codField.setEditable(false);
-		codField.setBounds(10, 109, 80, 32);
-		getContentPane().add(codField);
-		codField.setColumns(10);
+				codField = new JTextField();
+				codField.setBackground(new Color(255, 255, 255));
+				codField.setEditable(false);
+				GridBagConstraints gbc_codField = new GridBagConstraints();
+				gbc_codField.weighty = 1.0;
+				gbc_codField.weightx = 1.0;
+				gbc_codField.anchor = GridBagConstraints.EAST;
+				gbc_codField.fill = GridBagConstraints.BOTH;
+				gbc_codField.insets = new Insets(0, 0, 5, 5);
+				gbc_codField.gridx = 0;
+				gbc_codField.gridy = 2;
+				getContentPane().add(codField, gbc_codField);
+				codField.setColumns(10);
 		
 		nomeField = new JTextField();
-		nomeField.setBounds(116, 109, 226, 32);
-		getContentPane().add(nomeField);
+		GridBagConstraints gbc_nomeField = new GridBagConstraints();
+		gbc_nomeField.weighty = 1.0;
+		gbc_nomeField.weightx = 1.0;
+		gbc_nomeField.fill = GridBagConstraints.BOTH;
+		gbc_nomeField.insets = new Insets(0, 0, 5, 5);
+		gbc_nomeField.gridwidth = 3;
+		gbc_nomeField.gridx = 1;
+		gbc_nomeField.gridy = 2;
+		getContentPane().add(nomeField, gbc_nomeField);
 		nomeField.setColumns(10);
 		
-		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblCpf.setBounds(351, 92, 46, 14);
-		getContentPane().add(lblCpf);
-		
 		cpfField = new  JFormattedTextField();
-		cpfField.setBounds(352, 109, 132, 32);
-		this.mascaraCPF();
-		getContentPane().add(cpfField);
+		GridBagConstraints gbc_cpfField = new GridBagConstraints();
+		gbc_cpfField.weighty = 1.0;
+		gbc_cpfField.weightx = 1.0;
+		gbc_cpfField.fill = GridBagConstraints.BOTH;
+		gbc_cpfField.insets = new Insets(0, 0, 5, 5);
+		gbc_cpfField.gridwidth = 3;
+		gbc_cpfField.gridx = 4;
+		gbc_cpfField.gridy = 2;
+		getContentPane().add(cpfField, gbc_cpfField);
 		cpfField.setColumns(10);
 		
-		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblSenha.setBounds(306, 157, 72, 14);
-		getContentPane().add(lblSenha);
-		
-		senhaField = new JTextField();
-		senhaField.setBounds(307, 182, 152, 32);
-		getContentPane().add(senhaField);
-		senhaField.setColumns(10);
-		
-		JLabel lblAdm = new JLabel("Adm");
-		lblAdm.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblAdm.setBounds(468, 158, 46, 14);
-		getContentPane().add(lblAdm);
-		
-		admBox = new JComboBox();
-		admBox.setBounds(468, 182, 72, 32);
-		admBox.addItem("Não");
-		admBox.addItem("Sim");
-		getContentPane().add(admBox);
-		
-		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblLogin.setBounds(147, 157, 46, 14);
-		getContentPane().add(lblLogin);
-		
-		loginField = new JTextField();
-		loginField.setBounds(145, 182, 152, 32);
-		getContentPane().add(loginField);
-		loginField.setColumns(10);
-		
-		JLabel lblDataNascimento = new JLabel("Data nascimento");
-		lblDataNascimento.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblDataNascimento.setBounds(550, 158, 147, 14);
-		getContentPane().add(lblDataNascimento);
-		
-		nascField = new JFormattedTextField ();
-		nascField.setBounds(550, 182, 94, 32);
-		this.mascaraData();
-		getContentPane().add(nascField);
-		nascField.setColumns(10);
-		
-		JLabel lblRg = new JLabel("RG");
-		lblRg.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblRg.setBounds(489, 92, 46, 14);
-		getContentPane().add(lblRg);
-		
 		rgField = new JTextField();
-		rgField.setBounds(486, 109, 158, 32);
-		getContentPane().add(rgField);
+		GridBagConstraints gbc_rgField = new GridBagConstraints();
+		gbc_rgField.weighty = 1.0;
+		gbc_rgField.weightx = 1.0;
+		gbc_rgField.fill = GridBagConstraints.BOTH;
+		gbc_rgField.insets = new Insets(0, 0, 5, 0);
+		gbc_rgField.gridwidth = 3;
+		gbc_rgField.gridx = 7;
+		gbc_rgField.gridy = 2;
+		getContentPane().add(rgField, gbc_rgField);
 		rgField.setColumns(10);
 		
 		JLabel lblTelefone = new JLabel("Telefone");
 		lblTelefone.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblTelefone.setBounds(10, 152, 72, 31);
-		getContentPane().add(lblTelefone);
+		GridBagConstraints gbc_lblTelefone = new GridBagConstraints();
+		gbc_lblTelefone.weightx = 1.0;
+		gbc_lblTelefone.anchor = GridBagConstraints.NORTH;
+		gbc_lblTelefone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblTelefone.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTelefone.gridheight = 2;
+		gbc_lblTelefone.gridx = 0;
+		gbc_lblTelefone.gridy = 3;
+		getContentPane().add(lblTelefone, gbc_lblTelefone);
+		
+		JLabel lblLogin = new JLabel("Login");
+		lblLogin.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		GridBagConstraints gbc_lblLogin = new GridBagConstraints();
+		gbc_lblLogin.weightx = 1.0;
+		gbc_lblLogin.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblLogin.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLogin.gridx = 2;
+		gbc_lblLogin.gridy = 3;
+		getContentPane().add(lblLogin, gbc_lblLogin);
+		
+		JLabel lblSenha = new JLabel("Senha");
+		lblSenha.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
+		gbc_lblSenha.weightx = 1.0;
+		gbc_lblSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblSenha.anchor = GridBagConstraints.SOUTH;
+		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSenha.gridwidth = 2;
+		gbc_lblSenha.gridx = 3;
+		gbc_lblSenha.gridy = 3;
+		getContentPane().add(lblSenha, gbc_lblSenha);
+		
+		JLabel lblAdm = new JLabel("Adm");
+		lblAdm.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		GridBagConstraints gbc_lblAdm = new GridBagConstraints();
+		gbc_lblAdm.anchor = GridBagConstraints.SOUTH;
+		gbc_lblAdm.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblAdm.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAdm.gridwidth = 2;
+		gbc_lblAdm.gridx = 6;
+		gbc_lblAdm.gridy = 3;
+		getContentPane().add(lblAdm, gbc_lblAdm);
+		
+		JLabel lblDataNascimento = new JLabel("Data nascimento");
+		lblDataNascimento.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		GridBagConstraints gbc_lblDataNascimento = new GridBagConstraints();
+		gbc_lblDataNascimento.weightx = 1.0;
+		gbc_lblDataNascimento.anchor = GridBagConstraints.SOUTH;
+		gbc_lblDataNascimento.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblDataNascimento.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDataNascimento.gridx = 9;
+		gbc_lblDataNascimento.gridy = 3;
+		getContentPane().add(lblDataNascimento, gbc_lblDataNascimento);
 		
 		telField = new JFormattedTextField ();
-		telField.setBounds(10, 182, 126, 32);
-		this.mascaraTelefone();
-		getContentPane().add(telField);
+		GridBagConstraints gbc_telField = new GridBagConstraints();
+		gbc_telField.weightx = 1.0;
+		gbc_telField.weighty = 1.0;
+		gbc_telField.fill = GridBagConstraints.BOTH;
+		gbc_telField.insets = new Insets(0, 0, 5, 5);
+		gbc_telField.gridwidth = 2;
+		gbc_telField.gridx = 0;
+		gbc_telField.gridy = 4;
+		getContentPane().add(telField, gbc_telField);
 		telField.setColumns(10);
 		
-		JLabel lblEndereco = new JLabel("Endere\u00E7o");
-		lblEndereco.setFont(new Font("Berlin Sans FB", Font.PLAIN, 18));
-		lblEndereco.setBounds(10, 290, 153, 26);
-		getContentPane().add(lblEndereco);
-
-		JLabel lblCep = new JLabel("CEP");
-		lblCep.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblCep.setBounds(10, 317, 46, 14);
-		getContentPane().add(lblCep);
-
-		cepField = new JFormattedTextField ();
+		loginField = new JTextField();
+		GridBagConstraints gbc_loginField = new GridBagConstraints();
+		gbc_loginField.weighty = 1.0;
+		gbc_loginField.weightx = 1.0;
+		gbc_loginField.fill = GridBagConstraints.BOTH;
+		gbc_loginField.insets = new Insets(0, 0, 5, 5);
+		gbc_loginField.gridx = 2;
+		gbc_loginField.gridy = 4;
+		getContentPane().add(loginField, gbc_loginField);
+		loginField.setColumns(10);
+		
+		senhaField = new JTextField();
+		GridBagConstraints gbc_senhaField = new GridBagConstraints();
+		gbc_senhaField.weighty = 1.0;
+		gbc_senhaField.weightx = 1.0;
+		gbc_senhaField.fill = GridBagConstraints.BOTH;
+		gbc_senhaField.insets = new Insets(0, 0, 5, 5);
+		gbc_senhaField.gridwidth = 3;
+		gbc_senhaField.gridx = 3;
+		gbc_senhaField.gridy = 4;
+		getContentPane().add(senhaField, gbc_senhaField);
+		senhaField.setColumns(10);
+				
+				admBox = new JComboBox();
+				admBox.addItem("Não");
+				admBox.addItem("Sim");
+				GridBagConstraints gbc_admBox = new GridBagConstraints();
+				gbc_admBox.weighty = 1.0;
+				gbc_admBox.weightx = 1.0;
+				gbc_admBox.fill = GridBagConstraints.BOTH;
+				gbc_admBox.insets = new Insets(0, 0, 5, 5);
+				gbc_admBox.gridwidth = 3;
+				gbc_admBox.gridx = 6;
+				gbc_admBox.gridy = 4;
+				getContentPane().add(admBox, gbc_admBox);
+				
+				nascField = new JFormattedTextField ();
+				GridBagConstraints gbc_nascField = new GridBagConstraints();
+				gbc_nascField.weighty = 1.0;
+				gbc_nascField.weightx = 1.0;
+				gbc_nascField.anchor = GridBagConstraints.WEST;
+				gbc_nascField.fill = GridBagConstraints.BOTH;
+				gbc_nascField.insets = new Insets(0, 0, 5, 0);
+				gbc_nascField.gridx = 9;
+				gbc_nascField.gridy = 4;
+				getContentPane().add(nascField, gbc_nascField);
+				nascField.setColumns(10);
+				
+				JLabel lblCargo = new JLabel("Cargo");
+				lblCargo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				GridBagConstraints gbc_lblCargo = new GridBagConstraints();
+				gbc_lblCargo.weightx = 1.0;
+				gbc_lblCargo.weighty = 1.0;
+				gbc_lblCargo.fill = GridBagConstraints.HORIZONTAL;
+				gbc_lblCargo.insets = new Insets(0, 0, 5, 5);
+				gbc_lblCargo.gridx = 0;
+				gbc_lblCargo.gridy = 5;
+				getContentPane().add(lblCargo, gbc_lblCargo);
+				
+				JLabel lblDecrioDoCargo = new JLabel("Decri\u00E7\u00E3o do Cargo");
+				lblDecrioDoCargo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				GridBagConstraints gbc_lblDecrioDoCargo = new GridBagConstraints();
+				gbc_lblDecrioDoCargo.weightx = 1.0;
+				gbc_lblDecrioDoCargo.fill = GridBagConstraints.HORIZONTAL;
+				gbc_lblDecrioDoCargo.insets = new Insets(0, 0, 5, 5);
+				gbc_lblDecrioDoCargo.gridx = 2;
+				gbc_lblDecrioDoCargo.gridy = 5;
+				getContentPane().add(lblDecrioDoCargo, gbc_lblDecrioDoCargo);
+				
+				cargoField = new JTextField();
+				GridBagConstraints gbc_cargoField = new GridBagConstraints();
+				gbc_cargoField.weighty = 1.0;
+				gbc_cargoField.weightx = 1.0;
+				gbc_cargoField.fill = GridBagConstraints.BOTH;
+				gbc_cargoField.insets = new Insets(0, 0, 5, 5);
+				gbc_cargoField.gridwidth = 2;
+				gbc_cargoField.gridx = 0;
+				gbc_cargoField.gridy = 6;
+				getContentPane().add(cargoField, gbc_cargoField);
+				cargoField.setColumns(10);
+				
+				JScrollPane scrollPane = new JScrollPane();
+				GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+				gbc_scrollPane.weighty = 1.0;
+				gbc_scrollPane.weightx = 1.0;
+				gbc_scrollPane.anchor = GridBagConstraints.WEST;
+				gbc_scrollPane.fill = GridBagConstraints.BOTH;
+				gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+				gbc_scrollPane.gridheight = 2;
+				gbc_scrollPane.gridwidth = 8;
+				gbc_scrollPane.gridx = 2;
+				gbc_scrollPane.gridy = 6;
+				getContentPane().add(scrollPane, gbc_scrollPane);
+				
+				descricaoArea = new JTextArea();
+				descricaoArea.setWrapStyleWord(true);
+				descricaoArea.setLineWrap(true);
+				descricaoArea.setFont(new Font("Arial", Font.PLAIN, 14));
+				scrollPane.setViewportView(descricaoArea);
+				
+				JLabel lblEndereco = new JLabel("Endere\u00E7o");
+				lblEndereco.setFont(new Font("Berlin Sans FB", Font.PLAIN, 18));
+				GridBagConstraints gbc_lblEndereco = new GridBagConstraints();
+				gbc_lblEndereco.weightx = 1.0;
+				gbc_lblEndereco.anchor = GridBagConstraints.WEST;
+				gbc_lblEndereco.fill = GridBagConstraints.HORIZONTAL;
+				gbc_lblEndereco.insets = new Insets(0, 0, 5, 5);
+				gbc_lblEndereco.gridheight = 2;
+				gbc_lblEndereco.gridwidth = 3;
+				gbc_lblEndereco.gridx = 0;
+				gbc_lblEndereco.gridy = 7;
+				getContentPane().add(lblEndereco, gbc_lblEndereco);
+		
+				JLabel lblCep = new JLabel("CEP");
+				lblCep.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				GridBagConstraints gbc_lblCep = new GridBagConstraints();
+				gbc_lblCep.fill = GridBagConstraints.HORIZONTAL;
+				gbc_lblCep.weightx = 1.0;
+				gbc_lblCep.insets = new Insets(0, 0, 5, 5);
+				gbc_lblCep.gridx = 0;
+				gbc_lblCep.gridy = 9;
+				getContentPane().add(lblCep, gbc_lblCep);
+				
+						JLabel lblComplemento = new JLabel("Complemento");
+						lblComplemento.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+						GridBagConstraints gbc_lblComplemento = new GridBagConstraints();
+						gbc_lblComplemento.weightx = 1.0;
+						gbc_lblComplemento.anchor = GridBagConstraints.NORTH;
+						gbc_lblComplemento.fill = GridBagConstraints.HORIZONTAL;
+						gbc_lblComplemento.insets = new Insets(0, 0, 5, 5);
+						gbc_lblComplemento.gridx = 2;
+						gbc_lblComplemento.gridy = 9;
+						getContentPane().add(lblComplemento, gbc_lblComplemento);
+		
+				JLabel lblBairro = new JLabel("Bairro");
+				lblBairro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				GridBagConstraints gbc_lblBairro = new GridBagConstraints();
+				gbc_lblBairro.weightx = 1.0;
+				gbc_lblBairro.weighty = 1.0;
+				gbc_lblBairro.anchor = GridBagConstraints.WEST;
+				gbc_lblBairro.insets = new Insets(0, 0, 5, 5);
+				gbc_lblBairro.gridx = 4;
+				gbc_lblBairro.gridy = 9;
+				getContentPane().add(lblBairro, gbc_lblBairro);
+												
+														JLabel lblLogradouro = new JLabel("Logradouro");
+														lblLogradouro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+														GridBagConstraints gbc_lblLogradouro = new GridBagConstraints();
+														gbc_lblLogradouro.anchor = GridBagConstraints.WEST;
+														gbc_lblLogradouro.insets = new Insets(0, 0, 5, 0);
+														gbc_lblLogradouro.gridwidth = 2;
+														gbc_lblLogradouro.gridx = 8;
+														gbc_lblLogradouro.gridy = 9;
+														getContentPane().add(lblLogradouro, gbc_lblLogradouro);
+										
+												cepField = new JFormattedTextField ();
+												GridBagConstraints gbc_cepField = new GridBagConstraints();
+												gbc_cepField.weighty = 1.0;
+												gbc_cepField.weightx = 1.0;
+												gbc_cepField.fill = GridBagConstraints.BOTH;
+												gbc_cepField.insets = new Insets(0, 0, 5, 5);
+												gbc_cepField.gridwidth = 2;
+												gbc_cepField.gridx = 0;
+												gbc_cepField.gridy = 10;
+												getContentPane().add(cepField, gbc_cepField);
+												cepField.setColumns(10);
+								
+										complementoField = new JTextField();
+										GridBagConstraints gbc_complementoField = new GridBagConstraints();
+										gbc_complementoField.weighty = 1.0;
+										gbc_complementoField.weightx = 1.0;
+										gbc_complementoField.fill = GridBagConstraints.BOTH;
+										gbc_complementoField.insets = new Insets(0, 0, 5, 5);
+										gbc_complementoField.gridwidth = 2;
+										gbc_complementoField.gridx = 2;
+										gbc_complementoField.gridy = 10;
+										getContentPane().add(complementoField, gbc_complementoField);
+										complementoField.setColumns(10);
+								
+										bairroField = new JTextField();
+										GridBagConstraints gbc_bairroField = new GridBagConstraints();
+										gbc_bairroField.weightx = 1.0;
+										gbc_bairroField.weighty = 1.0;
+										gbc_bairroField.fill = GridBagConstraints.BOTH;
+										gbc_bairroField.insets = new Insets(0, 0, 5, 5);
+										gbc_bairroField.gridwidth = 4;
+										gbc_bairroField.gridx = 4;
+										gbc_bairroField.gridy = 10;
+										getContentPane().add(bairroField, gbc_bairroField);
+										bairroField.setColumns(10);
+										
+												logradouroField = new JTextField();
+												GridBagConstraints gbc_logradouroField = new GridBagConstraints();
+												gbc_logradouroField.weighty = 1.0;
+												gbc_logradouroField.weightx = 1.0;
+												gbc_logradouroField.anchor = GridBagConstraints.WEST;
+												gbc_logradouroField.fill = GridBagConstraints.BOTH;
+												gbc_logradouroField.insets = new Insets(0, 0, 5, 0);
+												gbc_logradouroField.gridwidth = 2;
+												gbc_logradouroField.gridx = 8;
+												gbc_logradouroField.gridy = 10;
+												getContentPane().add(logradouroField, gbc_logradouroField);
+												logradouroField.setColumns(10);
+								
+										JLabel lblRua = new JLabel("Rua");
+										lblRua.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+										GridBagConstraints gbc_lblRua = new GridBagConstraints();
+										gbc_lblRua.weightx = 1.0;
+										gbc_lblRua.fill = GridBagConstraints.HORIZONTAL;
+										gbc_lblRua.insets = new Insets(0, 0, 5, 5);
+										gbc_lblRua.gridx = 0;
+										gbc_lblRua.gridy = 11;
+										getContentPane().add(lblRua, gbc_lblRua);
+								
+										JLabel lblCidade = new JLabel("Cidade");
+										lblCidade.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+										GridBagConstraints gbc_lblCidade = new GridBagConstraints();
+										gbc_lblCidade.anchor = GridBagConstraints.WEST;
+										gbc_lblCidade.insets = new Insets(0, 0, 5, 5);
+										gbc_lblCidade.gridx = 2;
+										gbc_lblCidade.gridy = 11;
+										getContentPane().add(lblCidade, gbc_lblCidade);
+						
+								JLabel lblPais = new JLabel("Pa\u00EDs");
+								lblPais.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+								GridBagConstraints gbc_lblPais = new GridBagConstraints();
+								gbc_lblPais.weightx = 1.0;
+								gbc_lblPais.fill = GridBagConstraints.HORIZONTAL;
+								gbc_lblPais.insets = new Insets(0, 0, 5, 5);
+								gbc_lblPais.gridx = 3;
+								gbc_lblPais.gridy = 11;
+								getContentPane().add(lblPais, gbc_lblPais);
+				
+						JLabel lblEstado = new JLabel("Estado");
+						lblEstado.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+						GridBagConstraints gbc_lblEstado = new GridBagConstraints();
+						gbc_lblEstado.weightx = 1.0;
+						gbc_lblEstado.fill = GridBagConstraints.HORIZONTAL;
+						gbc_lblEstado.insets = new Insets(0, 0, 5, 5);
+						gbc_lblEstado.gridwidth = 2;
+						gbc_lblEstado.gridx = 5;
+						gbc_lblEstado.gridy = 11;
+						getContentPane().add(lblEstado, gbc_lblEstado);
+						
+								JLabel lblNumero = new JLabel("N\u00FAmero");
+								lblNumero.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+								GridBagConstraints gbc_lblNumero = new GridBagConstraints();
+								gbc_lblNumero.anchor = GridBagConstraints.WEST;
+								gbc_lblNumero.insets = new Insets(0, 0, 5, 0);
+								gbc_lblNumero.gridwidth = 2;
+								gbc_lblNumero.gridx = 8;
+								gbc_lblNumero.gridy = 11;
+								getContentPane().add(lblNumero, gbc_lblNumero);
+				
+						ruaField = new JTextField();
+						GridBagConstraints gbc_ruaField = new GridBagConstraints();
+						gbc_ruaField.weighty = 1.0;
+						gbc_ruaField.weightx = 1.0;
+						gbc_ruaField.fill = GridBagConstraints.BOTH;
+						gbc_ruaField.insets = new Insets(0, 0, 5, 5);
+						gbc_ruaField.gridwidth = 2;
+						gbc_ruaField.gridx = 0;
+						gbc_ruaField.gridy = 12;
+						getContentPane().add(ruaField, gbc_ruaField);
+						ruaField.setColumns(10);
+		
+				cidadeField = new JTextField();
+				GridBagConstraints gbc_cidadeField = new GridBagConstraints();
+				gbc_cidadeField.weightx = 1.0;
+				gbc_cidadeField.weighty = 1.0;
+				gbc_cidadeField.fill = GridBagConstraints.BOTH;
+				gbc_cidadeField.insets = new Insets(0, 0, 5, 5);
+				gbc_cidadeField.gridx = 2;
+				gbc_cidadeField.gridy = 12;
+				getContentPane().add(cidadeField, gbc_cidadeField);
+				cidadeField.setColumns(10);
+				
+						paisBox = new JComboBox();
+						paisBox.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+						paisBox.addItem("Brasil");
+						GridBagConstraints gbc_paisBox = new GridBagConstraints();
+						gbc_paisBox.weighty = 1.0;
+						gbc_paisBox.weightx = 1.0;
+						gbc_paisBox.fill = GridBagConstraints.BOTH;
+						gbc_paisBox.insets = new Insets(0, 0, 5, 5);
+						gbc_paisBox.gridwidth = 2;
+						gbc_paisBox.gridx = 3;
+						gbc_paisBox.gridy = 12;
+						getContentPane().add(paisBox, gbc_paisBox);
+		
+				estadoBox = new JComboBox();
+				estadoBox.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				estadoBox.addItem("PE");
+				GridBagConstraints gbc_estadoBox = new GridBagConstraints();
+				gbc_estadoBox.weighty = 1.0;
+				gbc_estadoBox.weightx = 1.0;
+				gbc_estadoBox.fill = GridBagConstraints.BOTH;
+				gbc_estadoBox.insets = new Insets(0, 0, 5, 5);
+				gbc_estadoBox.gridwidth = 3;
+				gbc_estadoBox.gridx = 5;
+				gbc_estadoBox.gridy = 12;
+				getContentPane().add(estadoBox, gbc_estadoBox);
+		
+				numeroField = new JTextField();
+				GridBagConstraints gbc_numeroField = new GridBagConstraints();
+				gbc_numeroField.weighty = 1.0;
+				gbc_numeroField.weightx = 1.0;
+				gbc_numeroField.anchor = GridBagConstraints.WEST;
+				gbc_numeroField.fill = GridBagConstraints.BOTH;
+				gbc_numeroField.insets = new Insets(0, 0, 5, 0);
+				gbc_numeroField.gridwidth = 2;
+				gbc_numeroField.gridx = 8;
+				gbc_numeroField.gridy = 12;
+				getContentPane().add(numeroField, gbc_numeroField);
+				numeroField.setColumns(10);
+		this.mascaraCPF();
+		this.mascaraData();
+		this.mascaraTelefone();
 		this.mascaraCep();
-		cepField.setBounds(10, 342, 132, 32);
-		getContentPane().add(cepField);
-		cepField.setColumns(10);
-
-		JLabel lblComplemento = new JLabel("Complemento");
-		lblComplemento.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblComplemento.setBounds(154, 315, 131, 14);
-		getContentPane().add(lblComplemento);
-
-		complementoField = new JTextField();
-		complementoField.setBounds(152, 342, 191, 32);
-		getContentPane().add(complementoField);
-		complementoField.setColumns(10);
-
-		JLabel lblBairro = new JLabel("Bairro");
-		lblBairro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblBairro.setBounds(353, 317, 46, 14);
-		getContentPane().add(lblBairro);
-
-		bairroField = new JTextField();
-		bairroField.setBounds(353, 342, 164, 32);
-		getContentPane().add(bairroField);
-		bairroField.setColumns(10);
-
-		estadoBox = new JComboBox();
-		estadoBox.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		estadoBox.addItem("PE");
-		estadoBox.setBounds(434, 404, 87, 32);
-		getContentPane().add(estadoBox);
-
-		JLabel lblEstado = new JLabel("Estado");
-		lblEstado.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblEstado.setBounds(434, 379, 46, 14);
-		getContentPane().add(lblEstado);
-
-		JLabel lblRua = new JLabel("Rua");
-		lblRua.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblRua.setBounds(10, 379, 46, 14);
-		getContentPane().add(lblRua);
-
-		ruaField = new JTextField();
-		ruaField.setBounds(10, 404, 131, 32);
-		getContentPane().add(ruaField);
-		ruaField.setColumns(10);
-
-		JLabel lblCidade = new JLabel("Cidade");
-		lblCidade.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblCidade.setBounds(147, 379, 46, 14);
-		getContentPane().add(lblCidade);
-
-		cidadeField = new JTextField();
-		cidadeField.setBounds(147, 404, 145, 32);
-		getContentPane().add(cidadeField);
-		cidadeField.setColumns(10);
-
-		JLabel lblPais = new JLabel("Pa\u00EDs");
-		lblPais.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblPais.setBounds(302, 379, 46, 14);
-		getContentPane().add(lblPais);
-
-		paisBox = new JComboBox();
-		paisBox.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		paisBox.addItem("Brasil");
-		paisBox.setBounds(302, 404, 122, 32);
-		getContentPane().add(paisBox);
-
-		JLabel lblNumero = new JLabel("N\u00FAmero");
-		lblNumero.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblNumero.setBounds(529, 379, 58, 14);
-		getContentPane().add(lblNumero);
-
-		numeroField = new JTextField();
-		numeroField.setBounds(531, 404, 113, 32);
-		getContentPane().add(numeroField);
-		numeroField.setColumns(10);
-
-		JLabel lblLogradouro = new JLabel("Logradouro");
-		lblLogradouro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblLogradouro.setBounds(529, 317, 91, 14);
-		getContentPane().add(lblLogradouro);
-
-		logradouroField = new JTextField();
-		logradouroField.setBounds(527, 342, 115, 32);
-		getContentPane().add(logradouroField);
-		logradouroField.setColumns(10);
-
-		btnSalvar = new JButton("Salvar");
-		btnSalvar.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		btnSalvar.setBounds(10, 452, 131, 37);
-		getContentPane().add(btnSalvar);
 		getContentPane().setBackground(Color.WHITE);
 		
-		JLabel lblCargo = new JLabel("Cargo");
-		lblCargo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblCargo.setBounds(10, 223, 46, 14);
-		getContentPane().add(lblCargo);
-		
-		cargoField = new JTextField();
-		cargoField.setBounds(10, 237, 126, 32);
-		getContentPane().add(cargoField);
-		cargoField.setColumns(10);
-		
-		JLabel lblDecrioDoCargo = new JLabel("Decri\u00E7\u00E3o do Cargo");
-		lblDecrioDoCargo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblDecrioDoCargo.setBounds(146, 223, 139, 14);
-		getContentPane().add(lblDecrioDoCargo);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(146, 237, 498, 67);
-		getContentPane().add(scrollPane);
-		
-		descricaoArea = new JTextArea();
-		descricaoArea.setWrapStyleWord(true);
-		descricaoArea.setLineWrap(true);
-		descricaoArea.setFont(new Font("Arial", Font.PLAIN, 14));
-		scrollPane.setViewportView(descricaoArea);
+				btnSalvar = new JButton("Salvar");
+				btnSalvar.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
+				gbc_btnSalvar.weighty = 1.0;
+				gbc_btnSalvar.weightx = 1.0;
+				gbc_btnSalvar.fill = GridBagConstraints.BOTH;
+				gbc_btnSalvar.insets = new Insets(0, 0, 0, 5);
+				gbc_btnSalvar.gridwidth = 2;
+				gbc_btnSalvar.gridx = 0;
+				gbc_btnSalvar.gridy = 13;
+				getContentPane().add(btnSalvar, gbc_btnSalvar);
 		setVisible(false);
 
 	}

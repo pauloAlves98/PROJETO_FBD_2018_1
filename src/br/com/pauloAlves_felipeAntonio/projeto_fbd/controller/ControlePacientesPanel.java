@@ -44,17 +44,17 @@ public class ControlePacientesPanel {
 		this.pacienteCdastro =  pacienteCdastr;
 		JTableButtonMouseListener tableListner = new JTableButtonMouseListener(telaPaciente.getTable().getTable(),pacienteCdastro);
 		telaPaciente.getBuscaButton().addActionListener((ActionEvent e)-> buscarPaciente());
-		
+
 		telaPaciente.getTable().getTable().addMouseListener(tableListner);
-		
+
 		telaPaciente.getBtnNewButton_3().addActionListener((ActionEvent e)->{limparCampos(pacienteCdastro); pacienteCdastro.setVisible(true);});
-		
-		
+
+
 		pacienteCdastro.getBtnSalvar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					if(condicao==0){//Se for pra inserir
+					if(condicao == 0){//Se for pra inserir
 						paciente = new Paciente();
 						Endereco end = new Endereco();
 						//Perguntar se o tratamento de campo vazio fica aqui  ou no Businnes
@@ -77,7 +77,7 @@ public class ControlePacientesPanel {
 						paciente.getEndereco().setNumero(Integer.parseInt(pacienteCdastro.getNumeroField().getText()));
 						paciente.getEndereco().setPais(""+pacienteCdastro.getPaisBox().getItemAt(pacienteCdastro.getPaisBox().getSelectedIndex()));
 						paciente.getEndereco().setRua(pacienteCdastro.getRuaField().getText());
-						
+
 						fachada.salvarPaciente(paciente);
 						if((JOptionPane.showConfirmDialog(null, "Deseja Cadastrar Mais algum?"))==0){
 							limparCampos(pacienteCdastro);
@@ -86,12 +86,11 @@ public class ControlePacientesPanel {
 							limparCampos(pacienteCdastro);
 						}
 					}else{//se for pra editar
-						
+
 						Endereco end = new Endereco();
 						end.setId(paciente.getEndereco().getId());//transfere o id  do endereco a ser editado
-						
+
 						pacienteCdastro.getProntuarioField().setEditable(false);
-						//pacienteCdastro.getProntuarioField().setText(paciente.getP);
 						paciente.setEndereco(end);
 						paciente.setNome(pacienteCdastro.getNomeField().getText());
 						paciente.setCpf(pacienteCdastro.getCpfField().getText().replace(".","").replace("-",""));
@@ -112,26 +111,19 @@ public class ControlePacientesPanel {
 						paciente.getEndereco().setPais(""+pacienteCdastro.getPaisBox().getItemAt(pacienteCdastro.getPaisBox().getSelectedIndex()));
 						paciente.getEndereco().setRua(pacienteCdastro.getRuaField().getText());
 						paciente.setId(condicao);//seta o id para realizar a comparação na busca
-						System.out.print(paciente.getId()+ paciente.getNome());
-
-
 						fachada.editarPaciente(paciente,paciente.getEndereco().getId());
-						if((JOptionPane.showConfirmDialog(null, "Deseja modificar novamente?"))==0){
-							limparCampos(pacienteCdastro);
-						}else {
-							pacienteCdastro.setVisible(false);
-							limparCampos(pacienteCdastro);
-						}
+						JOptionPane.showConfirmDialog(null, "Paciente Editado com Sucesso!");
+						pacienteCdastro.setVisible(false);
+						limparCampos(pacienteCdastro);
 						condicao=0;
 					}
-				} catch (BusinessException e) {
+				}catch (BusinessException e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null,e.getMessage());
 				} catch (ValidacaoException e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null,e.getMessage());
 				}
-
 			}
 		});
 
@@ -142,72 +134,72 @@ public class ControlePacientesPanel {
 		try {
 			//validar buscas, fazer busca por busca , tratar se nehum paciente for retornado!!!
 			//if(telaPaciente.getDescricaoField().getText().equals("") && telaPaciente.getFiltroField().getText().equals("")) {
-				ArrayList<Paciente> p = new ArrayList<Paciente>();
-				p=(ArrayList<Paciente>) fachada.buscarPorBuscaPaciente(telaPaciente.getFiltroField().getText(),telaPaciente.getDescricaoField().getText());
-				Object [][] linha = new Object[p.size()][5];
-				int i=0;
-				for(Paciente pac:p){
-					linha[i][0] = pac.getNome();
-					linha[i][1] = pac.getCpf();
-					linha[i][2] = pac.getTelefone();
-					Calendar c = Calendar.getInstance();
-					c.setTime(pac.getDataNascimento());
-					linha[i][3] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
-					JButton b = new JButton("Abrir");
-					b.setForeground(Color.BLACK);
-					b.setBackground(Color.white);
-					b.setFont(Propiedade.FONT2);
-					linha[i][4] = b;
-					i++;
-				}
-				
-				JTableButtonModel jtableButtonModel = new JTableButtonModel();
-				jtableButtonModel.adcionar(linha,new String[] {
-						"Nome","CPF", "Telefone", "Nascimento","Cadastro"
-		 			});
-				
-				
-			 			
-				telaPaciente.getTable().getTable().setModel(jtableButtonModel);
-				telaPaciente.getTable().getTable().setRowHeight(40);
-				
-				telaPaciente.getTable().getTable().setShowGrid(true);
-				telaPaciente.getTable().getTable().setShowHorizontalLines(true);
-				telaPaciente.getTable().getTable().setShowVerticalLines(true);
-				telaPaciente.getTable().getTable().setBackground(Color.white);
-				telaPaciente.getTable().getTable().setFont(Propiedade.FONT2);
-		//	}else {
-//				String cpf = telaPaciente.getDescricaoField().getText().trim().replace(" ","");
-//				Paciente paciente = fachada.buscarPorCpfPaciente(cpf);
-//				String [][] linha = new String[1][5];
-//				linha[0][0] = paciente.getNome();
-//				linha[0][1] = paciente.getCpf();
-//				linha[0][2] = paciente.getTelefone()+"";
-//				linha[0][3] = paciente.getRg();
-//				Calendar c = Calendar.getInstance();
-//				c.setTime(paciente.getDataNascimento());
-//				linha[0][4] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
-//				DefaultTableModel d = new DefaultTableModel(linha,new String[] {
-//		 				"Nome","RG", "CPF", "Telefone", "Nascimento"
-//		 			});
-//			 			
-//				telaPaciente.getTable().setModel(d);
-//				telaPaciente.getTable().setShowGrid(true);
-//				telaPaciente.getTable().setShowHorizontalLines(true);
-//				telaPaciente.getTable().setShowVerticalLines(true);
-//				telaPaciente.getTable().setBackground(Color.white);
-//				telaPaciente.getTable().setFont(Propiedade.FONT1);
-//				
-//			}
-			
+			ArrayList<Paciente> p = new ArrayList<Paciente>();
+			p=(ArrayList<Paciente>) fachada.buscarPorBuscaPaciente("%"+telaPaciente.getFiltroField().getText()+"%" ,telaPaciente.getDescricaoField().getText());
+			Object [][] linha = new Object[p.size()][5];
+			int i=0;
+			for(Paciente pac:p){
+				linha[i][0] = pac.getNome();
+				linha[i][1] = pac.getCpf();
+				linha[i][2] = pac.getTelefone();
+				Calendar c = Calendar.getInstance();
+				c.setTime(pac.getDataNascimento());
+				linha[i][3] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
+				JButton b = new JButton("Abrir");
+				b.setForeground(Color.BLACK);
+				b.setBackground(Color.white);
+				b.setFont(Propiedade.FONT2);
+				linha[i][4] = b;
+				i++;
+			}
+
+			JTableButtonModel jtableButtonModel = new JTableButtonModel();
+			jtableButtonModel.adcionar(linha,new String[] {
+					"Nome","CPF", "Telefone", "Nascimento","Cadastro"
+			});
+
+
+
+			telaPaciente.getTable().getTable().setModel(jtableButtonModel);
+			telaPaciente.getTable().getTable().setRowHeight(40);
+
+			telaPaciente.getTable().getTable().setShowGrid(true);
+			telaPaciente.getTable().getTable().setShowHorizontalLines(true);
+			telaPaciente.getTable().getTable().setShowVerticalLines(true);
+			telaPaciente.getTable().getTable().setBackground(Color.white);
+			telaPaciente.getTable().getTable().setFont(Propiedade.FONT2);
+			//	}else {
+			//				String cpf = telaPaciente.getDescricaoField().getText().trim().replace(" ","");
+			//				Paciente paciente = fachada.buscarPorCpfPaciente(cpf);
+			//				String [][] linha = new String[1][5];
+			//				linha[0][0] = paciente.getNome();
+			//				linha[0][1] = paciente.getCpf();
+			//				linha[0][2] = paciente.getTelefone()+"";
+			//				linha[0][3] = paciente.getRg();
+			//				Calendar c = Calendar.getInstance();
+			//				c.setTime(paciente.getDataNascimento());
+			//				linha[0][4] = c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR);
+			//				DefaultTableModel d = new DefaultTableModel(linha,new String[] {
+			//		 				"Nome","RG", "CPF", "Telefone", "Nascimento"
+			//		 			});
+			//			 			
+			//				telaPaciente.getTable().setModel(d);
+			//				telaPaciente.getTable().setShowGrid(true);
+			//				telaPaciente.getTable().setShowHorizontalLines(true);
+			//				telaPaciente.getTable().setShowVerticalLines(true);
+			//				telaPaciente.getTable().setBackground(Color.white);
+			//				telaPaciente.getTable().setFont(Propiedade.FONT1);
+			//				
+			//			}
+
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
-	
+
 	private void limparCampos(CadastroPacienteFrame pacienteCdastro) {
 		pacienteCdastro.getNomeField().setText("");
 		pacienteCdastro.getCpfField().setText("");
@@ -224,10 +216,10 @@ public class ControlePacientesPanel {
 		pacienteCdastro.getRuaField().setText("");
 		pacienteCdastro.getNascField().setText("");
 	}
-	 private class JTableButtonMouseListener implements MouseListener {
-		  private JTable table;
-		  
-		  public JTable getTable() {
+	public class JTableButtonMouseListener implements MouseListener {
+		private JTable table;
+
+		public JTable getTable() {
 			return table;
 		}
 
@@ -237,32 +229,32 @@ public class ControlePacientesPanel {
 
 		private CadastroPacienteFrame pacientes = pacienteCdastro;
 
-		  private void __forwardEventToButton(MouseEvent e) {
-		    TableColumnModel columnModel = this.table.getColumnModel();
-		    int column = columnModel.getColumnIndexAtX(e.getX());
-		    int row    = e.getY() / this.table.getRowHeight();
-		    Object value;
-		    JButton button;
-		    MouseEvent buttonEvent;
+		private void __forwardEventToButton(MouseEvent e) {
+			TableColumnModel columnModel = this.table.getColumnModel();
+			int column = columnModel.getColumnIndexAtX(e.getX());
+			int row    = e.getY() / this.table.getRowHeight();
+			Object value;
+			JButton button;
+			MouseEvent buttonEvent;
 
-		    if(row >= this.table.getRowCount() || row < 0 ||
-		       column >= this.table.getColumnCount() || column < 0)
-		      return;
+			if(row >= this.table.getRowCount() || row < 0 ||
+					column >= this.table.getColumnCount() || column < 0)
+				return;
 
-		    value = this.table.getValueAt(row, column);
+			value = this.table.getValueAt(row, column);
 
-		    if(!(value instanceof JButton))
-		      return;
+			if(!(value instanceof JButton))
+				return;
 
-		    button = (JButton)value;
+			button = (JButton)value;
 
-		    buttonEvent =
-		      (MouseEvent)SwingUtilities.convertMouseEvent(this.table, e, button);
-		  
-		    
-		    button.dispatchEvent(buttonEvent);
-		    if(button == buttonEvent.getSource()) { 
-		    	
+			buttonEvent =
+					(MouseEvent)SwingUtilities.convertMouseEvent(this.table, e, button);
+
+
+			button.dispatchEvent(buttonEvent);
+			if(button == buttonEvent.getSource()) { 
+
 				try {
 					condicao = fachada.buscarIdPorCpfPaciente(""+getTable().getValueAt(getTable().getSelectedRow(),1));
 					paciente = fachada.buscarPorCpfPaciente(""+getTable().getValueAt(getTable().getSelectedRow(),1));
@@ -281,45 +273,51 @@ public class ControlePacientesPanel {
 					pacienteCdastro.getRuaField().setText(paciente.getEndereco().getRua());
 					Calendar c = Calendar.getInstance();
 					c.setTime(paciente.getDataNascimento());
-					pacienteCdastro.getNascField().setText(""+c.get(c.DAY_OF_MONTH)+""+(c.get(c.MONTH)+1)+""+c.get(c.YEAR));
+					String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
+					String mes = formatandoData((c.get(c.MONTH)+1)+"");
+					pacienteCdastro.getNascField().setText(""+dia+""+mes+""+c.get(c.YEAR));
 					pacientes.setVisible(true);
 				} catch (BusinessException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			 }
-		    // This is necessary so that when a button is pressed and released
-		    // it gets rendered properly.  Otherwise, the button may still appear
-		    // pressed down when it has been released.
-		    this.table.repaint();
-		  }
-
-		  public JTableButtonMouseListener(JTable table,CadastroPacienteFrame pacientes) {
-		    this.table = table;
-		    this.pacientes =pacientes;
-		  }
-
-		  public void mouseClicked(MouseEvent e) {
-		    __forwardEventToButton(e);
-		    
-		    
-		  }
-
-		  public void mouseEntered(MouseEvent e) {
-		   // __forwardEventToButton(e);
-		  }
-
-		  public void mouseExited(MouseEvent e) {
-		  //  __forwardEventToButton(e);
-		  }
-
-		  public void mousePressed(MouseEvent e) {
-		 //   __forwardEventToButton(e);
-		  }
-
-		  public void mouseReleased(MouseEvent e) {
-		   // __forwardEventToButton(e);
-		  }
+			}
+			// This is necessary so that when a button is pressed and released
+			// it gets rendered properly.  Otherwise, the button may still appear
+			// pressed down when it has been released.
+			this.table.repaint();
 		}
 
+		public JTableButtonMouseListener(JTable table,CadastroPacienteFrame pacientes) {
+			this.table = table;
+			this.pacientes =pacientes;
+		}
+
+		public void mouseClicked(MouseEvent e) {
+			__forwardEventToButton(e);
+
+
+		}
+
+		public void mouseEntered(MouseEvent e) {
+			// __forwardEventToButton(e);
+		}
+
+		public void mouseExited(MouseEvent e) {
+			//  __forwardEventToButton(e);
+		}
+
+		public void mousePressed(MouseEvent e) {
+			//   __forwardEventToButton(e);
+		}
+
+		public void mouseReleased(MouseEvent e) {
+			// __forwardEventToButton(e);
+		}
+	}
+	private String formatandoData(String antigo) {
+		if(antigo.length()<2)
+			antigo = 0+antigo;
+		return antigo;
+	}
 }

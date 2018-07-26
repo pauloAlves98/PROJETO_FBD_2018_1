@@ -1,22 +1,13 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Panel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -24,8 +15,6 @@ import javax.swing.SwingConstants;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.app.App;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.controller.ControlePacientesPanel;
-import javax.swing.JSeparator;
 
 
 public class TelaPrincipal extends JFrame {
@@ -46,15 +35,15 @@ public class TelaPrincipal extends JFrame {
 
 	public TelaPrincipal() {
 		getContentPane().setBackground(Color.WHITE);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.black);
 		//this.setContentPane(panel);
 		//JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(new Color(0,128,255));
-		panel.setBounds(0, 0, 181, 573);
-		getContentPane().add(panel);
+		getContentPane().add(panel,BorderLayout.WEST);
+		panel.setPreferredSize(new Dimension(183,600));
 		
 		JButton btnCadastros = new JButton("    Cadastros",new ImageIcon("Res//mais.png"));
 		btnCadastros.setOpaque(false);
@@ -101,24 +90,27 @@ public class TelaPrincipal extends JFrame {
 		btnAgenda.setFont(Propiedade.FONT1);
 		panel.add(btnAgenda);
 		
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setFont(Propiedade.FONT1);
-		tabbedPane.setBounds(182, 52, 803, 521);
-		getContentPane().add(tabbedPane);
-		
 		App.lookNimbus();
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		App.lookPadrao();
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		panel_1.add(tabbedPane);
+		tabbedPane.setFont(Propiedade.FONT1);
+		App.lookNimbus();
+		cadatrosPanel = new CadastrosPanel();
+		tabbedPane.addTab("Cadastros", new ImageIcon("Res//mais.png"),cadatrosPanel, null);
 		financeiroPanel = new FinanceiroPanel();
 		tabbedPane.addTab("Financeiro",new ImageIcon("Res//financeiro.png"), financeiroPanel, null);
 		
-		cadatrosPanel = new CadastrosPanel();
-		tabbedPane.addTab("Cadastros", new ImageIcon("Res//mais.png"),cadatrosPanel, null);
-	
-		estoquePanel = new EstoquePanel();
-		tabbedPane.addTab("Estoque", new ImageIcon("Res//est.png"), estoquePanel, null);
-		estoquePanel.setLayout(null);
-		tabbedPane.setBackground(new Color(67, 110, 238));
-		tabbedPane.setForeground(Color.WHITE);
+			estoquePanel = new EstoquePanel();
+			tabbedPane.addTab("Estoque", new ImageIcon("Res//est.png"), estoquePanel, null);
+			tabbedPane.setBackground(new Color(102, 102, 255));
+			tabbedPane.setForeground(Color.WHITE);
 		setSize(1010, 620);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);

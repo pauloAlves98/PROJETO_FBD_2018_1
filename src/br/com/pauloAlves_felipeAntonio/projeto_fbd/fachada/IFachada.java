@@ -97,9 +97,8 @@ public interface IFachada {
 	public  Funcionario buscaPorCpfFuncionario(String cpf) throws BusinessException;
 	public Funcionario buscaPorLogin_senhaFuncionario(String login, String senha) throws BusinessException;
 	public List<Funcionario > buscarPorBuscaFuncionario(String busca)throws BusinessException;
-	public List <Funcionario > buscarInfoFuncionarioPorCpfFuncionario(String busca) throws BusinessException;
-	public List <Funcionario > buscarInfoPorNomeCpfFuncionario(String cpf,String nome) throws  BusinessException;
-	public List <Funcionario > buscarInfoPorNomeFuncionario(String nome)  throws BusinessException;
+	public List <Funcionario > buscarInfoPorFiltroFuncionario(String busca) throws  BusinessException;
+
 	
 	public void salvarLaudo(Laudo laudo ) throws BusinessException;
 	public void editarLaudo(Laudo laudo) throws BusinessException;

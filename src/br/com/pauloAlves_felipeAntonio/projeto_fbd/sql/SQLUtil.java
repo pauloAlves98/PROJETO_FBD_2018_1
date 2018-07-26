@@ -28,10 +28,10 @@ public class SQLUtil {
 		"values (?,?,?,?,?,?,?,?)";	
 		public static String SELECT_ALL = "select nome,cpf,telefone,datanascimento from paciente";
 		public static String SELECT_FOREINGS_POR_CPF = "select id_endereco,id_prontuario from paciente where paciente.cpf = ?";
-		public static String SELECT_ALL_POR_NOME = "select nome,cpf,telefone,datanascimento from paciente where paciente.nome = ?";
+		public static String SELECT_ALL_POR_NOME = "select nome,cpf,telefone,datanascimento from paciente where paciente.nome ilike ?";
 		public static String SELECT_ID_POR_CPF = "select id from paciente where cpf = ?";
 		//public static String SELECT_FOREINGNS_POR_CPF = "select id_endereco , id_prontuario from paciente where cpf = ?";
-		public static String SELECT_ALL_POR_NOME_E_CPF = "select nome,cpf,telefone,datanascimento from paciente where paciente.cpf = ? and paciente.nome= ?";
+		public static String SELECT_ALL_POR_NOME_E_CPF = "select nome,cpf,telefone,datanascimento from paciente where paciente.cpf = ? and paciente.nome ilike ?";
 		public static String SELECT_ALL_EXCETO_PRONTUARIO_POR_CPF = "select paciente.id,nome,rg,cpf,telefone,nome_mae,nome_pai,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,paciente.datanascimento,id_endereco from paciente, endereco e where paciente.id_endereco = e.id and paciente.cpf = ?";
 		
 		public static String UPDATE_All_PACIENTE="update paciente set nome = ?,rg = ? ,cpf = ?,telefone = ?, nome_mae = ?,nome_pai = ?,datanascimento = ? where paciente.id=?"; 
@@ -58,9 +58,18 @@ public class SQLUtil {
 	public static class Funcionario{
 		//Pra criar funcionario eh preciso ter cargo e clinica associada!!!
 		//Colocar cargo em daoComum
-		public static String SELECT_INFO_POR_CPF ="select nome,cpf,telefone,datanascimento from funcionario where funcionario.cpf = ?";
-		public static String SELECT_INFO_POR_NOME ="select nome,cpf,telefone,datanascimento from funcionario where funcionario.nome = ?";
-		public static String SELECT_INFO_POR_NOME_CPF ="select nome,cpf,telefone,datanascimento from funcionario where funcionario.cpf and  = funcionario.nome =  ?";
+		public static String SELECT_INFO_POR_CPF ="select nome,cpf,telefone,data_acesso from funcionario where funcionario.cpf = ?";
+		public static String SELECT_INFO ="select nome,cpf,telefone,data_acesso from funcionario";
+		public static String SELECT_INFO_POR_NOME ="select nome,cpf,telefone,data_acesso from funcionario where funcionario.nome like ?";
+		
+		
+		public static String SELECT_INFO_POR_NOME_CPF ="select nome,cpf,telefone,data_acesso from funcionario where "
+				+ "funcionario.cpf ilike ? or funcionario.nome ilike ? or funcionario.telefone ilike ?";
+		
+		
+		
+		
+		
 		
 		public static String INSERT_ALL = "insert into funcionario(nome, cpf, id_clinicas, admim,senha,id_cargos,nome_usuario, data_acesso, telefone, rg,id_endereco)"+
 				"values(?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
@@ -123,9 +132,9 @@ public class SQLUtil {
 				"values(?,?,?,?,?,?)";
 		
 		public static String SELECT_ALL = "select nome,tipo,quantidade from poduto";
-		public static String SELECT_ALL_POR_NOME = "select nome,tipo,quantidade from poduto where produto.nome = ?";
+		public static String SELECT_ALL_POR_NOME = "select nome,tipo,quantidade from poduto where produto.nome like ?";
 		public static String SELECT_ALL_POR_TIPO = "select nome,tipo,quantidade from poduto where produto.tipo = ?";
-		public static String SELECT_ALL_POR_NOME_E_TIPO = "select nome,tipo,preco,quantidade from poduto where produto.nome = ? and produto.tipo  = ?";
+		public static String SELECT_ALL_POR_NOME_E_TIPO = "select nome,tipo,preco,quantidade from poduto where produto.like = ? and produto.tipo  = ?";
 	}
 	public static class Produtos_vendas{
 		public static String INSERT_ALL = "insert into produtos_vendas(id_produtos,id_vendas)"+
@@ -137,9 +146,9 @@ public class SQLUtil {
 				"values(?,?,?,?,?,?)";
 		public static String UPDATE_ALL = "update fornecedor set incs_municipal = ?, cnpj = ?, insc_estadual = ? ,nome = ?,telefone = ? where fornecedor.id = ?";
 		public static String SELECT_ALL = "select nome,cnpj,incs_municipal,telefone from fornecedor";
-		public static String SELECT_ALL_POR_NOME = "select nome,cnpj,incs_municipal,telefone from fornecedor where fornecedor.nome = ?";
+		public static String SELECT_ALL_POR_NOME = "select nome,cnpj,incs_municipal,telefone from fornecedor where nome ilike '?'";
 		public static String SELECT_ALL_POR_CNPJ = "select nome,cnpj,incs_municipal,telefone,id_endereco,fornecedor.id,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,insc_estadual from fornecedor, endereco where fornecedor.cnpj = ? and fornecedor.id_endereco = endereco.id";
-		public static String SELECT_ALL_POR_NOME_E_CNPJ  = "select nome,cnpj,incs_municipal,telefone from fornecedor where fornecedor.nome = ? and fornecedor.cnpj = ?";
+		public static String SELECT_ALL_POR_NOME_E_CNPJ  = "select nome,cnpj,incs_municipal,telefone from fornecedor where fornecedor.nome ilike ? and fornecedor.cnpj = ?";
 	}
 	public static class Estoque{
 		public static String INSERT_ALL = "insert into estoque(id_fornecedores, id_produtos, total_produtos)"+

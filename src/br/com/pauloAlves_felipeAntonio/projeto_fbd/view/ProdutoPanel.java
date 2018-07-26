@@ -51,11 +51,6 @@ public class ProdutoPanel extends JPanel {
 		tipoField.setBounds(225, 139, 171, 32);
 		add(tipoField);
 		tipoField.setColumns(10);
-		
-		
-		
-		
-
 	}
 
 	public JTextField getDescricaoField() {

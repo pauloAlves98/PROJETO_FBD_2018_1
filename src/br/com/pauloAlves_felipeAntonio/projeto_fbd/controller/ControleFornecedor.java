@@ -124,7 +124,7 @@ public class ControleFornecedor {
 				try {
 					//nome,cnpj,incs_municipal,telefone
 					ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-					fornecedores = (ArrayList<Fornecedor>) fachada.buscarPorBuscaFornecedor(fornecedoresPanel.getTextField().getText(), fornecedoresPanel.getTextField_1().getText());
+					fornecedores = (ArrayList<Fornecedor>) fachada.buscarPorBuscaFornecedor("%"+fornecedoresPanel.getTextField().getText()+"%", fornecedoresPanel.getTextField_1().getText());
 					Object linha[][] = new Object[fornecedores.size()][5];
 					int i=0;
 					for(Fornecedor f:fornecedores){

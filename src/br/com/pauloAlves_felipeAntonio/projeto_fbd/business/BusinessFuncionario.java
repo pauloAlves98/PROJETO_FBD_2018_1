@@ -83,19 +83,9 @@ public class BusinessFuncionario implements IBusinessFuncionario{
 	}
 
 	@Override
-	public List<Funcionario> buscarInfoPorNomeCpf(String cpf, String nome) throws BusinessException {
+	public List<Funcionario> buscarInfoPorFiltro(String busca) throws BusinessException {
 		try {
-			return daoFuncionario.buscarInfoPorNomeCpf(cpf, nome);
-		} catch (DaoException e) {
-			throw new BusinessException("Erro no Business!!!"+e.getMessage());
-		}
-		
-	}
-
-	@Override
-	public List<Funcionario> buscarInfoPorNome(String nome) throws BusinessException {
-		try {
-			return daoFuncionario.buscarInfoPorNome(nome);
+			return daoFuncionario.buscarInfoPorFiltro(busca);
 		} catch (DaoException e) {
 			throw new BusinessException("Erro no Business!!!"+e.getMessage());
 		}

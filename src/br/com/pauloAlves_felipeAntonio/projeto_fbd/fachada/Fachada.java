@@ -715,20 +715,13 @@ public class Fachada implements IFachada{
 	public Funcionario buscaPorLogin_senhaFuncionario(String login, String senha) throws BusinessException {
 		return businessFuncionario.buscaPorLogin_senha(login, senha);
 	}
+
 	@Override
-	public List<Funcionario> buscarInfoFuncionarioPorCpfFuncionario(String busca) throws BusinessException {
+	public List<Funcionario> buscarInfoPorFiltroFuncionario(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return businessFuncionario.buscarInfoCpf(busca);
+		return businessFuncionario.buscarInfoPorFiltro(busca);
 	}
-	@Override
-	public List<Funcionario> buscarInfoPorNomeCpfFuncionario(String cpf, String nome) throws BusinessException {
-		// TODO Auto-generated method stub
-		return businessFuncionario.buscarInfoPorNomeCpf(cpf, nome);
-	}
-	@Override
-	public List<Funcionario> buscarInfoPorNomeFuncionario(String nome) throws BusinessException {
-		// TODO Auto-generated method stub
-		return businessFuncionario.buscarInfoPorNome(nome);
-	}
+
+	
 
 }

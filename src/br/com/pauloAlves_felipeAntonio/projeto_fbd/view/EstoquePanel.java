@@ -1,6 +1,8 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -15,12 +17,15 @@ public class EstoquePanel extends JPanel {
 	
 	public EstoquePanel() {
 		setBackground(Color.WHITE);
-		setLayout(null);
+		setLayout(new BorderLayout());
+		
 		panel_6 = new PaneGradiente(Propiedade.cor1,Color.BLACK);
 		panel_6.setBackground(Color.WHITE);
 		panel_6.setBounds(0, 0, 798, 100);
-		add(panel_6);
+		panel_6.setPreferredSize(new Dimension(1000,99));
 		panel_6.setLayout(null);
+		add(panel_6,BorderLayout.NORTH);
+		
 		
 		JLabel lblEstoque = new JLabel("Estoque");
 		lblEstoque.setForeground(Color.WHITE);
@@ -41,7 +46,7 @@ public class EstoquePanel extends JPanel {
 		panel_7.getTipoField().setLocation(257, 139);
 		panel_7.setBackground(Color.WHITE);
 		panel_7.setBounds(0, 98, 656, 397);
-		add(panel_7);
+		add(panel_7,BorderLayout.CENTER);
 		panel_7.setLayout(null);
 		
 		

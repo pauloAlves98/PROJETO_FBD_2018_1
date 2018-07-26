@@ -133,18 +133,23 @@ public class DaoFuncionario implements IDaoFuncionario{
 	}
 
 	@Override
-	public List<Funcionario> buscarInfoPorNomeCpf(String cpf, String nome) throws DaoException {
+	public List<Funcionario> buscarInfoPorFiltro(String busca) throws DaoException {
 		try {
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_INFO_POR_NOME_CPF);
 			
-			statement.setString(1,cpf);
-			statement.setString(2,nome);
+			statement.setString(1,busca);
+			statement.setString(2,busca);
+
+			statement.setString(3,busca);
+			
 			
 			result = statement.executeQuery();
 			List<Funcionario>funcs = new ArrayList<Funcionario>();
 			Funcionario func = null;
 			while(result.next()){
+				System.out.println();
+				
 				func = new Funcionario();
 				func.setNome(result.getString(1));
 				func.setCpf(result.getString(2));
@@ -158,33 +163,4 @@ public class DaoFuncionario implements IDaoFuncionario{
 			throw new DaoException("Erro ao Buscar Funcionarios!!");
 		}
 	}
-
-	@Override
-	public List<Funcionario> buscarInfoPorNome( String nome) throws DaoException {
-		try {//Transformar em funcao
-			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_INFO_POR_NOME);
-			
-			statement.setString(1,nome);
-
-			result = statement.executeQuery();
-			List<Funcionario>funcs = new ArrayList<Funcionario>();
-			Funcionario func = null;
-			while(result.next()){
-				func = new Funcionario();
-
-				func.setNome(result.getString(1));
-				func.setCpf(result.getString(2));
-				func.setTelefone(result.getString(3));
-				func.setData_acesso(result.getDate(4));
-				funcs.add(func);
-			}
-			return funcs;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DaoException("Erro ao Buscar Funcionarios!!");
-		}
-	}
-
-	
 }

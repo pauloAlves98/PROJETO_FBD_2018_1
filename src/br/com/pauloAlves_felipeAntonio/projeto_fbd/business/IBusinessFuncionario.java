@@ -14,6 +14,5 @@ public interface IBusinessFuncionario {
 	public  Funcionario buscaPorLogin_senha(String login, String senha) throws BusinessException;
 	public List<Funcionario > buscarPorBusca(String busca) throws BusinessException;
 	public List <Funcionario > buscarInfoCpf(String busca) throws BusinessException;
-	public List <Funcionario > buscarInfoPorNomeCpf(String cpf,String nome) throws  BusinessException;
-	public List <Funcionario > buscarInfoPorNome(String nome)  throws BusinessException;
+	public List <Funcionario > buscarInfoPorFiltro(String busca) throws  BusinessException;
 }
