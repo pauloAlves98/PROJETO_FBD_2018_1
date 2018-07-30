@@ -2,6 +2,7 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,64 +14,79 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ProdutoPanel extends JPanel {
-	private JTextField DescricaoField,tipoField;
-	private JButton btnNovoProduto;
+	private JTextField filtroField;
+	private JButton btnNovoProduto,buscaButton;
 	//private JTable
+	private JTableButton table;
 	
 	public ProdutoPanel() {
 		setBackground(Color.WHITE);
 		setLayout(null);
 		JLabel lblCadastroDeProdutos = new JLabel("Cadastro de Produtos");
-		lblCadastroDeProdutos.setBackground(Color.WHITE);
-		lblCadastroDeProdutos.setFont(new Font("Berlin Sans FB", Font.PLAIN, 22));
-		lblCadastroDeProdutos.setBounds(10, 28, 209, 34);
+		
+		lblCadastroDeProdutos.setFont(new Font("Franklin Gothic Book", Font.BOLD, 23));
+		lblCadastroDeProdutos.setBounds(3, 11, 365, 27);
 		add(lblCadastroDeProdutos);
 		
 		btnNovoProduto = new JButton("Novo Produto");
-	
-		btnNovoProduto.setBackground(Color.WHITE);
+		
 		btnNovoProduto.setFont(Propiedade.FONT2);
-		btnNovoProduto.setBounds(257, 29, 181, 39);
-		add(btnNovoProduto);
+		btnNovoProduto.setBackground(Color.WHITE);
+		btnNovoProduto.setBounds(3, 39, 208, 43);
+		btnNovoProduto.setBorder(null);
+		btnNovoProduto.setFocusPainted(false);
+ 		add(btnNovoProduto);
+ 		
+ 		JLabel lblFiltro = new JLabel("Filtro");
+ 		lblFiltro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
+ 		lblFiltro.setBounds(10, 93, 46, 32);
+ 		add(lblFiltro);
+ 		
+ 		filtroField = new JTextField();
+ 		filtroField.setBounds(66, 95, 145, 32);
+ 		add(filtroField);
+ 		setBackground(Color.WHITE);
+ 		filtroField.setColumns(10);
+ 		
+ 		buscaButton = new JButton(new ImageIcon("Res/pesquisa.png"));
+ 		
+ 		buscaButton.setBounds(221, 95, 32, 32);
+ 		buscaButton.setBackground(Color.white);
+ 		add(buscaButton);
+ 		
+ 		JTableButtonModel jTableButtonModel = new JTableButtonModel();
+ 		jTableButtonModel.adcionar(new Object[][] {
+			},
+			new String[] {
+					"Nome","Tipo","Fornecedor","Cadastro"
+			});
+ 		table = new JTableButton(jTableButtonModel);
+ 		table.getTable().setBackground(Color.WHITE);
+ 		table.getTable().setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+ 		table.getTable().setShowGrid(true);
+ 		
+ 		table.getScrollPane().setBounds(10, 146, 737, 200);
+ 		add(table.getScrollPane());
+ 		
 		
-		JLabel lblFiltro_1 = new JLabel("Filtro");
-		lblFiltro_1.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
-		lblFiltro_1.setBounds(10, 133, 64, 39);
-		add(lblFiltro_1);
 		
-		DescricaoField = new JTextField();
-		DescricaoField.setForeground(Color.YELLOW);
-		DescricaoField.setFont(new Font("tahoma",Font.ITALIC,12));
-		DescricaoField.setBounds(94, 139, 106, 32);
-		add(DescricaoField);
-		DescricaoField.setColumns(10);
-		
-		tipoField = new JTextField("tipo");
-		tipoField.setForeground(Color.YELLOW);
-		tipoField.setFont(new Font("tahoma",Font.ITALIC,12));
-		tipoField.setBounds(225, 139, 171, 32);
-		add(tipoField);
-		tipoField.setColumns(10);
 	}
 
-	public JTextField getDescricaoField() {
-		return DescricaoField;
+	public JTextField getFiltroField() {
+		return filtroField;
 	}
 
-	public void setDescricaoField(JTextField descricaoField) {
-		DescricaoField = descricaoField;
-	}
-
-	public JTextField getTipoField() {
-		return tipoField;
-	}
-
-	public void setTipoField(JTextField tipoField) {
-		this.tipoField = tipoField;
-	}
-
+	
 	public JButton getBtnNovoProduto() {
 		return btnNovoProduto;
+	}
+
+	public JButton getBuscaButton() {
+		return buscaButton;
+	}
+
+	public JTableButton getTable() {
+		return table;
 	}
 	
 	

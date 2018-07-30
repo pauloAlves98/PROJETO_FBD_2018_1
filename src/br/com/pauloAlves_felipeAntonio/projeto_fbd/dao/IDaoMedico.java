@@ -11,5 +11,6 @@ public interface IDaoMedico {
 	public void editar(Medico medico)throws DaoException;
 	public Medico buscarPorId(int id)throws DaoException;
 	public Medico buscarPorCpf(String cpf)throws DaoException;
+	public List<Medico>buscarInfoPorFiltro(String busca) throws DaoException;
 	public List<Medico> buscarPorBusca(String busca);
 }

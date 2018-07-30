@@ -15,5 +15,6 @@ public interface  IDaoPaciente {
     public Paciente buscarPorId(int id)throws DaoException;
     public Paciente buscarPorCpf(String cpf)throws DaoException;
     public int buscarIdPorCpf(String cpf)throws DaoException;
+    public List<Paciente>buscaInfoPorFiltro(String busca) throws DaoException;
     public List<Paciente> buscarPorBusca(String nome,String cpf) throws DaoException;
 }

@@ -1,6 +1,6 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Consulta {
 	
@@ -8,12 +8,31 @@ public class Consulta {
 	private String tipo,horario;
 	private Date _data;
 	private boolean situacao;
+	private Paciente paciente;
+	private Medico medico;
+	
 	//Só não precisa registra no Objeto!!
 	//private Paciente paciente;
 	//private Medico medico;
 	
 	
-//	public Medico getMedico() {
+public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+
+	//	public Medico getMedico() {
 //		return medico;
 //	}
 //	public void setMedico(Medico medico) {

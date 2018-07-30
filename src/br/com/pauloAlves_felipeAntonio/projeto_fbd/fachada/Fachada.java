@@ -10,10 +10,10 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessConsulta;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessContas_Pagar;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessContas_receber;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessDespesa;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessEstoque;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessExame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessFornecedor;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessFuncionario;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessItemProduto;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessLaudo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessLocalEnd;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessLogAcesso;
@@ -36,10 +36,10 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessConsulta;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessContas_Pagar;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessContas_receber;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessDespesa;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessEstoque;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessExame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessFornecedor;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessFuncionario;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessItemProduto;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessLaudo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessLocalEnd;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessLogAcesso;
@@ -55,6 +55,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessReceita;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessServico;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessServicos_vendas;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessVenda;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.IBusinessItemProduto;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Caixa;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Cargo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Clinica;
@@ -66,6 +67,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Estoque;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Exame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Fornecedor;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Funcionario;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.ItemProduto;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Laudo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Local_end;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Log_acesso;
@@ -92,7 +94,6 @@ public class Fachada implements IFachada{
 	private IBusinessContas_Pagar businessContas_pagar;
 	private IBusinessContas_receber businessContas_receber;
 	private IBusinessDespesa businessDespesa;
-	private IBusinessEstoque  businessEstoque;
 	private IBusinessExame businessExame;
 	private IBusinessFornecedor businessFornecedor;
 	private IBusinessFuncionario businessFuncionario;
@@ -111,6 +112,7 @@ public class Fachada implements IFachada{
 	private IBusinessServico businessServico;
 	private IBusinessServicos_vendas businessServicos_vendas;
 	private IBusinessVenda businessVenda;
+	private IBusinessItemProduto businessItemProduto;
 
 	private static Fachada fachada;
 	
@@ -123,7 +125,7 @@ public class Fachada implements IFachada{
 		this.businessConsulta = new BusinessConsulta();
 		this.businessContas_pagar = new BusinessContas_Pagar();
 		this.businessContas_receber = new  BusinessContas_receber();
-		this.businessEstoque = new BusinessEstoque();
+		
 		this.businessExame = new BusinessExame();
 		this.businessFornecedor = new BusinessFornecedor();
 		this.businessDespesa = new BusinessDespesa();
@@ -143,6 +145,7 @@ public class Fachada implements IFachada{
 		this.businessServico = new BusinessServico();
 		this.businessServicos_vendas = new BusinessServicos_vendas();
 		this.businessVenda = new BusinessVenda();
+		this.businessItemProduto = new BusinessItemProduto();
 	}
 	public static Fachada getInstance() {
 		if(fachada==null ) {
@@ -317,25 +320,7 @@ public class Fachada implements IFachada{
 		return null;
 	}
 	@Override
-	public void salvarEstoque(Estoque estoque) throws BusinessException {
-		businessEstoque.salvar(estoque);	
-	}
-	@Override
-	public void editarEstoque(Estoque estoque) throws BusinessException {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public Estoque buscarPorIdEstoque(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<Estoque> buscarPorBuscaEstoque(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
+	
 	public void salvarExame(Exame exame) throws BusinessException {
 		businessExame.salvar(exame);
 	}
@@ -363,12 +348,12 @@ public class Fachada implements IFachada{
 		businessFornecedor.editar(fornecedor);
 	}
 	@Override
-	public Fornecedor buscarPorIdFornecedor(int id) throws BusinessException {
+	public String buscarPorIdFornecedor(int id) throws BusinessException {
 		return businessFornecedor.buscarPorId(id);
 	}
 	@Override
-	public List<Fornecedor> buscarPorBuscaFornecedor(String nome,String cnpj) throws BusinessException {
-		return businessFornecedor.buscarPorBusca(nome,cnpj);
+	public List<Fornecedor> buscarPorBuscaFornecedor(String buscar) throws BusinessException {
+		return businessFornecedor.buscarPorBusca(buscar);
 	}
 	@Override
 	public void salvarFuncionario(Funcionario funcionario) throws BusinessException {
@@ -569,22 +554,21 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void salvarProduto(Produto produto) throws BusinessException {
-		// TODO Auto-generated method stub
+		businessProduto.salvar(produto);
 		
 	}
 	@Override
 	public void editarProduto(Produto produto) throws BusinessException {
-		// TODO Auto-generated method stub
+		businessProduto.editar(produto);
 		
 	}
 	@Override
 	public Produto buscarPorIdProduto(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return businessProduto.buscarPorId(id);
 	}
 
-	public List<Produto> buscarPorBuscaProduto(String nome ,String tipo) throws BusinessException {
-		return businessProduto.buscarPorBusca(nome, tipo);
+	public List<Produto> buscarPorBuscaProduto(String buscar) throws BusinessException {
+		return businessProduto.buscarPorBusca(buscar);
 	}
 	@Override
 	public void salvarProdutos_vendas(Produtos_vendas produto) throws BusinessException {
@@ -720,6 +704,31 @@ public class Fachada implements IFachada{
 	public List<Funcionario> buscarInfoPorFiltroFuncionario(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
 		return businessFuncionario.buscarInfoPorFiltro(busca);
+	}
+	
+	
+	
+	
+	@Override
+	public void salvarItemProduto(ItemProduto itemProduto) throws BusinessException {
+		businessItemProduto.salvar(itemProduto);
+		
+	}
+	@Override
+	public void editarItemProduto(ItemProduto itemProduto) throws BusinessException {
+		businessItemProduto.editar(itemProduto);
+	}
+	@Override
+	public ItemProduto buscarPorIdItemProduto(int id) throws BusinessException {
+		return businessItemProduto.buscarPorId(id);
+	}
+	@Override
+	public List<ItemProduto> buscarPorBuscaItemProduto() throws BusinessException {
+		return businessItemProduto.buscarPorBusca();
+	}
+	@Override
+	public List<ItemProduto> buscarPorId_produto(int id) throws BusinessException {
+		return businessItemProduto.buscarPorId_produto(id);
 	}
 
 	

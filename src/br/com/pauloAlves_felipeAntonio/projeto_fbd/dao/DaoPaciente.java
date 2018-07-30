@@ -23,7 +23,7 @@ public class DaoPaciente implements IDaoPaciente{
 	@Override
 	public void salvar(Paciente paciente) throws DaoException {
 		try {
-			
+			comunDao.salvarEndereco(paciente.getEndereco());
 			int id_endereco = comunDao.getCurrentValorTabela("endereco");
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Paciente.INSERT_ALL);
@@ -297,6 +297,37 @@ public class DaoPaciente implements IDaoPaciente{
 			e.printStackTrace();
 			throw new DaoException("PROBLEMA AO CONSULTAR CURSO - Contate o ADM");
 		}
+	}
+	public List<Paciente>buscaInfoPorFiltro(String busca) throws DaoException{//Colocar no businness e na Fachada
+		try {
+			conexao  = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Paciente.SELECT_INFO_POR_NOME_CPF_TELEFONE);
+			
+			statement.setString(1,busca);
+			statement.setString(2,busca);
+			statement.setString(3,busca);
+			result = statement.executeQuery();
+			
+			List<Paciente>pacientes = new ArrayList<Paciente>();
+			while(result.next()){
+				Paciente p = new Paciente();
+				p.setId(result.getInt(1));
+				p.setNome(result.getString(2));
+				p.setCpf(result.getString(3));
+				p.setTelefone(result.getString(4));
+				pacientes.add(p);
+				System.out.println("AAA");
+			}
+			conexao.close();
+			statement.close();
+			result.close();
+			return pacientes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("PROBLEMA AO CONSULTAR CURSO - Contate o ADM");
+		}
+		
+		
 	}
 	
 	

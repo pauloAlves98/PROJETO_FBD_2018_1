@@ -136,15 +136,13 @@ public class DaoFuncionario implements IDaoFuncionario{
 	public List<Funcionario> buscarInfoPorFiltro(String busca) throws DaoException {
 		try {
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_INFO_POR_NOME_CPF);
+			statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_INFO_POR_NOME_CPF_TELEFONE);
 			
 			statement.setString(1,busca);
 			statement.setString(2,busca);
-
 			statement.setString(3,busca);
-			
-			
 			result = statement.executeQuery();
+			
 			List<Funcionario>funcs = new ArrayList<Funcionario>();
 			Funcionario func = null;
 			while(result.next()){

@@ -1,33 +1,36 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
 public class Produto {
-	private int id,unidade_entrada,unidade_saida,quantidade; 
+	private int id,idFornecedor,vendaAtacado,vendaVarejo; 
 	private String tipo,nome;
 	private float preco;
+	private Fornecedor fornecedor;
 	
+	
+	
+	public int getIdFornecedor() {
+		return idFornecedor;
+	}
+	public void setIdFornecedor(int idFornecedor) {
+		this.idFornecedor = idFornecedor;
+	}
+	public int getVendaAtacado() {
+		return vendaAtacado;
+	}
+	public void setVendaAtacado(int vendaAtacado) {
+		this.vendaAtacado = vendaAtacado;
+	}
+	public int getVendaVarejo() {
+		return vendaVarejo;
+	}
+	public void setVendaVarejo(int vendaVarejo) {
+		this.vendaVarejo = vendaVarejo;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
-		this.id = id; 
-	}
-	public int getUnidade_entrada() {
-		return unidade_entrada;
-	}
-	public void setUnidade_entrada(int unidade_entrada) {
-		this.unidade_entrada = unidade_entrada;
-	}
-	public int getUnidade_saida() {
-		return unidade_saida;
-	}
-	public void setUnidade_saida(int unidade_saida) {
-		this.unidade_saida = unidade_saida;
-	}
-	public int getQuantidade() {
-		return quantidade;
-	}
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
+		this.id = id;
 	}
 	public String getTipo() {
 		return tipo;
@@ -46,7 +49,15 @@ public class Produto {
 	}
 	public void setPreco(float preco) {
 		this.preco = preco;
-	} 
+	}
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	
+	 
 	
 
 }

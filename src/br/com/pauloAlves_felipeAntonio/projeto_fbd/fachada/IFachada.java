@@ -14,6 +14,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Estoque;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Exame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Fornecedor;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Funcionario;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.ItemProduto;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Laudo;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Local_end;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Log_acesso;
@@ -73,12 +74,6 @@ public interface IFachada {
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
 	public List<Despesa> buscarPorBuscaDespesa(String busca)throws BusinessException;
 	
-	public void salvarEstoque(Estoque estoque) throws BusinessException;
-	public void editarEstoque(Estoque estoque) throws BusinessException;
-	public Estoque buscarPorIdEstoque(int id)  throws BusinessException;
-	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Estoque> buscarPorBuscaEstoque(String busca)throws BusinessException;
-	
 	public void salvarExame(Exame exame) throws BusinessException;
 	public void editarExame(Exame exame) throws BusinessException;
 	public Exame buscarPorIdExame(int id)  throws BusinessException;
@@ -87,9 +82,9 @@ public interface IFachada {
 	
 	public void salvarFornecedor(Fornecedor fornecedor) throws BusinessException;
 	public void editarFornecedor(Fornecedor fornecedor) throws BusinessException;
-	public Fornecedor buscarPorIdFornecedor(int id)  throws BusinessException;
+	public String buscarPorIdFornecedor(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Fornecedor> buscarPorBuscaFornecedor(String nome,String cnpj)throws BusinessException;
+	public List<Fornecedor> buscarPorBuscaFornecedor(String buscar)throws BusinessException;
 	
 	public void salvarFuncionario(Funcionario funcionario ) throws BusinessException;
 	public void editarFuncionario(Funcionario funcionario ) throws BusinessException;
@@ -155,7 +150,7 @@ public interface IFachada {
 	public void editarProduto(Produto produto) throws BusinessException;
 	public Produto  buscarPorIdProduto(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Produto> buscarPorBuscaProduto(String nome ,String tipo)throws BusinessException;
+	public List<Produto> buscarPorBuscaProduto(String buscar)throws BusinessException;
 	
 	public void salvarProdutos_vendas(Produtos_vendas produto) throws BusinessException;
 	public void editarProdutos_vendas(Produtos_vendas produto) throws BusinessException;
@@ -192,4 +187,12 @@ public interface IFachada {
 	public Venda buscarPorIdVenda(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
 	public List<Venda> buscarPorBuscaVenda(String busca)throws BusinessException;
+	
+	
+	public void salvarItemProduto(ItemProduto itemProduto) throws BusinessException;
+	public void editarItemProduto(ItemProduto itemProduto) throws BusinessException;
+	public ItemProduto buscarPorIdItemProduto(int id)  throws BusinessException;
+	//public Medicamento buscaPorHorario(String horario) throws DaoException;
+	public List<ItemProduto> buscarPorBuscaItemProduto()throws BusinessException;
+	public List<ItemProduto> buscarPorId_produto(int id)  throws BusinessException;
 }

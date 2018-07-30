@@ -8,7 +8,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 public interface IBusinessFornecedor {
 	public void salvar(Fornecedor fornecedor) throws BusinessException;
 	public void editar(Fornecedor fornecedor) throws BusinessException;
-	public Fornecedor buscarPorId(int id)  throws BusinessException;
+	public String buscarPorId(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Fornecedor> buscarPorBusca(String nome,String cnpj)throws BusinessException;
+	public List<Fornecedor> buscarPorBusca(String buscar)throws BusinessException;
 }

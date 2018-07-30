@@ -40,15 +40,20 @@ public class BusinessFornecedor implements IBusinessFornecedor{
 	}
 
 	@Override
-	public Fornecedor buscarPorId(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public String buscarPorId(int id) throws BusinessException {
+		try {
+			return daoFornecedor.buscarPorId(id);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro ao buscar fornecedor");
+		}
 	}
 
 	@Override
-	public List<Fornecedor> buscarPorBusca(String nome,String cnpj) throws BusinessException {
+	public List<Fornecedor> buscarPorBusca(String buscar) throws BusinessException {
 		try {
-			return daoFornecedor.buscarPorBusca(nome, cnpj);
+			return daoFornecedor.buscarPorBusca(buscar);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException("Erro ao buscar fornecedor");

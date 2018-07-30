@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 
 public class FuncionarioPanel extends JPanel{
-	private JTextField filtroField,cpfPesqField,terceiroField;
+	private JTextField filtroField;
 	private JTableButton table;
 	private JButton funcionarioButton,buscaButton ;
 	public FuncionarioPanel() {
@@ -42,19 +42,9 @@ public class FuncionarioPanel extends JPanel{
  		setBackground(Color.WHITE);
  		filtroField.setColumns(10);
  		
- 		cpfPesqField = new JTextField();
- 		cpfPesqField.setBounds(221, 95, 176, 32);
- 		add(cpfPesqField);
- 		cpfPesqField.setColumns(10);
- 		
- 		terceiroField = new JTextField();
- 		terceiroField.setBounds(407, 95, 176, 32);
- 		add(terceiroField);
- 		terceiroField.setColumns(10);
- 		
  		buscaButton = new JButton(new ImageIcon("Res/pesquisa.png"));
  		
- 		buscaButton.setBounds(600, 95, 32, 32);
+ 		buscaButton.setBounds(221, 95, 32, 32);
  		buscaButton.setBackground(Color.white);
  		add(buscaButton);
  		
@@ -83,18 +73,7 @@ public class FuncionarioPanel extends JPanel{
 	public void setFiltroField(JTextField filtroField) {
 		this.filtroField = filtroField;
 	}
-	public JTextField getCpfPesqField() {
-		return cpfPesqField;
-	}
-	public void setCpfPesqField(JTextField cpfPesqField) {
-		this.cpfPesqField = cpfPesqField;
-	}
-	public JTextField getTerceiroField() {
-		return terceiroField;
-	}
-	public void setTerceiroField(JTextField terceiroField) {
-		this.terceiroField = terceiroField;
-	}
+
 	public JTableButton getTable() {
 		return table;
 	}

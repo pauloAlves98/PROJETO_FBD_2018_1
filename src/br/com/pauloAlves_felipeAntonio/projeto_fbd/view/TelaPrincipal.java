@@ -32,6 +32,7 @@ public class TelaPrincipal extends JFrame {
 	private CadastrosPanel cadatrosPanel;
 	private EstoquePanel estoquePanel;
 	private FinanceiroPanel financeiroPanel;
+	private AgendaPanel agendaPanel;
 
 	public TelaPrincipal() {
 		getContentPane().setBackground(Color.WHITE);
@@ -44,7 +45,7 @@ public class TelaPrincipal extends JFrame {
 		panel.setBackground(new Color(0,128,255));
 		getContentPane().add(panel,BorderLayout.WEST);
 		panel.setPreferredSize(new Dimension(183,600));
-		
+
 		JButton btnCadastros = new JButton("    Cadastros",new ImageIcon("Res//mais.png"));
 		btnCadastros.setOpaque(false);
 		btnCadastros.setFont(Propiedade.FONT1);
@@ -55,7 +56,7 @@ public class TelaPrincipal extends JFrame {
 		btnCadastros.setBorder(null);
 		btnCadastros.setFocusPainted(false);
 		panel.add(btnCadastros);
-		
+
 		JButton btnEstoque = new JButton("    Estoque",new ImageIcon("Res//est.png"));
 		btnEstoque.setHorizontalAlignment(SwingConstants.LEFT);
 		btnEstoque.setFont(Propiedade.FONT1);
@@ -64,9 +65,9 @@ public class TelaPrincipal extends JFrame {
 		btnEstoque.setBounds(0, 341, 181, 68);
 		btnEstoque.setBorder(null);
 		btnEstoque.setFocusPainted(false);
-		 btnEstoque.setOpaque(false);
+		btnEstoque.setOpaque(false);
 		panel.add(btnEstoque);
-		
+
 		btnFinanceiro = new JButton("    Financeiro",new ImageIcon("Res//financeiro.png"));
 		btnFinanceiro.setOpaque(false);
 		btnFinanceiro.setHorizontalAlignment(SwingConstants.LEFT);
@@ -76,9 +77,9 @@ public class TelaPrincipal extends JFrame {
 		btnFinanceiro.setBorder(null);
 		btnFinanceiro.setFont(Propiedade.FONT1);
 		btnFinanceiro.setFocusPainted(false);
-		
+
 		panel.add(btnFinanceiro);
-		
+
 		JButton btnAgenda = new JButton("   Agenda",new ImageIcon("Res//images.png"));
 		btnAgenda.setOpaque(false);
 		btnAgenda.setForeground(Color.WHITE);
@@ -89,16 +90,16 @@ public class TelaPrincipal extends JFrame {
 		btnAgenda.setBorder(null);
 		btnAgenda.setFont(Propiedade.FONT1);
 		panel.add(btnAgenda);
-		
+
 		App.lookNimbus();
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
-		
+
 		App.lookPadrao();
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		panel_1.add(tabbedPane);
 		tabbedPane.setFont(Propiedade.FONT1);
 		App.lookNimbus();
@@ -106,17 +107,19 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane.addTab("Cadastros", new ImageIcon("Res//mais.png"),cadatrosPanel, null);
 		financeiroPanel = new FinanceiroPanel();
 		tabbedPane.addTab("Financeiro",new ImageIcon("Res//financeiro.png"), financeiroPanel, null);
-		
-			estoquePanel = new EstoquePanel();
-			tabbedPane.addTab("Estoque", new ImageIcon("Res//est.png"), estoquePanel, null);
-			tabbedPane.setBackground(new Color(102, 102, 255));
-			tabbedPane.setForeground(Color.WHITE);
+
+		estoquePanel = new EstoquePanel();
+		tabbedPane.addTab("Estoque", new ImageIcon("Res//est.png"), estoquePanel, null);
+		tabbedPane.setBackground(new Color(102, 102, 255));
+		tabbedPane.setForeground(Color.WHITE);
 		setSize(1010, 620);
+		agendaPanel = new AgendaPanel();
+		tabbedPane.addTab("Agenda",new ImageIcon("Res//images.png"), agendaPanel, null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(false);
-	
-	
+
+
 
 	}
 
@@ -223,13 +226,29 @@ public class TelaPrincipal extends JFrame {
 	public FinanceiroPanel getFinanceiroPanel() {
 		return financeiroPanel;
 	}
-	
+
+	public AgendaPanel getAgendaPanel() {
+		return agendaPanel;
+	}
+
+	public void setAgendaPanel(AgendaPanel agendaPanel) {
+		this.agendaPanel = agendaPanel;
+	}
+
+	public void setEstoquePanel(EstoquePanel estoquePanel) {
+		this.estoquePanel = estoquePanel;
+	}
+
+	public void setFinanceiroPanel(FinanceiroPanel financeiroPanel) {
+		this.financeiroPanel = financeiroPanel;
+	}
+
 	private class Panell extends JGradientePanel{
 
 		public Panell(Color initialColor, Color finalColor) {
 			super(initialColor,finalColor);
-		
+
 		}
-		
+
 	}
 }

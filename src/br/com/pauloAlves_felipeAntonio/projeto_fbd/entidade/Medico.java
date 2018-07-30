@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Medico {
 	private int id;
-	private String cpf,area, especialidade,nome_usuario,senha,nome,rg,admin;
+	private String cpf,area,especialidade,nome_usuario,senha,nome,rg,admin;
 	private List<Receita>receitas;
 	private List<Consulta>consultas;
 	private Endereco endereco;

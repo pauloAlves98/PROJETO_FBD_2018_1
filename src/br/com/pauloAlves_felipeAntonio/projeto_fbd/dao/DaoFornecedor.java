@@ -68,18 +68,21 @@ public class DaoFornecedor implements IDaoFornecedor {
 		}
 	}
 
-	@Override
-	public Fornecedor buscarPorId(int id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Fornecedor buscarPorId(int id) throws DaoException {
+//		
+//	
+//	}
 
 	@Override
-	public List<Fornecedor> buscarPorBusca(String nome,String cnpj) throws DaoException {
+	public List<Fornecedor> buscarPorBusca(String buscar) throws DaoException {
 		try{
-			if(nome.equals("")&&cnpj.equals("")){
+			
 				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Fornecedor.SELECT_ALL);
+				statement = conexao.prepareStatement(SQLUtil.Fornecedor.SELECT_ALL_POR_NOME_CNPJ);
+				statement.setString(1, buscar);
+				statement.setString(2, buscar);
+
 				
 				result = statement.executeQuery();
 				
@@ -92,93 +95,13 @@ public class DaoFornecedor implements IDaoFornecedor {
 					f.setCnpj(result.getString(2));
 					f.setIncs_municipal(result.getInt(3));
 					f.setTelefone(result.getString(4));
-					
+					f.setId(result.getInt(5));
 					fornecedores.add(f);
 				}
 				statement.close();
 				conexao.close();
 				return fornecedores;
-			}else if(nome.equals("")){
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Fornecedor.SELECT_ALL_POR_CNPJ);
-				statement.setString(1, cnpj);
-				
-				result = statement.executeQuery();
-				
-				ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-				
-				while(result.next()){
-					Fornecedor f = new Fornecedor();
-					f.setEndereco(new Endereco());
-					
-					f.setNome(result.getString(1));
-					f.setCnpj(result.getString(2));
-					f.setIncs_municipal(result.getInt(3));
-					f.setTelefone(result.getString(4));
-					f.getEndereco().setId(result.getInt(5));
-					f.setId(result.getInt(6));
-					f.getEndereco().setCep(result.getString(7));
-					f.getEndereco().setEstado(result.getString(8));
-					f.getEndereco().setLogradouro(result.getString(9));
-					f.getEndereco().setComplemento(result.getString(10));
-					f.getEndereco().setBairro(result.getString(11));
-					f.getEndereco().setPais(result.getString(12));
-					f.getEndereco().setCidade(result.getString(13));
-					f.getEndereco().setRua(result.getString(14));
-					f.getEndereco().setNumero(result.getInt(15));
-					f.setInsc_estadual(result.getInt(16));
-					fornecedores.add(f);
-					
-				}
-				statement.close();
-				conexao.close();
-				return fornecedores;
-			}else if(cnpj.equals("")){
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Fornecedor.SELECT_ALL_POR_NOME);
-				statement.setString(1,nome);
-				
-				result = statement.executeQuery();
-				
-				ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-				
-				while(result.next()){
-					Fornecedor f = new Fornecedor();
-					
-					f.setNome(result.getString(1));
-					f.setCnpj(result.getString(2));
-					f.setIncs_municipal(result.getInt(3));
-					f.setTelefone(result.getString(4));
-					
-					fornecedores.add(f);
-				}
-				statement.close();
-				conexao.close();
-				return fornecedores;
-			}else{
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Fornecedor.SELECT_ALL_POR_NOME_E_CNPJ);
-				statement.setString(1, nome);
-				statement.setString(2, cnpj);
-				
-				result = statement.executeQuery();
-				
-				ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-				
-				while(result.next()){
-					Fornecedor f = new Fornecedor();
-					
-					f.setNome(result.getString(1));
-					f.setCnpj(result.getString(2));
-					f.setIncs_municipal(result.getInt(3));
-					f.setTelefone(result.getString(4));
-					
-					fornecedores.add(f);
-				}
-				statement.close();
-				conexao.close();
-				return fornecedores;
-			}
+			
 			
 			
 		}catch (SQLException e) {
@@ -186,6 +109,33 @@ public class DaoFornecedor implements IDaoFornecedor {
 			throw new DaoException("Erro ao buscar fornecedor!!");
 		}
 	
+	}
+
+	@Override
+	public String buscarPorId(int id) throws DaoException {
+		try {
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Fornecedor.SELECT_NOME_POR_ID);
+			statement.setInt(1, id);
+			
+			result = statement.executeQuery();
+	
+			//Fornecedor f = new Fornecedor();
+			String s = null;
+			if(result.next()){
+				s = result.getString(1);
+				
+			}
+			statement.close();
+			conexao.close();
+			return s;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DaoException("Erro ao buscar fornecedor!!");
+		}
+		
+		
 	}
 
 }

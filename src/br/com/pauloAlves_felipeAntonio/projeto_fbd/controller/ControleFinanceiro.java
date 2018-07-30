@@ -16,5 +16,16 @@ public class ControleFinanceiro {
 				
 			}
 		});
+		
+		vendaFrame.getBtnFinalizarVenda().addActionListener(new ActionListener() {
+			
+			
+			public void actionPerformed(ActionEvent arg0) {
+				//quando ela for finalizada ela tem q verificar se a pessoa pagou e armazenar no caixa 
+				//caso tenha sido parcelada tera q ser armazenada na tela de contas a receber e o que foi pago vai pro caixa
+				
+				
+			}
+		});
 	}
 }

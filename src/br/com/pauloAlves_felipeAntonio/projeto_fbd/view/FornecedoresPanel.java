@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 public class FornecedoresPanel extends JPanel {
 	private JTableButton table;
 	private JTextField textField;
-	private JTextField textField_1;
 	private JButton buscaButton,NovoFornecedorButton;
 
 	/**
@@ -40,7 +39,7 @@ public class FornecedoresPanel extends JPanel {
 		
 		buscaButton = new JButton(new ImageIcon("Res/pesquisa.png"));
  		
- 		buscaButton.setBounds(407, 95, 32, 32);
+ 		buscaButton.setBounds(221, 95, 32, 32);
  		buscaButton.setBackground(Color.white);
  		add(buscaButton);
 		
@@ -67,10 +66,6 @@ public class FornecedoresPanel extends JPanel {
 		add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(221, 95, 176, 32);
-		add(textField_1);
-		textField_1.setColumns(10);
 		
 
 	}
@@ -101,14 +96,7 @@ public class FornecedoresPanel extends JPanel {
 		this.textField = textField;
 	}
 
-	public JTextField getTextField_1() {
-		return textField_1;
-	}
-
-	public void setTextField_1(JTextField textField_1) {
-		this.textField_1 = textField_1;
-	}
-
+	
 	public JButton getBuscaButton() {
 		return buscaButton;
 	}

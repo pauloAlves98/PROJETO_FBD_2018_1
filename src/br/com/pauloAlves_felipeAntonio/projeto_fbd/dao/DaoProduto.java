@@ -16,18 +16,20 @@ public class DaoProduto implements IDaoProduto{
 	private Connection conexao;
 	private PreparedStatement statement;
 	private ResultSet result;
+	//private IDaoComum daoComum =new DaoComum();
 	@Override
 	public void salvar(Produto produto) throws DaoException {
 		try {
+			
 			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = conexao.prepareStatement(SQLUtil.Produto.INSERT_ALL);
 		
 			statement.setString(1,produto.getTipo());
-			statement.setInt(2,produto.getUnidade_entrada());
-			statement.setInt(3,produto.getUnidade_saida());
-			statement.setInt(4,produto.getQuantidade());
-			statement.setFloat(5,produto.getPreco());
-			statement.setString(6,produto.getNome());
+			statement.setString(2,produto.getNome());
+			statement.setInt(3, produto.getIdFornecedor());
+			statement.setInt(4,produto.getVendaVarejo());
+			statement.setInt(5, produto.getVendaAtacado());
+			
 			
 			statement.execute();
 			statement.close();
@@ -40,109 +42,77 @@ public class DaoProduto implements IDaoProduto{
 
 	@Override
 	public void editar(Produto produto) throws DaoException {
-		// TODO Auto-generated method stub
+		try {
+			
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Produto.UPDATE_ALL);
+		
+			statement.setString(1,produto.getNome());
+			statement.setString(2,produto.getTipo());
+			statement.setInt(3, produto.getIdFornecedor());
+			statement.setInt(4,produto.getVendaVarejo());
+			statement.setInt(5, produto.getVendaAtacado());
+			statement.setInt(6, produto.getId());
+			
+			statement.execute();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao inserir no banco!!!Contate o adm.");
+		}
+		
 		
 	}
 
 	@Override
 	public Produto buscarPorId(int id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+		try {
+			statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_NOME_PRODUTO_POR_ID);
+			statement.setInt(1, id);
+			result = statement.executeQuery();
+			
+			Produto p = new Produto();
+			
+			if(result.next()) {
+				p.setNome(result.getString(1));
+			}
+			return p;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DaoException("Erro ao buscar no banco!!!Contate o adm.");
+		}
 	}
 
 	@Override
-	public List<Produto> buscarPorBusca(String nome ,String tipo) throws DaoException {
+	public List<Produto> buscarPorBusca(String buscar) throws DaoException {
 		try{
-			if(nome.equals("")&&tipo.equals("")){
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL);
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL_POR_NOME_OU_TIPO);
+			statement.setString(1, buscar);
+			statement.setString(2, buscar);
+			result = statement.executeQuery();
+			
+			ArrayList<Produto> produtos = new ArrayList<Produto>();
 				
-				result = statement.executeQuery();
+			while(result.next()){
+				Produto produto = new Produto();
 				
-				ArrayList<Produto> produtos = new ArrayList<Produto>();
+				produto.setNome(result.getString(1));
+				produto.setTipo(result.getString(2));
+				produto.setIdFornecedor(result.getInt(3));
+				produto.setVendaVarejo(result.getInt(4));
+				produto.setVendaAtacado(result.getInt(5));
+				produto.setId(result.getInt(6));
 				
-				while(result.next()){
-					Produto produto = new Produto();
 					
-					produto.setNome(result.getString(1));
-					produto.setTipo(result.getString(2));
-					produto.setPreco(result.getFloat(3));
-					produto.setQuantidade(result.getInt(4));
-					
-					produtos.add(produto);
-				}
-				statement.execute();
-				statement.close();
-				return produtos;
-			}else if(tipo.equals("")){
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL_POR_NOME);
-				statement.setString(1, nome);
-				result = statement.executeQuery();
-				
-				ArrayList<Produto> produtos = new ArrayList<Produto>();
-				
-				while(result.next()){
-					Produto produto = new Produto();
-					
-					produto.setNome(result.getString(1));
-					produto.setTipo(result.getString(2));
-					produto.setPreco(result.getFloat(3));
-					produto.setQuantidade(result.getInt(4));
-					
-					produtos.add(produto);
-				}
-				statement.execute();
-				statement.close();
-				return produtos;	
-			}else if(nome.equals("")){
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL_POR_TIPO);
-				
-				statement.setString(1, tipo);
-				
-				result = statement.executeQuery();
-				
-				ArrayList<Produto> produtos = new ArrayList<Produto>();
-				
-				while(result.next()){
-					Produto produto = new Produto();
-					
-					produto.setNome(result.getString(1));
-					produto.setTipo(result.getString(2));
-					produto.setPreco(result.getFloat(3));
-					produto.setQuantidade(result.getInt(4));
-					
-					produtos.add(produto);
-				}
-				statement.execute();
-				statement.close();
-				return produtos;
-			}else{
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Produto.SELECT_ALL_POR_NOME_E_TIPO);
-				
-				statement.setString(1, nome);
-				statement.setString(2,tipo);
-				
-				result = statement.executeQuery();
-				
-				ArrayList<Produto> produtos = new ArrayList<Produto>();
-				
-				while(result.next()){
-					Produto produto = new Produto();
-					
-					produto.setNome(result.getString(1));
-					produto.setTipo(result.getString(2));
-					produto.setPreco(result.getFloat(3));
-					produto.setQuantidade(result.getInt(4));
-					
-					produtos.add(produto);
-				}
-				statement.execute();
-				statement.close();
-				return produtos;
+				produtos.add(produto);
 			}
+			statement.execute();
+			statement.close();
+			return produtos;
+		
 		}catch (SQLException e) {
 				e.printStackTrace();
 				throw new DaoException("Erro ao buscar no banco!!!Contate o adm.");

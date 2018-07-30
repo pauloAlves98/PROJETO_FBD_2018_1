@@ -290,7 +290,7 @@ public class ControlePacientesPanel {
 
 		public JTableButtonMouseListener(JTable table,CadastroPacienteFrame pacientes) {
 			this.table = table;
-			this.pacientes =pacientes;
+			this.pacientes = pacientes;
 		}
 
 		public void mouseClicked(MouseEvent e) {

@@ -12,5 +12,5 @@ public interface IBusinessProduto {
 	public void editar(Produto produto) throws BusinessException;
 	public Produto  buscarPorId(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Produto> buscarPorBusca(String nome ,String tipo)throws BusinessException;
+	public List<Produto> buscarPorBusca(String buscar)throws BusinessException;
 }

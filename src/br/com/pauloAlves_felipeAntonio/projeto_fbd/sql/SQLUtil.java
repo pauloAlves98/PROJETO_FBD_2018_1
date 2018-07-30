@@ -33,7 +33,7 @@ public class SQLUtil {
 		//public static String SELECT_FOREINGNS_POR_CPF = "select id_endereco , id_prontuario from paciente where cpf = ?";
 		public static String SELECT_ALL_POR_NOME_E_CPF = "select nome,cpf,telefone,datanascimento from paciente where paciente.cpf = ? and paciente.nome ilike ?";
 		public static String SELECT_ALL_EXCETO_PRONTUARIO_POR_CPF = "select paciente.id,nome,rg,cpf,telefone,nome_mae,nome_pai,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,paciente.datanascimento,id_endereco from paciente, endereco e where paciente.id_endereco = e.id and paciente.cpf = ?";
-		
+		public static String SELECT_INFO_POR_NOME_CPF_TELEFONE = "select id,nome,cpf,telefone from paciente where paciente.nome ilike ? or paciente.cpf ilike ? or paciente.telefone ilike ?";	
 		public static String UPDATE_All_PACIENTE="update paciente set nome = ?,rg = ? ,cpf = ?,telefone = ?, nome_mae = ?,nome_pai = ?,datanascimento = ? where paciente.id=?"; 
 		
 	}
@@ -46,6 +46,7 @@ public class SQLUtil {
 	public static class Medico{
 		public static String INSERT_ALL = "insert into medico(cpf, area, especialidade, nome_usuario, senha, nome, rg,admim,id_endereco)"+
 				"values(?,?,?,?,?,?,?,?,?)";
+		public static String SELECT_INFO_POR_NOME_CPF_ESPECIALIDADE = "select id,nome,cpf,especialidade from medico where nome ilike ? or cpf ilike ? or especialidade ilike ?";
 	}
 	public static class Aluno {
 		public static String INSERT_ALL = "insert into aluno (nome, codigo, carga_horaria) "
@@ -60,16 +61,9 @@ public class SQLUtil {
 		//Colocar cargo em daoComum
 		public static String SELECT_INFO_POR_CPF ="select nome,cpf,telefone,data_acesso from funcionario where funcionario.cpf = ?";
 		public static String SELECT_INFO ="select nome,cpf,telefone,data_acesso from funcionario";
-		public static String SELECT_INFO_POR_NOME ="select nome,cpf,telefone,data_acesso from funcionario where funcionario.nome like ?";
-		
-		
-		public static String SELECT_INFO_POR_NOME_CPF ="select nome,cpf,telefone,data_acesso from funcionario where "
+		public static String SELECT_INFO_POR_NOME ="select nome,cpf,telefone,data_acesso from funcionario where funcionario.nome ilike ?";
+		public static String SELECT_INFO_POR_NOME_CPF_TELEFONE ="select nome,cpf,telefone,data_acesso from funcionario where "
 				+ "funcionario.cpf ilike ? or funcionario.nome ilike ? or funcionario.telefone ilike ?";
-		
-		
-		
-		
-		
 		
 		public static String INSERT_ALL = "insert into funcionario(nome, cpf, id_clinicas, admim,senha,id_cargos,nome_usuario, data_acesso, telefone, rg,id_endereco)"+
 				"values(?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
@@ -86,6 +80,12 @@ public class SQLUtil {
 	public static class Consulta{
 		public static String INSERT_ALL = "insert into consulta( tipo, horario, id_paciente, id_medico, _data, situacao)"+
 				"values(?,?,?,?,?,?)";
+		public static String SELECT_HORARIOS_POR_DATA_E_MEDICO = "select horario from consulta inner join medico on consulta.id_medico = ? and _data = ?"; //BETWEEN '01-01-1981' AND '31-12-1990' compara intervalos
+		public static String SELECT_INFO_POR_DATA = "select c.horario,c.situacao,c._data,p.nome,p.telefone,p.cpf,m.nome,m.especialidade,m.id from consulta c inner join paciente as p on c.id_paciente = p.id "+ 
+				"inner join medico as m on m.id = c.id_medico and c._data = ?";
+		public static String SELECT_INFO_POR_FILTRO = "select c.horario,c.situacao,c._data,p.nome,p.telefone,p.cpf,m.nome,m.especialidade,m.id from consulta c inner join paciente as p on c.id_paciente = p.id "+ 
+				"inner join medico as m on m.id = c.id_medico and c.horario ilike ? or  m.nome ilike ? or m.especialidade ilike ? or p.nome ilike ? or p.cpf ilike ? or p.telefone ilike ?" ;
+		
 	}
 	public static class Laudo{
 		public static String INSERT_ALL = "insert into laudo(_data, horario, descricao, id_paciente, id_medico)"+
@@ -128,27 +128,28 @@ public class SQLUtil {
 				"values(?,?)";
 	}
 	public static class Produto{
-		public static String INSERT_ALL = "insert into produto(tipo, unidade_entrada, unidade_saida, quantidade, preco,nome)"+
-				"values(?,?,?,?,?,?)";
-		
-		public static String SELECT_ALL = "select nome,tipo,quantidade from poduto";
-		public static String SELECT_ALL_POR_NOME = "select nome,tipo,quantidade from poduto where produto.nome like ?";
-		public static String SELECT_ALL_POR_TIPO = "select nome,tipo,quantidade from poduto where produto.tipo = ?";
-		public static String SELECT_ALL_POR_NOME_E_TIPO = "select nome,tipo,preco,quantidade from poduto where produto.like = ? and produto.tipo  = ?";
+		public static String INSERT_ALL = "insert into produto(tipo, nome, id_fornecedor, venda_varejo, venda_atacado)"+
+				"values(?,?,?,?,?)";
+		public static String SELECT_ALL_POR_NOME_OU_TIPO = "select nome,tipo,id_fornecedor,venda_varejo,"
+					+"venda_atacado, id from produto where nome ilike  ? or tipo  ilike ?";
+		public static String UPDATE_ALL = "update produto set nome = ?, tipo = ?, id_fornecedor = ?, venda_varejo = ?, venda_atacado = ? where id= ?";
+		public static String SELECT_NOME_PRODUTO_POR_ID = "select nome from produto  where id = ? ";
 	}
+	
 	public static class Produtos_vendas{
 		public static String INSERT_ALL = "insert into produtos_vendas(id_produtos,id_vendas)"+
 				"values(?,?)";
 	}
+	
 	public static class Fornecedor{
 		//Mechendo Aqui...
 		public static String INSERT_ALL = "insert into fornecedor(incs_municipal, cnpj, insc_estadual,nome,telefone,id_endereco)"+
 				"values(?,?,?,?,?,?)";
 		public static String UPDATE_ALL = "update fornecedor set incs_municipal = ?, cnpj = ?, insc_estadual = ? ,nome = ?,telefone = ? where fornecedor.id = ?";
 		public static String SELECT_ALL = "select nome,cnpj,incs_municipal,telefone from fornecedor";
-		public static String SELECT_ALL_POR_NOME = "select nome,cnpj,incs_municipal,telefone from fornecedor where nome ilike '?'";
-		public static String SELECT_ALL_POR_CNPJ = "select nome,cnpj,incs_municipal,telefone,id_endereco,fornecedor.id,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,insc_estadual from fornecedor, endereco where fornecedor.cnpj = ? and fornecedor.id_endereco = endereco.id";
-		public static String SELECT_ALL_POR_NOME_E_CNPJ  = "select nome,cnpj,incs_municipal,telefone from fornecedor where fornecedor.nome ilike ? and fornecedor.cnpj = ?";
+		public static String SELECT_NOME_POR_ID = "select nome from fornecedor where id =?";
+		//public static String SELECT_ALL_POR_CNPJ = "select nome,cnpj,incs_municipal,telefone,id_endereco,fornecedor.id,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,insc_estadual from fornecedor, endereco where fornecedor.cnpj = ? and fornecedor.id_endereco = endereco.id";
+		public static String SELECT_ALL_POR_NOME_CNPJ  = "select nome,cnpj,incs_municipal,telefone,id from fornecedor where nome ilike ? or cnpj ilike ? ";
 	}
 	public static class Estoque{
 		public static String INSERT_ALL = "insert into estoque(id_fornecedores, id_produtos, total_produtos)"+
@@ -182,15 +183,17 @@ public class SQLUtil {
 		public static String INSERT_ALL = "insert into contas_pagar(valor, id_caixas, id_dispesas)"+
 				"values(?,?,?)";
 	}
-
-	//	public static class Curso {
-	//
-	//		public static final String INSERT_ALL = "insert into curso2 (nome, codigo, carga_horaria) "
-	//				+ "values (?,?,?) ";
-	//
-	//		public static final String SELECT_ID = "select * from curso2 where id = ?";
-	//
-	//	}
+	
+	public static class ItemProduto{
+		public static String INSERT_ALL = "insert into item_produto(id_produto,data_compra,data_vencimento,preco_compra,quantidade)"
+				+"values(?,?,?,?,?)";
+		public static String SELECT_ALL = "select id,id_produto,data_vencimento,preco_compra,quantidade from item_produto where id <= (SELECT COUNT (id)" + 
+				"FROM item_produto)";
+		public static String SELECT_ALL_POR_ID_PRODUTO = "select id,id_produto,data_compra,data_vencimento,preco_compra,quantidade from item_produto where id_produto = ?";
+		public static String SELECT_ALL_POR_ID = "select id,id_produto,data_compra,data_vencimento,preco_compra,quantidade  from item_produto where id = ?";
+		public static String UPDATE_ALL = "update item_produto set id_produto = ?,data_compra = ?,data_vencimento = ?,preco_compra = ?,quantidade = ? where id = ?";
+	}
+	
 	private SQLUtil() {
 
 	}

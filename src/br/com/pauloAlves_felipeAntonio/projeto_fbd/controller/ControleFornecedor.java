@@ -124,7 +124,7 @@ public class ControleFornecedor {
 				try {
 					//nome,cnpj,incs_municipal,telefone
 					ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-					fornecedores = (ArrayList<Fornecedor>) fachada.buscarPorBuscaFornecedor("%"+fornecedoresPanel.getTextField().getText()+"%", fornecedoresPanel.getTextField_1().getText());
+					fornecedores = (ArrayList<Fornecedor>) fachada.buscarPorBuscaFornecedor("%"+fornecedoresPanel.getTextField().getText()+"%");
 					Object linha[][] = new Object[fornecedores.size()][5];
 					int i=0;
 					for(Fornecedor f:fornecedores){
@@ -137,6 +137,7 @@ public class ControleFornecedor {
 						b.setBackground(Color.white);
 						b.setFont(Propiedade.FONT2);
 						linha[i][4] = b;
+						i++;
 			
 					}
 					JTableButtonModel jtableButtonModel= new JTableButtonModel();
@@ -211,7 +212,7 @@ public class ControleFornecedor {
 		    	try {
 	
 		    		ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-					fornecedores =(ArrayList<Fornecedor>) fachada.buscarPorBuscaFornecedor("", ""+table.getValueAt(table.getSelectedRow(), 1));
+					fornecedores =(ArrayList<Fornecedor>) fachada.buscarPorBuscaFornecedor(""+table.getValueAt(table.getSelectedRow(), 1));
 					fornecedor = new Fornecedor();
 					fornecedor = fornecedores.get(0);
 					condicao = fornecedor.getId();

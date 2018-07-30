@@ -28,20 +28,29 @@ public class BusinessProduto implements IBusinessProduto{
 
 	@Override
 	public void editar(Produto produto) throws BusinessException {
-		// TODO Auto-generated method stub
+		try {
+			daoProduto.editar(produto);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public Produto buscarPorId(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoProduto.buscarPorId(id);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException("Erro ao Buscar produto!!!");
+		}
 	}
 
 	@Override
-	public List<Produto> buscarPorBusca(String nome ,String tipo) throws BusinessException {
+	public List<Produto> buscarPorBusca(String buscar) throws BusinessException {
 		try {
-			return daoProduto.buscarPorBusca(nome, tipo);
+			return daoProduto.buscarPorBusca(buscar);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException("Erro ao Buscar produto!!!");
