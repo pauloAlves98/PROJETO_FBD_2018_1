@@ -34,7 +34,7 @@ public class CadastroProdutoFrame extends JFrame {
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 658, 318);
 		
-		
+		getContentPane().setBackground(Color.WHITE);
 		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.BLACK);
 		panel.setBackground(Propiedade.cor1);
 		panel.setBackground(Propiedade.cor1);
@@ -47,7 +47,7 @@ public class CadastroProdutoFrame extends JFrame {
 			lblProduto.setForeground(Color.WHITE);
 			lblProduto.setBackground(Color.WHITE);
 			panel.add(lblProduto);
-				
+			
 		
 		
 		getContentPane().add(panel);
@@ -64,10 +64,10 @@ public class CadastroProdutoFrame extends JFrame {
 		codigoField.setColumns(10);
 		
 		descricaoField = new JTextField();
-		descricaoField.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
+		descricaoField.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 		descricaoField.setBounds(106, 113, 316, 32);
 		getContentPane().add(descricaoField);
-			descricaoField.setColumns(10);
+		descricaoField.setColumns(10);
 		
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
@@ -125,8 +125,6 @@ public class CadastroProdutoFrame extends JFrame {
 		
 	}
 
-	
-	
 	public JTextField getVarejoField() {
 		return varejoField;
 	}

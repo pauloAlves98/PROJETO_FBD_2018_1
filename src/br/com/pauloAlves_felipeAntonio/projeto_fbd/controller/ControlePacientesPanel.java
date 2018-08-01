@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -50,6 +52,14 @@ public class ControlePacientesPanel {
 		telaPaciente.getBtnNewButton_3().addActionListener((ActionEvent e)->{limparCampos(pacienteCdastro); pacienteCdastro.setVisible(true);});
 
 
+		pacienteCdastr. addWindowListener(new WindowAdapter()  
+	       {  
+	           public void windowClosing(WindowEvent evt)  
+	           {  condicao =0;
+	           		limparCampos(pacienteCdastr);
+	           }  
+	       });  
+		
 		pacienteCdastro.getBtnSalvar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

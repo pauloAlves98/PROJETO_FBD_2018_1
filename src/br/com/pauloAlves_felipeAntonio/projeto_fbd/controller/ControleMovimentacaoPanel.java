@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -44,6 +46,7 @@ public class ControleMovimentacaoPanel {
 				try {
 					ArrayList<Produto> produtos = new ArrayList<Produto>();
 					produtos= (ArrayList<Produto>)fachada.buscarPorBuscaProduto("%%");
+					cadastroAdcionarNoEstoque.getProdutoBox().removeAllItems();
 					for(Produto p : produtos) {
 						cadastroAdcionarNoEstoque.getProdutoBox().addItem(p.getNome());
 					}
@@ -56,6 +59,13 @@ public class ControleMovimentacaoPanel {
 				
 			}
 		});
+		cadastroAdcionarNoEstoque. addWindowListener(new WindowAdapter()  
+	       {  
+	           public void windowClosing(WindowEvent evt)  
+	           { 	 condicao =0;
+	           		limparCampos(cadastroAdcionarNoEstoque);
+	           }  
+	       });  
 		
 		cadastroAdcionarNoEstoque.getBtnSalvar().addActionListener(new ActionListener() {
 			

@@ -28,17 +28,17 @@ public class ContasApagarPanel extends JPanel {
  		
  		JLabel lblFiltro = new JLabel("Filtro");
  		lblFiltro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
- 		lblFiltro.setBounds(10, 93, 46, 32);
+ 		lblFiltro.setBounds(10, 53, 46, 32);
  		add(lblFiltro);
  		
  		filtroField = new JTextField();
- 		filtroField.setBounds(66, 95, 145, 32);
+ 		filtroField.setBounds(66, 55, 145, 32);
  		add(filtroField);
  		setBackground(Color.WHITE);
  		filtroField.setColumns(10);
  		 		
  		buscaButton = new JButton(new ImageIcon("Res/pesquisa.png"));
- 		buscaButton.setBounds(221, 95, 32, 32);
+ 		buscaButton.setBounds(221, 55, 32, 32);
  		buscaButton.setBackground(Color.white);
  		add(buscaButton);
  		
@@ -53,7 +53,7 @@ public class ContasApagarPanel extends JPanel {
  		table.getTable().setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
  		table.getTable().setShowGrid(true);
  		
- 		table.getScrollPane().setBounds(10, 146, 737, 200);
+ 		table.getScrollPane().setBounds(10, 106, 737, 200);
  		add(table.getScrollPane());
  		
 

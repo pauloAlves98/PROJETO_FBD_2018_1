@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -43,6 +45,14 @@ public class ControleFornecedor {
 				
 			}
 		});
+		
+		cadastro. addWindowListener(new WindowAdapter()  
+	       {  
+	           public void windowClosing(WindowEvent evt)  
+	           {  condicao =0;
+	           		limparCampos(cadastro);
+	           }  
+	       });  
 		
 		cadastro.getBtnSalvar().addActionListener(new ActionListener() {
 			
@@ -221,15 +231,16 @@ public class ControleFornecedor {
 					fornecedoresTela.getTelefoneField().setText(fornecedor.getTelefone());
 					fornecedoresTela.getInscEstadualField().setText(""+fornecedor.getInsc_estadual());
 					fornecedoresTela.getInscMunicipalField().setText(""+fornecedor.getIncs_municipal());
+				
 					fornecedoresTela.getBairroField().setText(fornecedor.getEndereco().getBairro());
 					fornecedoresTela.getCepField().setText(fornecedor.getEndereco().getCep());
-					
 					fornecedoresTela.getComplementoField().setText(fornecedor.getEndereco().getComplemento());
 					fornecedoresTela.getLogradouroField().setText(fornecedor.getEndereco().getLogradouro());
 					fornecedoresTela.getNumeroField().setText(""+fornecedor.getEndereco().getNumero());
 					fornecedoresTela.getRuaField().setText(fornecedor.getEndereco().getRua());
 					fornecedoresTela.getCodigoField().setText(fornecedor.getId()+"");
 					fornecedoresTela.setVisible(true);
+					
 		    	} catch (BusinessException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -90,12 +90,23 @@ public class DaoFornecedor implements IDaoFornecedor {
 				
 				while(result.next()){
 					Fornecedor f = new Fornecedor();
-					
+					Endereco end = new Endereco();
+					//cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,
 					f.setNome(result.getString(1));
 					f.setCnpj(result.getString(2));
 					f.setIncs_municipal(result.getInt(3));
 					f.setTelefone(result.getString(4));
 					f.setId(result.getInt(5));
+					end.setCep(result.getString(6));
+					end.setEstado(result.getString(7));
+					end.setLogradouro(result.getString(8));
+					end.setComplemento(result.getString(9));
+					end.setBairro(result.getString(10));
+					end.setPais(result.getString(11));
+					end.setCidade(result.getString(12));
+					end.setRua(result.getString(13));
+					end.setNumero(result.getInt(14));
+					f.setEndereco(end);
 					fornecedores.add(f);
 				}
 				statement.close();

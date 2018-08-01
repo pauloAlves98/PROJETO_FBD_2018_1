@@ -41,7 +41,7 @@ public class SQLUtil {
 
 		public static String INSERT_ALL = "insert into endereco (cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero) "
 				+ "values (?,?,?,?,?,?,?,?,?) ";
-		public static String UPDATE_ALL_ENDERECO ="update endereco set cep = ?,estado= ? ,logradouro= ?,complemento= ?,bairro= ?,pais= ?,cidade= ?,rua= ?,numero = ? where endereco.id = ?";
+		public static String UPDATE_ALL_ENDERECO ="update endereco set cep = ?, estado= ? ,logradouro= ?,complemento= ?,bairro= ?,pais= ?,cidade= ?,rua= ?,numero = ? where endereco.id = ?";
 	}
 	public static class Medico{
 		public static String INSERT_ALL = "insert into medico(cpf, area, especialidade, nome_usuario, senha, nome, rg,admim,id_endereco)"+
@@ -62,12 +62,14 @@ public class SQLUtil {
 		public static String SELECT_INFO_POR_CPF ="select nome,cpf,telefone,data_acesso from funcionario where funcionario.cpf = ?";
 		public static String SELECT_INFO ="select nome,cpf,telefone,data_acesso from funcionario";
 		public static String SELECT_INFO_POR_NOME ="select nome,cpf,telefone,data_acesso from funcionario where funcionario.nome ilike ?";
-		public static String SELECT_INFO_POR_NOME_CPF_TELEFONE ="select nome,cpf,telefone,data_acesso from funcionario where "
+		public static String SELECT_INFO_POR_FILTRO ="select nome,cpf,telefone,data_acesso, id from funcionario where "
 				+ "funcionario.cpf ilike ? or funcionario.nome ilike ? or funcionario.telefone ilike ?";
-		
 		public static String INSERT_ALL = "insert into funcionario(nome, cpf, id_clinicas, admim,senha,id_cargos,nome_usuario, data_acesso, telefone, rg,id_endereco)"+
 				"values(?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
 		public static String SELECT_POR_LOGIN_SENHA = "select id,nome,cpf,admim,nome_usuario,senha from funcionario where funcionario.nome_usuario = ? and funcionario.senha = ?";
+		public static String SELECT_ALL_CPF = "select funcionario.nome, cpf, rg , telefone, admim ,nome_usuario, senha ,data_acesso,id_endereco,id_cargos,cargo.nome,cargo.descricao_cargo,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,funcionario.id from funcionario inner join endereco on funcionario.id_endereco = endereco.id"
+		+" inner join cargo on cargo.id = funcionario.id and funcionario.cpf = ?";
+		public static String UPDATE_ALL = "update funcionario set nome = ?, cpf = ?, rg = ? , telefone = ?, admim = ? ,nome_usuario = ?, senha = ? , data_acesso = ? where funcionario.cpf = ?";
 	}
 	public static class Log_acesso{
 		public static String INSERT_ALL = "insert into log_acesso(data_acesso,nome_usuario)"+
@@ -110,6 +112,7 @@ public class SQLUtil {
 	public static class Cargo{
 		public static String INSERT_ALL = "insert into cargo(descricao_cargo,nome)"+
 				"values(?,?)";
+		public static String UPDATE_ALL  = "update cargo set nome = ?, descricao_cargo = ? where cargo.id = ?";
 	}
 	public static class Convenio{
 		public static String INSERT_ALL = "insert into convenio(data_inicio, descricao_regiao,nome)"+
@@ -149,7 +152,7 @@ public class SQLUtil {
 		public static String SELECT_ALL = "select nome,cnpj,incs_municipal,telefone from fornecedor";
 		public static String SELECT_NOME_POR_ID = "select nome from fornecedor where id =?";
 		//public static String SELECT_ALL_POR_CNPJ = "select nome,cnpj,incs_municipal,telefone,id_endereco,fornecedor.id,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,insc_estadual from fornecedor, endereco where fornecedor.cnpj = ? and fornecedor.id_endereco = endereco.id";
-		public static String SELECT_ALL_POR_NOME_CNPJ  = "select nome,cnpj,incs_municipal,telefone,id from fornecedor where nome ilike ? or cnpj ilike ? ";
+		public static String SELECT_ALL_POR_NOME_CNPJ  = "select distinct nome,cnpj,incs_municipal,telefone,fornecedor.id,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero from fornecedor, endereco  where  endereco.id = fornecedor.id_endereco and nome ilike ? or cnpj ilike ? ";
 	}
 	public static class Estoque{
 		public static String INSERT_ALL = "insert into estoque(id_fornecedores, id_produtos, total_produtos)"+

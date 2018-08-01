@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -38,6 +40,7 @@ public class ControleProdutoPanel {
 				try {
 					ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
 					fornecedores= (ArrayList<Fornecedor>)fachada.buscarPorBuscaFornecedor("%%");
+					cadastroProdutoFrame.getFornecedorBox().removeAllItems();
 					for(Fornecedor f : fornecedores) {
 						cadastroProdutoFrame.getFornecedorBox().addItem(f.getNome());
 					}
@@ -88,6 +91,9 @@ public class ControleProdutoPanel {
 						produto.setVendaVarejo(Integer.parseInt(cadastroProdutoFrame.getVarejoField().getText()));
 						produto.setId(condicao);
 						fachada.editarProduto(produto);
+						limparCampos(cadastroProdutoFrame);
+						JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+						
 					}
 					
 				} catch (BusinessException e1) {
@@ -139,7 +145,16 @@ public class ControleProdutoPanel {
 				}
 				
 			}
-		});		
+		});	
+		
+		cadastroProdutoFrame. addWindowListener(new WindowAdapter()  
+	       {  
+	           public void windowClosing(WindowEvent evt)  
+	           {  condicao =0;
+	           		limparCampos(cadastroProdutoFrame);
+	           }  
+	       });  
+		
 		produtoPanel.getTable().getTable().addMouseListener(new JTableButtonMouseListener(produtoPanel.getTable().getTable(), cadastroProdutoFrame));
 		
 	}

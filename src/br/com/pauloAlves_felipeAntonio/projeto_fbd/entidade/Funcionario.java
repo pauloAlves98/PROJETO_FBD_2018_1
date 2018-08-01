@@ -8,6 +8,15 @@ public class Funcionario {
 	private Date data_acesso;
 	private Endereco endereco;
 	private Cargo cargo;
+	private int id_endereco;
+	
+	
+	public int getId_endereco() {
+		return id_endereco;
+	}
+	public void setId_endereco(int id_endereco) {
+		this.id_endereco = id_endereco;
+	}
 	
 	public Cargo getCargo() {
 		return cargo;

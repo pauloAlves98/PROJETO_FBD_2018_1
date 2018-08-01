@@ -84,9 +84,10 @@ public class CadastrosPanel extends JPanel{
 		//telaPacientes.setLayout(null);
 		add(telaPacientes);
 		funcionarioPanel = new FuncionarioPanel();
+		funcionarioPanel.setPreferredSize(new Dimension(1000,200));
 		funcionarioPanel .setBackground(Color.WHITE);
 		funcionarioPanel.setBounds(0, 96, 796, 493);
-		add(funcionarioPanel);
+		add(funcionarioPanel,BorderLayout.CENTER);
 		telaServico = new ServicoPanel();
 		telaServico.setBackground(Color.WHITE);
 		telaServico.setBounds(0, 96, 796, 493);

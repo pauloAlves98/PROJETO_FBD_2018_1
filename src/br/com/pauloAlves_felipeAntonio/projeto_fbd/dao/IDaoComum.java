@@ -9,4 +9,5 @@ public interface IDaoComum {
 	 public void salvarCargo(Cargo cargo) throws DaoException;
 	 public int getCurrentValorTabela(String nomeTabela) throws DaoException;
 	 public void editarEndereco(Endereco endereco,int k) throws DaoException;
+	 public void editarCargo(Cargo c) throws DaoException;
 }

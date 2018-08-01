@@ -25,9 +25,12 @@ public class LoginFrame extends JFrame{
 	public LoginFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1010,610);
+		setLocationRelativeTo(null);
 		PaneGradiente pane = new PaneGradiente(Propiedade.cor1,Color.BLACK);
 		this.setContentPane(pane);
-		setBackground(Color.WHITE);
+		setResizable(false);
+		setUndecorated(true)
+;		setBackground(Color.WHITE);
 		pane.setPreferredSize(new Dimension(1010,610));
 		pane.setLayout(null);
 

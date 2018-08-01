@@ -110,4 +110,23 @@ public class DaoComum implements IDaoComum {
 		}
 	}
 
+	@Override
+	public void editarCargo(Cargo c) throws DaoException {
+		try {
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Cargo.UPDATE_ALL);
+			
+			 statement.setString(1, c.getNome());
+	         statement.setString(2, c.getDescricao_cargo());
+	         statement.setInt(3,c.getId());
+	            
+	         statement.execute();
+	         this.conexao.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 }

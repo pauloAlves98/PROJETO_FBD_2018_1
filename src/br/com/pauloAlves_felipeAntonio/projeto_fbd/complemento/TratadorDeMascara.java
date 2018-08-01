@@ -28,6 +28,8 @@ public class TratadorDeMascara {
 			throw new ValidacaoException("Erro ao validar data!!!");
 		}
 	}
+	/**
+	 * @param:CPF sem a mascara*/
 	public static boolean isCPF(String CPF) throws ValidacaoException {
 		// considera-se erro CPF's formados por uma sequencia de numeros iguais
 		    if (CPF.equals("00000000000") || CPF.equals("11111111111") ||

@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
@@ -18,11 +20,16 @@ import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Horario;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.enums.EnumAgendaView;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.controller.ControlePacientesPanel.JTableButtonMouseListener;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoConsulta;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoMedico;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoPaciente;
@@ -39,6 +46,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.AgendaPanel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.BuscaDialog;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroConsultaPanel;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroPacienteFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButton;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButtonModel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.VisualizarAgendaPanel;
@@ -50,6 +58,7 @@ public class ControlerAgenda {
 	private BuscaDialog buscarDialog;
 	private IFachada fachada;//Corrigir busines de paciente e consulta
 	private String QUEM_DISPAROU_A_BUSCA = " ";
+	private Consulta consultaCorrente;
 	
 	public ControlerAgenda(AgendaPanel agendaP){
 		
@@ -58,12 +67,12 @@ public class ControlerAgenda {
 		this.cConsultaP = agendaPanel.getcConsulta();
 		this.vAgendaPanel = agendaPanel.getvAgendaPanel();
 		this.fachada = Fachada.getInstance();
+		this.consultaCorrente = new Consulta();
 		
 		//Eventos  Cabeçario Agenda
-		this.agendaPanel.getBtnNovaConsulta().addActionListener((ActionEvent e)->{cConsultaP .setVisible(true);
-		vAgendaPanel.setVisible(false);});
-		this.agendaPanel.getVisualizarAgendaButton().addActionListener((ActionEvent e)->{cConsultaP .setVisible(false);
-		vAgendaPanel.setVisible(true);});
+		this.agendaPanel.getBtnNovaConsulta().addActionListener((ActionEvent e)->agendaPanel.getCard().show(agendaPanel.getpCard(),EnumAgendaView.CONSULTA.getValor())
+		);
+		this.agendaPanel.getVisualizarAgendaButton().addActionListener((ActionEvent e)->agendaPanel.getCard().show(agendaPanel.getpCard(),EnumAgendaView.VISUALIZAR.getValor()));
 		
 		//Eventos para cConsulta
 		this.cConsultaP.getConcluirButton().addActionListener(new ActionListener(){
@@ -113,6 +122,7 @@ public class ControlerAgenda {
 			public void actionPerformed(ActionEvent e) {
 				buscarDialog.getFiltroField().setText("");
 				if(buscarDialog.getTabelaInfo().getSelectedRowCount()>0){
+					
 					if(QUEM_DISPAROU_A_BUSCA.equalsIgnoreCase("PACIENTE")){
 						cConsultaP.getPacienteField().setText(buscarDialog.getTabelaInfo().getValueAt(buscarDialog.getTabelaInfo().getSelectedRow(), 1)+"");
 						cConsultaP.getCodPacienteField().setText(buscarDialog.getTabelaInfo().getValueAt(buscarDialog.getTabelaInfo().getSelectedRow(), 0)+"");
@@ -123,6 +133,7 @@ public class ControlerAgenda {
 					}
 					buscarDialog.setVisible(false);
 				}else if(buscarDialog.getResultadoLabel().isVisible()){
+					
 					if(QUEM_DISPAROU_A_BUSCA.equalsIgnoreCase("PACIENTE")){
 						cConsultaP.getPacienteField().setText("");
 						cConsultaP.getCodPacienteField().setText("");
@@ -134,6 +145,7 @@ public class ControlerAgenda {
 					JOptionPane.showMessageDialog(null,"NENHUM "+QUEM_DISPAROU_A_BUSCA+" SELECIONADO!");
 					buscarDialog.setVisible(false);
 				}else{
+					
 					if(QUEM_DISPAROU_A_BUSCA.equalsIgnoreCase("PACIENTE")){
 						cConsultaP.getPacienteField().setText("");
 						cConsultaP.getCodPacienteField().setText("");
@@ -170,6 +182,7 @@ public class ControlerAgenda {
 				
 			}
 		});
+		JTableButtonMouseListener tableListner = new JTableButtonMouseListener(vAgendaPanel.getTable().getTable(),vAgendaPanel);
 	}
 	public void buscaDialog(){
 		String busca = buscarDialog.getFiltroField().getText();
@@ -364,6 +377,105 @@ public class ControlerAgenda {
 		vAgendaPanel.getTable().getTable().getTableHeader().setBorder(new LineBorder(Color.WHITE,1,true));
 		vAgendaPanel.getTable().getTable().setModel(jtableButtonModel);
 		
+	}
+	public class JTableButtonMouseListener implements MouseListener {
+		private JTable table;
+
+		public JTable getTable() {
+			return table;
+		}
+
+		public void setTable(JTable table) {
+			this.table = table;
+		}
+
+		private  VisualizarAgendaPanel vAgenda = vAgendaPanel;
+
+		private void __forwardEventToButton(MouseEvent e) {
+			TableColumnModel columnModel = this.table.getColumnModel();
+			int column = columnModel.getColumnIndexAtX(e.getX());
+			int row    = e.getY() / this.table.getRowHeight();
+			Object value;
+			JButton button;
+			MouseEvent buttonEvent;
+
+			if(row >= this.table.getRowCount() || row < 0 ||
+					column >= this.table.getColumnCount() || column < 0)
+				return;
+
+			value = this.table.getValueAt(row, column);
+
+			if(!(value instanceof JButton))
+				return;
+
+			button = (JButton)value;
+
+			buttonEvent =
+					(MouseEvent)SwingUtilities.convertMouseEvent(this.table, e, button);
+
+
+			button.dispatchEvent(buttonEvent);
+			if(button == buttonEvent.getSource()) { 
+
+//				try {
+//					condicao = fachada.buscarIdPorCpfPaciente(""+getTable().getValueAt(getTable().getSelectedRow(),1));
+//					paciente = fachada.buscarPorCpfPaciente(""+getTable().getValueAt(getTable().getSelectedRow(),1));
+//					pacienteCdastro.getNomeField().setText(paciente.getNome());
+//					pacienteCdastro.getCpfField().setText(paciente.getCpf());
+//					pacienteCdastro.getRgField().setText(paciente.getRg());
+//					pacienteCdastro.getTelField().setText(paciente.getTelefone());
+//					pacienteCdastro.getNomeMField().setText(paciente.getNome_mae());
+//					pacienteCdastro.getNomePField().setText(paciente.getNome_pai());
+//					pacienteCdastro.getBairroField().setText(paciente.getEndereco().getBairro());
+//					pacienteCdastro.getCepField().setText(paciente.getEndereco().getCep());
+//					pacienteCdastro.getCidadeField().setText(paciente.getEndereco().getCidade());
+//					pacienteCdastro.getComplementoField().setText(paciente.getEndereco().getComplemento());
+//					pacienteCdastro.getLogradouroField().setText(paciente.getEndereco().getLogradouro());
+//					pacienteCdastro.getNumeroField().setText(""+paciente.getEndereco().getNumero());
+//					pacienteCdastro.getRuaField().setText(paciente.getEndereco().getRua());
+//					Calendar c = Calendar.getInstance();
+//					c.setTime(paciente.getDataNascimento());
+//					String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
+//					String mes = formatandoData((c.get(c.MONTH)+1)+"");
+//					pacienteCdastro.getNascField().setText(""+dia+""+mes+""+c.get(c.YEAR));
+//					vAgenda.setVisible(true);
+//				} catch (BusinessException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+		}
+			// This is necessary so that when a button is pressed and released
+			// it gets rendered properly.  Otherwise, the button may still appear
+			// pressed down when it has been released.
+			this.table.repaint();
+		}
+
+		public JTableButtonMouseListener(JTable table,VisualizarAgendaPanel pacientes) {
+			this.table = table;
+			this.vAgenda = pacientes;
+		}
+
+		public void mouseClicked(MouseEvent e) {
+			__forwardEventToButton(e);
+
+
+		}
+
+		public void mouseEntered(MouseEvent e) {
+			// __forwardEventToButton(e);
+		}
+
+		public void mouseExited(MouseEvent e) {
+			//  __forwardEventToButton(e);
+		}
+
+		public void mousePressed(MouseEvent e) {
+			//   __forwardEventToButton(e);
+		}
+
+		public void mouseReleased(MouseEvent e) {
+			// __forwardEventToButton(e);
+		}
 	}
 	
 	

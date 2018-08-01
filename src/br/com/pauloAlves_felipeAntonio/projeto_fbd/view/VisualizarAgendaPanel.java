@@ -37,55 +37,14 @@ public class VisualizarAgendaPanel extends JPanel{
 	public VisualizarAgendaPanel(){
 		
 		setLayout(new BorderLayout(0, 0));
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		add(panel_1);
-		panel_1.setLayout(null);
+		JPanel panelParaBorder = new JPanel();
+		panelParaBorder.setBackground(Color.WHITE);
+		add(panelParaBorder);
 		setPreferredSize(new Dimension(1000,600));
-		
-		JLabel lblDataSelecionada = new JLabel("Selecione a data da consulta");
-		lblDataSelecionada.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
-		lblDataSelecionada.setBounds(10, 24, 338, 29);
-		panel_1.add(lblDataSelecionada);
-		
-		lblExtenso = new JLabel("Extenso");
-		lblExtenso.setFont(new Font("Arial", Font.PLAIN, 23));
-		lblExtenso.setBounds(373, 11, 672, 26);
-		panel_1.add(lblExtenso);
 		App.lookPadrao();
-		calendario = new JCalendar(new Date(),false);
-		calendario.getDayChooser().getDayPanel().setForeground(Color.WHITE);
-		
-		calendario.getDayChooser().getDayPanel().setBackground(new Color(248, 248, 255));
-		
-		calendario.setBackground(Color.DARK_GRAY);
-		calendario.getMonthChooser().setBackground(Color.DARK_GRAY);
-		
-		calendario.setBounds(10, 59, 278, 193);
 	
 	
 		App.lookNimbus();
-		panel_1.add(calendario);
-		pesquisaButton = new JButton(new ImageIcon("Res/pesquisa.png"));
-		pesquisaButton.setBounds(256, 297, 32, 32);
-		pesquisaButton.setBackground(Color.white);
-		panel_1.add(pesquisaButton);
-		JLabel lblFiltro = new JLabel("Filtro");
-		lblFiltro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 14));
-		lblFiltro.setBounds(10, 296, 43, 32);
-		panel_1.add(lblFiltro);
-		
-		filtroField = new JTextField();
-		filtroField.setBounds(57, 297, 195, 32);
-		panel_1.add(filtroField);
-		filtroField.setColumns(10);
-		
-		JSeparator separator = new JSeparator();
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setForeground(new Color(0, 0, 0));
-		separator.setBackground(new Color(0, 0, 0));
-		separator.setBounds(298, 11, 2, 4000);
-		panel_1.add(separator);
 		App.lookPadrao();
 		JTableButtonModel jTableButtonModel = new JTableButtonModel();
  		jTableButtonModel.adcionar(new Object[][] {
@@ -99,15 +58,64 @@ public class VisualizarAgendaPanel extends JPanel{
  		table.getTable().setShowGrid(true);
  		
  		table.getTable().setRowHeight(40);
- 		panel_1.add(table.getScrollPane());
+ 		//panel_1.add(table.getScrollPane());
+ 		panelParaBorder.setLayout(new BorderLayout(0, 0));
+ 		
+ 		JPanel panel = new JPanel();
+ 		panel.setBackground(Color.WHITE);
+ 		panelParaBorder.add(panel);
+ 		panel.setLayout(null);
+ 		
+ 		JSeparator separator = new JSeparator();
+ 		separator.setBounds(0, 215, 4000, 2);
+ 		panel.add(separator);
+ 		panel.setPreferredSize(new Dimension(800,220));
+ 		
+ 		filtroField = new JTextField();
+ 		filtroField.setBounds(417, 155, 256, 32);
+ 		panel.add(filtroField);
+ 		filtroField.setColumns(10);
+ 		calendario = new JCalendar(new Date(),false);
+ 		calendario.setBounds(10, 38, 340, 171);
+ 		panel.add(calendario);
+ 		calendario.getDayChooser().getDayPanel().setForeground(Color.WHITE);
+ 		
+ 		calendario.getDayChooser().getDayPanel().setBackground(new Color(248, 248, 255));
+ 		
+ 		calendario.setBackground(Color.DARK_GRAY);
+ 		calendario.getMonthChooser().setBackground(Color.DARK_GRAY);
+ 		
+ 		JLabel lblDataSelecionada = new JLabel("Selecione a data da consulta");
+ 		lblDataSelecionada.setBounds(10, 11, 561, 29);
+ 		panel.add(lblDataSelecionada);
+ 		lblDataSelecionada.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+ 		pesquisaButton = new JButton(new ImageIcon("Res/pesquisa.png"));
+ 		pesquisaButton.setBounds(673, 155, 32, 32);
+ 		panel.add(pesquisaButton);
+ 		pesquisaButton.setBackground(Color.white);
+ 		JLabel lblFiltro = new JLabel("Filtro");
+ 		lblFiltro.setBounds(373, 154, 43, 32);
+ 		panel.add(lblFiltro);
+ 		lblFiltro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 14));
+ 		
+ 		JPanel panel_2 = new JPanel();
+ 		panel_2.setBackground(Color.WHITE);
+ 		panelParaBorder.add(panel_2,BorderLayout.CENTER);
+ 		panel_2.setLayout(new BorderLayout());
+ 		panelParaBorder.add(panel,BorderLayout.NORTH);
+ 		lblExtenso = new JLabel("Extenso");
+ 		lblExtenso.setBounds(10, 0, 672, 54);
+ 		panel_2.add(lblExtenso,BorderLayout.NORTH);
+ 		lblExtenso.setFont(new Font("Arial", Font.PLAIN, 23));
  		
  		
- 		table.getScrollPane().setBounds(310, 59, 488, 271);
+ 		table.getScrollPane().setBounds(10, 300, 600, 200);
  		table.getTable().getTableHeader().setForeground(Color.WHITE);
  	
  		table.getTable().getTableHeader().setBackground(Propiedade.cor1);
  		table.getTable().getTableHeader().setFont(Propiedade.FONT2);
  		table.getTable().getTableHeader().setBorder(new LineBorder(Color.WHITE,1,true));
+ 		panel_2.add(table.getScrollPane(),BorderLayout.CENTER);
  		App.lookNimbus();
 	}
 
@@ -141,5 +149,4 @@ public class VisualizarAgendaPanel extends JPanel{
 	public void setLblExtenso(JLabel lblExtenso) {
 		this.lblExtenso = lblExtenso;
 	}
-	
 }

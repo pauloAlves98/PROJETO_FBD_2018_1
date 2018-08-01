@@ -1,6 +1,7 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -17,6 +18,8 @@ public class AgendaPanel extends JPanel{
 	private JButton btnNovaConsulta;
 	private JButton visualizarAgendaButton;
 	private CadastroConsultaPanel cConsulta;
+	private CardLayout card;
+	private JPanel pCard;
 	public AgendaPanel(){
 	   setLayout(new BorderLayout());
 
@@ -54,17 +57,38 @@ public class AgendaPanel extends JPanel{
 		
 		panel.add(btnNovaConsulta);
  		panel.add(visualizarAgendaButton);
+ 	
  		
+ 		pCard = new JPanel();	
+ 		add(pCard,BorderLayout.CENTER);
  		cConsulta = new CadastroConsultaPanel();
- 		add(cConsulta,BorderLayout.CENTER);
+ 		pCard.add(cConsulta,BorderLayout.CENTER);
 		vAgendaPanel = new VisualizarAgendaPanel();
-		add(vAgendaPanel,BorderLayout.WEST);
-		
-		
-		
+		pCard.add(vAgendaPanel,BorderLayout.CENTER);
+		card = new CardLayout();
+		card.addLayoutComponent(vAgendaPanel,"Visualizar");
+		card.addLayoutComponent(cConsulta,"Consulta");
+		pCard.setLayout(card);
+		card.show(pCard,"Visualizar");
 		
 	}
 	
+	public JPanel getpCard() {
+		return pCard;
+	}
+
+	public void setpCard(JPanel pCard) {
+		this.pCard = pCard;
+	}
+
+	public CardLayout getCard() {
+		return card;
+	}
+
+	public void setCard(CardLayout card) {
+		this.card = card;
+	}
+
 	public VisualizarAgendaPanel getvAgendaPanel() {
 		return vAgendaPanel;
 	}
@@ -97,10 +121,10 @@ public class AgendaPanel extends JPanel{
 		this.cConsulta = cConsulta;
 	}
 
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.setSize(400, 400);
-		f.getContentPane().add(new AgendaPanel());
-		f.setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		JFrame f = new JFrame();
+//		f.setSize(400, 400);
+//		f.getContentPane().add(new AgendaPanel());
+//		f.setVisible(true);
+//	}
 }

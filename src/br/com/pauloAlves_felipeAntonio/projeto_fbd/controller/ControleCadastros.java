@@ -1,5 +1,6 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.controller;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,7 +16,7 @@ public class ControleCadastros {
 				cadastrosPanel.getTelaPacientes().setVisible(false);
 				cadastrosPanel.getFuncionarioPanel().setVisible(false);
 				cadastrosPanel.getTelaFornecedor().setVisible(true);
-				
+				cadastrosPanel.add(cadastrosPanel.getTelaFornecedor(),BorderLayout.CENTER);
 			}
 		});
 		
@@ -27,7 +28,7 @@ public class ControleCadastros {
 				cadastrosPanel.getTelaPacientes().setVisible(false);
 				cadastrosPanel.getFuncionarioPanel().setVisible(false);
 				cadastrosPanel.getTelaServico().setVisible(true);
-				
+				cadastrosPanel.add(cadastrosPanel.getTelaServico(),BorderLayout.CENTER);
 			}
 		});
 		
@@ -39,6 +40,7 @@ public class ControleCadastros {
 				cadastrosPanel.getTelaServico().setVisible(false);
 				cadastrosPanel.getFuncionarioPanel().setVisible(false);
 				cadastrosPanel.getTelaPacientes().setVisible(true);	
+				cadastrosPanel.add(cadastrosPanel.getTelaFornecedor(),BorderLayout.CENTER);
 			}
 		});
 		cadastrosPanel.getFuncionarioButton().addActionListener(new ActionListener() {
@@ -49,6 +51,7 @@ public class ControleCadastros {
 				cadastrosPanel.getTelaServico().setVisible(false);
 				cadastrosPanel.getTelaPacientes().setVisible(false);
 				cadastrosPanel.getFuncionarioPanel().setVisible(true);
+				cadastrosPanel.add(cadastrosPanel.getFuncionarioPanel(),BorderLayout.CENTER);
 			}
 		});
 	}
