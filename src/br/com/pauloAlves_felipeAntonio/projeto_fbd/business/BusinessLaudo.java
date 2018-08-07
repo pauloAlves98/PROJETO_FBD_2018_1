@@ -1,5 +1,6 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.business;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoLaudo;
@@ -28,26 +29,72 @@ public class BusinessLaudo implements IBusinessLaudo{
 
 	@Override
 	public void editar(Laudo laudo) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		try {
+			daoLaudo.editar(laudo);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Laudo buscarPorId(int id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoLaudo.buscarPorId(id);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Laudo buscaPorHorario(String horario) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoLaudo.buscaPorHorario(horario);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Laudo> buscarPorBusca(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoLaudo.buscarPorBusca(busca);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Laudo> buscarParaEdicao(int id) throws BusinessException {
+		try {
+			return daoLaudo.buscarParaEdicao(id);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Laudo> buscarInfoPorPeriodo(int id, Date inicio, Date fim, String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		try {
+			return daoLaudo.buscarInfoPorPeriodo(id, inicio, fim, busca);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 }

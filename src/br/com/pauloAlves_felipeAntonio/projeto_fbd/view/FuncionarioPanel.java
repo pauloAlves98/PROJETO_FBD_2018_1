@@ -26,7 +26,7 @@ public class FuncionarioPanel extends JPanel{
  		jTableButtonModel.adcionar(new Object[][] {
 			},
 			new String[] {
-					"Nome","RG", "CPF", "Telefone", "Nascimento"
+					
 			});
  		table = new JTableButton(jTableButtonModel);
  		table.getTable().setBackground(Color.WHITE);

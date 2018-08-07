@@ -69,7 +69,7 @@ public class DaoFuncionario implements IDaoFuncionario{
 			statement.setString(6,funcionario.getNome_usuario());
 			statement.setString(7,funcionario.getSenha());
 			statement.setDate(8,new Date(funcionario.getData_acesso().getTime()));
-			statement.setString(9,funcionario.getCpf());
+			statement.setInt(9,funcionario.getId());
 			statement.execute();
 
 			statement.close();
@@ -167,12 +167,11 @@ public class DaoFuncionario implements IDaoFuncionario{
 				func.setAdmim(result.getString(4));
 				func.setNome_usuario(result.getString(5));
 				func.setSenha(result.getString(6));
-			}else
-				throw new DaoException("Login ou Senha Inválidos!!!");
+			}
 			return func;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DaoException("Login ou Senha Inválidos!!!");
+			throw new DaoException("Erro de acesso ao banco, Contate o ADM!");
 		}
 
 	}

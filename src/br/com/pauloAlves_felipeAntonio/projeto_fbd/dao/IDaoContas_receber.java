@@ -11,4 +11,6 @@ public interface IDaoContas_receber {
 	public Contas_receber   buscarPorId(int id)  throws DaoException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
 	public List<Contas_receber > buscarPorBusca(String busca)throws DaoException;
+	public float soma() throws  DaoException;
+	public float somaValorPago() throws DaoException;
 }

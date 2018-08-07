@@ -20,13 +20,15 @@ public class AgendaPanel extends JPanel{
 	private CadastroConsultaPanel cConsulta;
 	private CardLayout card;
 	private JPanel pCard;
+	protected PaneGradiente panel;
+	
 	public AgendaPanel(){
 	   setLayout(new BorderLayout());
 
 		
 		setBackground(Color.WHITE);
 		
-		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.black);
+		panel = new PaneGradiente(Propiedade.cor1,Color.black);
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 809, 99);
 		panel.setPreferredSize(new Dimension(809,99));

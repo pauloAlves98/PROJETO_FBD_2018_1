@@ -84,6 +84,8 @@ public class CadastroServicoFrame extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		
 	}
+	
+	
 	private class Panell extends JGradientePanel{
 
 		public Panell(Color initialColor, Color finalColor) {

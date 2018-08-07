@@ -36,6 +36,7 @@ public class DaoFornecedor implements IDaoFornecedor {
 			
 			statement.execute();
 			statement.close();
+			conexao.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DaoException("Erro ao inserir no banco!!!Contate o adm.");
@@ -106,6 +107,7 @@ public class DaoFornecedor implements IDaoFornecedor {
 					end.setCidade(result.getString(12));
 					end.setRua(result.getString(13));
 					end.setNumero(result.getInt(14));
+					end.setId(result.getInt(15));
 					f.setEndereco(end);
 					fornecedores.add(f);
 				}

@@ -15,12 +15,12 @@ import javax.swing.border.EmptyBorder;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 //import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroFornecedoresFrame.Panell;
+///import exemplo.PaneGradiente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CadastroProdutoFrame extends JFrame {
-
 	private JPanel contentPane;
 	private JTextField codigoField;
 	private JTextField descricaoField;
@@ -103,23 +103,33 @@ public class CadastroProdutoFrame extends JFrame {
 		
 		JLabel lblVendaVarejo = new JLabel("Venda Varejo");
 		lblVendaVarejo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
-		lblVendaVarejo.setBounds(466, 174, 106, 14);
+		lblVendaVarejo.setBounds(472, 174, 106, 14);
 		getContentPane().add(lblVendaVarejo);
 		
 		JLabel lblVendaAtacado = new JLabel("Venda Atacado");
 		lblVendaAtacado.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
-		lblVendaAtacado.setBounds(335, 174, 111, 14);
+		lblVendaAtacado.setBounds(344, 174, 111, 14);
 		getContentPane().add(lblVendaAtacado);
 		
 		varejoField = new JTextField();
-		varejoField.setBounds(466, 194, 112, 32);
+		varejoField.setBounds(472, 194, 112, 32);
 		getContentPane().add(varejoField);
 		varejoField.setColumns(10);
 		
 		atacadoField = new JTextField();
-		atacadoField.setBounds(335, 194, 112, 32);
+		atacadoField.setBounds(343, 194, 112, 32);
 		getContentPane().add(atacadoField);
 		atacadoField.setColumns(10);
+		
+		JLabel label = new JLabel("%");
+		label.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+		label.setBounds(456, 201, 46, 14);
+		getContentPane().add(label);
+		
+		JLabel label_1 = new JLabel("%");
+		label_1.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+		label_1.setBounds(586, 201, 46, 14);
+		getContentPane().add(label_1);
 		setBackground(Color.WHITE);
 		//setVisible(true);
 		

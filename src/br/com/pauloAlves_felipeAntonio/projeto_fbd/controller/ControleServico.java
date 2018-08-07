@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -26,6 +28,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.ServicoPanel;
 
 public class ControleServico {
 	IFachada fachada;
+	int condicao = 0;
 	public ControleServico(ServicoPanel servicoPanel,CadastroServicoFrame cadastroServicoFrame) {
 		fachada = Fachada.getInstance();
 		servicoPanel.getServicoButton().addActionListener(new ActionListener() {
@@ -37,23 +40,45 @@ public class ControleServico {
 			}
 		});
 		
+		cadastroServicoFrame. addWindowListener(new WindowAdapter()  
+	       {  
+	           public void windowClosing(WindowEvent evt)  
+	           {  condicao =0;
+	           		limparCampos(cadastroServicoFrame);
+	           }  
+	       });  
+		
 		cadastroServicoFrame.getSalvarButton().addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Servico servico = new Servico();
-					servico.setTipo(cadastroServicoFrame.getTipoField().getText());
-					servico.setDescricao(cadastroServicoFrame.getDescricaoField().getText());
-					servico.setValor(Float.parseFloat(cadastroServicoFrame.getValorField().getText()));
-				
-					fachada.salvarServico(servico);
-					if((JOptionPane.showConfirmDialog(null, "Deseja Cadastrar Mais algum?"))==0){
-						limparCampos(cadastroServicoFrame);
+					if(condicao == 0) {
+						Servico servico = new Servico();
+						servico.setTipo(cadastroServicoFrame.getTipoField().getText());
+						servico.setDescricao(cadastroServicoFrame.getDescricaoField().getText());
+						servico.setValor(Float.parseFloat(cadastroServicoFrame.getValorField().getText()));
+					
+						fachada.salvarServico(servico);
+						if((JOptionPane.showConfirmDialog(null, "Deseja Cadastrar Mais algum?"))==0){
+							limparCampos(cadastroServicoFrame);
+						}else {
+							cadastroServicoFrame.setVisible(false);
+							limparCampos(cadastroServicoFrame);
+						}
 					}else {
-						cadastroServicoFrame.setVisible(false);
+						Servico servico = new Servico();
+						servico.setTipo(cadastroServicoFrame.getTipoField().getText());
+						servico.setDescricao(cadastroServicoFrame.getDescricaoField().getText());
+						servico.setValor(Float.parseFloat(cadastroServicoFrame.getValorField().getText()));
+						servico.setId(condicao);
+						fachada.editarServico(servico);
+						JOptionPane.showMessageDialog(null, "modificado com sucesso!!");
 						limparCampos(cadastroServicoFrame);
+						cadastroServicoFrame.setVisible(false);	
+						
 					}
+					
 				} catch (BusinessException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -69,7 +94,7 @@ public class ControleServico {
 				try {
 					ArrayList<Servico> servicos = new ArrayList<Servico>();
 				
-					servicos = (ArrayList<Servico>)fachada.buscarPorBuscaServico(servicoPanel.getTextField().getText(),servicoPanel.getTextField_1().getText());
+					servicos = (ArrayList<Servico>)fachada.buscarPorBuscaServico("%"+servicoPanel.getTextField().getText()+"%");
 					Object [][] linha = new Object[servicos.size()][5];
 					int i=0;
 					for(Servico s:servicos){
@@ -141,8 +166,9 @@ public class ControleServico {
 		    		//Falta o id
 		    		ArrayList<Servico> servicoss = new ArrayList<Servico>();
 			    	Servico servico = new Servico();
-					servicoss = (ArrayList<Servico>)fachada.buscarPorBuscaServico(""+table.getValueAt(table.getSelectedRow(), 0),""+table.getValueAt(table.getSelectedRow(), 1));
+					servicoss = (ArrayList<Servico>)fachada.buscarPorBuscaServico("%"+table.getValueAt(table.getSelectedRow(), 0)+"%");
 					servico = servicoss.get(0);
+					condicao  = servico.getId();
 					servicos.getTipoField().setText(servico.getTipo());
 					servicos.getDescricaoField().setText(servico.getDescricao());
 					servicos.getValorField().setText(""+servico.getValor());

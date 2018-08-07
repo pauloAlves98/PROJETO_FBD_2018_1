@@ -27,6 +27,8 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.ValidacaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.Fachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.parg.viacep.ViaCEP;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.parg.viacep.ViaCEPException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroFornecedoresFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroPacienteFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButtonModel;
@@ -82,7 +84,7 @@ public class ControlePacientesPanel {
 						paciente.getEndereco().setCep(pacienteCdastro.getCepField().getText());
 						paciente.getEndereco().setCidade(pacienteCdastro.getCidadeField().getText());
 						paciente.getEndereco().setComplemento(pacienteCdastro.getComplementoField().getText());
-						paciente.getEndereco().setEstado(""+pacienteCdastro.getEstadoBox().getItemAt(pacienteCdastro.getEstadoBox().getSelectedIndex()));
+						paciente.getEndereco().setEstado(""+pacienteCdastro.getEstadoField().getText());
 						paciente.getEndereco().setLogradouro(pacienteCdastro.getLogradouroField().getText().trim().replace(" ",""));
 						paciente.getEndereco().setNumero(Integer.parseInt(pacienteCdastro.getNumeroField().getText()));
 						paciente.getEndereco().setPais(""+pacienteCdastro.getPaisBox().getItemAt(pacienteCdastro.getPaisBox().getSelectedIndex()));
@@ -115,7 +117,7 @@ public class ControlePacientesPanel {
 						paciente.getEndereco().setCep(pacienteCdastro.getCepField().getText());
 						paciente.getEndereco().setCidade(pacienteCdastro.getCidadeField().getText());
 						paciente.getEndereco().setComplemento(pacienteCdastro.getComplementoField().getText());
-						paciente.getEndereco().setEstado(""+pacienteCdastro.getEstadoBox().getItemAt(pacienteCdastro.getEstadoBox().getSelectedIndex()));
+						paciente.getEndereco().setEstado(""+pacienteCdastro.getEstadoField().getText());
 						paciente.getEndereco().setLogradouro(pacienteCdastro.getLogradouroField().getText().trim().replace(" ",""));
 						paciente.getEndereco().setNumero(Integer.parseInt(pacienteCdastro.getNumeroField().getText()));
 						paciente.getEndereco().setPais(""+pacienteCdastro.getPaisBox().getItemAt(pacienteCdastro.getPaisBox().getSelectedIndex()));
@@ -137,15 +139,27 @@ public class ControlePacientesPanel {
 			}
 		});
 
+		pacienteCdastro.getBuscarCEPButton().addActionListener((ActionEvent e)->buscarCep());
 
-
+	}
+	private void buscarCep(){
+		try {
+			ViaCEP via = new ViaCEP(this.pacienteCdastro.getCepField().getText().replace("-", ""));
+			this.pacienteCdastro.getCidadeField().setText(via.getLocalidade());
+			this.pacienteCdastro.getEstadoField().setText(via.getUf());
+			this.pacienteCdastro.getLogradouroField().setText(via.getLogradouro());
+			this.pacienteCdastro.getBairroField().setText(via.getBairro());
+		} catch (ViaCEPException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e.getMessage()+", preencha o dados manualmente!");
+		}
 	}
 	private void buscarPaciente() {
 		try {
 			//validar buscas, fazer busca por busca , tratar se nehum paciente for retornado!!!
 			//if(telaPaciente.getDescricaoField().getText().equals("") && telaPaciente.getFiltroField().getText().equals("")) {
 			ArrayList<Paciente> p = new ArrayList<Paciente>();
-			p=(ArrayList<Paciente>) fachada.buscarPorBuscaPaciente("%"+telaPaciente.getFiltroField().getText()+"%" ,telaPaciente.getDescricaoField().getText());
+			p=(ArrayList<Paciente>) fachada.buscarPorBuscaPaciente("%"+telaPaciente.getFiltroField().getText()+"%");
 			Object [][] linha = new Object[p.size()][5];
 			int i=0;
 			for(Paciente pac:p){
@@ -286,6 +300,7 @@ public class ControlePacientesPanel {
 					String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
 					String mes = formatandoData((c.get(c.MONTH)+1)+"");
 					pacienteCdastro.getNascField().setText(""+dia+""+mes+""+c.get(c.YEAR));
+					pacienteCdastro.getEstadoField().setText(paciente.getEndereco().getEstado());
 					pacientes.setVisible(true);
 				} catch (BusinessException e1) {
 					// TODO Auto-generated catch block

@@ -1,13 +1,32 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Laudo {
 	private int id,id_paciente,id_medico;
 	private Date _data;
 	private String horario,descricao;
+	private Medico medico;
+	private Paciente paciente;
 	
 	
+	public Laudo() {
+		super();
+		this.medico = new Medico();
+		this.paciente = new Paciente();
+	}
+	public Medico getMedico() {
+		return medico;
+	}
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+	public Paciente getPaciente() {
+		return paciente;
+	}
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
 	public int getId() {
 		return id;
 	}

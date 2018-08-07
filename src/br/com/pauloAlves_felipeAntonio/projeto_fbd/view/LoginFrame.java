@@ -18,10 +18,15 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import java.awt.BorderLayout;
 import javax.swing.JSeparator;
 
+/**
+ * @author P
+ *
+ */
 public class LoginFrame extends JFrame{
 	private JTextField loginField;
 	private JTextField senhaField;
 	private JButton entrarBtn;
+	private JButton sairButton;
 	public LoginFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1010,610);
@@ -38,7 +43,7 @@ public class LoginFrame extends JFrame{
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new LineBorder(Color.WHITE, 2, true));
 		panel.setBounds(298, 164, 482, 348);
-		add(panel);
+		getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		loginField = new JTextField();
@@ -91,23 +96,30 @@ public class LoginFrame extends JFrame{
 		JLabel lblIcon_1 = new JLabel(new ImageIcon("Res/senha.png"));
 		panel_3.add(lblIcon_1);
 		
-		JLabel lblNewLabel = new JLabel("LOGOMARCA");
+		JLabel lblNewLabel = new JLabel("FBD CLIN\u00CDCA");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Segoe UI Light", Font.BOLD, 25));
 		lblNewLabel.setBounds(460, 82, 173, 72);
-		add(lblNewLabel);
+		getContentPane().add(lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(625, 129, 155, 2);
-		add(separator);
+		getContentPane().add(separator);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(299, 129, 155, 2);
-		add(separator_1);
+		getContentPane().add(separator_1);
 		
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(298, 531, 482, 10);
-		add(separator_2);
+		getContentPane().add(separator_2);
+		
+		App.lookPadrao();
+		sairButton = new JButton(new ImageIcon("Res/sair32.png"));
+		sairButton.setOpaque(false);
+		sairButton.setBounds(978, 578, 32, 32);
+		sairButton.setBorder(null);
+		pane.add(sairButton);
 		setVisible(true);
 	}
 	public JTextField getLoginField() {
@@ -128,4 +140,11 @@ public class LoginFrame extends JFrame{
 	public void setEntrarBtn(JButton entrarBtn) {
 		this.entrarBtn = entrarBtn;
 	}
+	public JButton getSairButton() {
+		return sairButton;
+	}
+	public void setSairButton(JButton sairButton) {
+		this.sairButton = sairButton;
+	}
+	
 }

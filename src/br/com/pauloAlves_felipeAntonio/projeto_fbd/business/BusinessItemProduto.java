@@ -69,4 +69,39 @@ public class BusinessItemProduto implements IBusinessItemProduto{
 		}
 	}
 
+	@Override
+	public void editarQtd(ItemProduto itemProduto) throws BusinessException {
+		try {
+			daoItemProduto.editarQtd(itemProduto);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public int somaQtd() throws BusinessException {
+		try {
+			return daoItemProduto.somaQtd();
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+	}
+
+	@Override
+	public void deleteLinha(int id) throws BusinessException {
+		try {
+			daoItemProduto.deleteLinha(id);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+		
+	}
+
 }

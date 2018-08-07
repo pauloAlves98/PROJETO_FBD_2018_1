@@ -10,5 +10,5 @@ public interface IDaoServico {
 	public void editar(Servico servico) throws DaoException;
 	public Servico buscarPorId(int id)  throws DaoException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Servico> buscarPorBusca(String tipo,String descricao)throws DaoException;
+	public List<Servico> buscarPorBusca(String busca)throws DaoException;
 }

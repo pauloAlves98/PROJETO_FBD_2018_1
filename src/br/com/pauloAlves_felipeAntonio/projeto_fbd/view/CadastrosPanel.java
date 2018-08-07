@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastrosPanel extends JPanel{
 	private PacientesPanel telaPacientes;
@@ -19,7 +21,8 @@ public class CadastrosPanel extends JPanel{
 	private FornecedoresPanel telaFornecedor;
 	private FuncionarioPanel funcionarioPanel;
 	private JPanel menuCadastro;
-	private JButton pacienteButton,servicoButton,fornecedorButton;
+	private MedicoPanel medicoPanel;
+	private JButton pacienteButton,servicoButton,fornecedorButton,medicoButton;
 	
 	private  JButton funcionarioButton;
 	public CadastrosPanel() {
@@ -40,7 +43,11 @@ public class CadastrosPanel extends JPanel{
 		menuCadastro.add(lblCadastros);
 		
 		fornecedorButton = new JButton("  Fornecedores");
-		fornecedorButton.setBounds(10, 55, 132, 33);
+		fornecedorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		fornecedorButton.setBounds(5, 55, 138, 33);
 		fornecedorButton.setFont(Propiedade.FONT2);
 		fornecedorButton.setHorizontalAlignment(SwingConstants.LEFT);
 		fornecedorButton.setBackground(Color.WHITE);
@@ -65,6 +72,7 @@ public class CadastrosPanel extends JPanel{
 		pacienteButton.setBorder(null);
 		pacienteButton.setFocusPainted(false);
 		menuCadastro.add(pacienteButton);
+		
 		funcionarioButton = new JButton("Funcionarios");
 		funcionarioButton.setBounds(429, 55, 154, 33);
 		funcionarioButton .setFont( Propiedade.FONT2);
@@ -73,6 +81,17 @@ public class CadastrosPanel extends JPanel{
 		funcionarioButton.setBorder(null);
 		funcionarioButton .setFocusPainted(false);
 		menuCadastro.add(funcionarioButton);
+		
+		medicoButton = new JButton("Médicos");
+		medicoButton.setBounds(595, 55, 154, 33);
+		medicoButton .setFont( Propiedade.FONT2);
+		medicoButton .setHorizontalAlignment(SwingConstants.CENTER);
+		medicoButton .setBackground(Color.WHITE);
+		medicoButton.setBorder(null);
+		medicoButton .setFocusPainted(false);
+		menuCadastro.add(medicoButton);
+	    
+		
 		
 		telaPacientes = new PacientesPanel();
 		telaPacientes.getBtnNewButton_3().setLocation(10, 41);
@@ -93,11 +112,31 @@ public class CadastrosPanel extends JPanel{
 		telaServico.setBounds(0, 96, 796, 493);
 		add(telaServico);
 		
+	
+		
+		medicoPanel = new MedicoPanel();
+		medicoPanel.setPreferredSize(new Dimension(1000,200));
+		add(medicoPanel);medicoPanel.setVisible(false);
 		telaFornecedor = new FornecedoresPanel();
 		telaFornecedor.setBackground(Color.WHITE);
 		telaFornecedor.setBounds(0, 96, 796, 493);
-		add(telaFornecedor);
-		
+		add(telaFornecedor,BorderLayout.CENTER);
+	}
+
+	public MedicoPanel getMedicoPanel() {
+		return medicoPanel;
+	}
+
+	public void setMedicoPanel(MedicoPanel medicoPanel) {
+		this.medicoPanel = medicoPanel;
+	}
+
+	public JButton getMedicoButton() {
+		return medicoButton;
+	}
+
+	public void setMedicoButton(JButton medicoButton) {
+		this.medicoButton = medicoButton;
 	}
 
 	public PacientesPanel getTelaPacientes() {

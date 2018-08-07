@@ -13,6 +13,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -21,8 +22,8 @@ import java.awt.event.ActionEvent;
 public class CadastroAdcionarNoEstoque extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField dataCompraField;
-	private JTextField vencimentoField;
+	private JFormattedTextField dataCompraField;
+	private JFormattedTextField vencimentoField;
 	private JTextField precoCompraField;
 	private JTextField quantidadeField;
 	private JComboBox produtoBox;
@@ -61,7 +62,7 @@ public class CadastroAdcionarNoEstoque extends JFrame {
 		produtoBox.setBounds(10, 121, 321, 32);
 		contentPane.add(produtoBox);
 		
-		dataCompraField = new JTextField();
+		dataCompraField = new JFormattedTextField();
 		dataCompraField.setBounds(372, 121, 139, 32);
 		contentPane.add(dataCompraField);
 		dataCompraField.setColumns(10);
@@ -71,7 +72,7 @@ public class CadastroAdcionarNoEstoque extends JFrame {
 		lblDataDaCompra.setBounds(372, 97, 139, 32);
 		contentPane.add(lblDataDaCompra);
 		
-		vencimentoField = new JTextField();
+		vencimentoField = new JFormattedTextField();
 		vencimentoField.setBounds(10, 188, 139, 32);
 		contentPane.add(vencimentoField);
 		vencimentoField.setColumns(10);
@@ -105,8 +106,16 @@ public class CadastroAdcionarNoEstoque extends JFrame {
 		btnSalvar.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
 		btnSalvar.setBounds(10, 232, 139, 39);
 		contentPane.add(btnSalvar);
+		
+		this.mascaraData(dataCompraField);
+		this.mascaraData(vencimentoField);
 	}
-
+	private void mascaraData(JFormattedTextField formato) {
+		try{
+			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("##/##/####");
+			format_textField4.install(formato);
+		}catch (Exception e){}
+	}
 
 	public JTextField getDataCompraField() {
 		return dataCompraField;

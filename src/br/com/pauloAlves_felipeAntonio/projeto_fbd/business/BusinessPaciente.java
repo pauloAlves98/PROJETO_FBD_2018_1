@@ -53,9 +53,9 @@ public class BusinessPaciente implements IBusinessPaciente {
 	}
 
 	@Override
-	public List<Paciente> buscarPorBusca(String nome,String cpf) throws BusinessException{
+	public List<Paciente> buscarPorBusca(String busca) throws BusinessException{
 		try {
-			return daoPaciente.buscarPorBusca(nome, cpf);
+			return daoPaciente.buscarPorBusca(busca);
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,6 +68,17 @@ public class BusinessPaciente implements IBusinessPaciente {
 		try {
 			return daoPaciente.buscarIdPorCpf(cpf);
 		} catch (DaoException e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+	@Override
+	public List<Paciente> buscaInfoPorFiltro(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		try {
+			return daoPaciente.buscaInfoPorFiltro(busca);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			throw new BusinessException(e.getMessage());
 		}
 	}

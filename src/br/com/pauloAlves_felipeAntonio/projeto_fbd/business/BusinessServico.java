@@ -27,7 +27,13 @@ public class BusinessServico implements IBusinessServico {
 
 	@Override
 	public void editar(Servico servico) throws BusinessException {
-		// TODO Auto-generated method stub
+		try {
+			daoServico.editar(servico);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro ao buscar servico!!!");
+		}
 		
 	}
 
@@ -38,9 +44,9 @@ public class BusinessServico implements IBusinessServico {
 	}
 
 	@Override
-	public List<Servico> buscarPorBusca(String tipo,String descricao) throws BusinessException {
+	public List<Servico> buscarPorBusca(String busca) throws BusinessException {
 		try {
-			return daoServico.buscarPorBusca(tipo, descricao);
+			return daoServico.buscarPorBusca(busca);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException("Erro ao buscar servico!!!");

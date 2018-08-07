@@ -29,20 +29,58 @@ public class BusinessContas_receber implements IBusinessContas_receber {
 
 	@Override
 	public void editar(Contas_receber contas_receber) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		try {
+			daoContas_receber.editar(contas_receber);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
 	}
 
 	@Override
 	public Contas_receber buscarPorId(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoContas_receber.buscarPorId(id);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Contas_receber> buscarPorBusca(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoContas_receber.buscarPorBusca(busca);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+	}
+
+	@Override
+	public float soma() throws BusinessException {
+		try {
+			return daoContas_receber.soma();
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
+	}
+
+	@Override
+	public float somaValorPago() throws BusinessException {
+		try {
+			return daoContas_receber.somaValorPago();
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+
+		}
 	}
 
 }

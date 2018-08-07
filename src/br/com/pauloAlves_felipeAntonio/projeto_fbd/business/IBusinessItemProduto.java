@@ -13,4 +13,7 @@ public interface IBusinessItemProduto {
 	public List<ItemProduto> buscarPorId_produto(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
 	public List<ItemProduto> buscarPorBusca()throws BusinessException;
+	public void editarQtd(ItemProduto itemProduto) throws BusinessException;
+	public int somaQtd() throws BusinessException;
+	public void deleteLinha(int id) throws  BusinessException;
 }

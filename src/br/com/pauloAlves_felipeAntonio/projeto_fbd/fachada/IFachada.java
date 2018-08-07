@@ -1,6 +1,6 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Caixa;
@@ -55,6 +55,11 @@ public interface IFachada {
 	public Consulta buscarPorIdConsulta(int id)  throws BusinessException;
 	public Consulta buscaPorDataConsulta(Date data) throws BusinessException;
 	public List<Consulta> buscarPorBuscaConsulta(String busca)throws BusinessException;
+	public List<String> buscaHorariosConsulta(java.util.Date date,int id_medico) throws BusinessException ;//Falta
+	public List<Consulta> buscaInfoConsultaPorData(java.util.Date busca) throws BusinessException;//falta
+	public List<Consulta> buscaInfoConsultaPorFiltro(String busca) throws BusinessException;//falta
+	public List<Consulta> buscaPorFiltroConsultaMedico(int id ,String busca) throws BusinessException;
+	public List<Consulta> buscaInfoConsultaPorDataMedico(java.util.Date busca,int id) throws BusinessException;
 	
 	public void salvarContas_pagar (Contas_pagar contas_pagar) throws BusinessException;
 	public void editarContas_pagar (Contas_pagar contas_pagar) throws BusinessException;
@@ -65,6 +70,8 @@ public interface IFachada {
 	public void salvarContas_receber(Contas_receber contas_receber) throws BusinessException;
 	public void editarContas_receber(Contas_receber contas_receber) throws BusinessException;
 	public Contas_receber  buscarPorIdContas_receber(int id)  throws BusinessException;
+	public float soma() throws  BusinessException;
+	public float somaValorPago() throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
 	
 	public List<Contas_receber > buscarPorBuscaContas_receber(String busca)throws BusinessException;
@@ -100,6 +107,8 @@ public interface IFachada {
 	public Laudo buscarPorILaudo(int id)  throws BusinessException;
 	public Laudo buscaPorHorarioLaudo(String horario) throws BusinessException;
 	public List<Laudo> buscarPorBuscaLaudo(String busca)throws BusinessException;
+	public List<Laudo> buscarParaEdicaoLaudo(int id) throws  BusinessException ;
+	public List<Laudo> buscarInfoPorPeriodoLaudo(int id,Date inicio,Date fim,String busca) throws BusinessException;
 	
 	public void salvarLocal_end (Local_end local_end) throws BusinessException;
 	public void editarLocal_end (Local_end local_end) throws BusinessException;
@@ -119,11 +128,14 @@ public interface IFachada {
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
 	public List<Medicamento> buscarPorBuscaMedicamento(String busca)throws BusinessException;
 	
-	public void salvarMedico(Medico medico)throws DaoException;
-	public void editarMedico(Medico medico)throws DaoException;
-	public Medico buscarPorIdMedico(int id)throws DaoException;
-	public Medico buscarPorCpfMedico(String cpf)throws DaoException;
-	public List<Medico> buscarPorBuscaMedico(String busca);
+	public void salvarMedico(Medico medico)throws BusinessException;
+	public void editarMedico(Medico medico)throws BusinessException;
+	public Medico buscarPorIdMedico(int id) throws BusinessException;
+	public Medico buscarPorCpfMedico(String cpf)throws  BusinessException;
+	public List<Medico> buscarPorBuscaMedico(String busca) throws BusinessException;
+	public List<Medico>buscarInfoPorFiltroMedico(String busca)throws BusinessException;
+	public Medico buscaPorLogin_senhaMedico(String login , String senha) throws BusinessException;
+	
 	
 	public void salvarPaciente(Paciente paciente) throws BusinessException;
 	   // public void salvar_sem_convenio(Paciente paciente) throws DaoException;
@@ -132,7 +144,8 @@ public interface IFachada {
 	public Paciente buscarPorIdPaciente(int id)throws BusinessException;
 	public Paciente buscarPorCpfPaciente(String cpf)throws BusinessException;
 	public int buscarIdPorCpfPaciente(String cpf) throws BusinessException;
-	public List<Paciente> buscarPorBuscaPaciente(String nome,String cpf)throws BusinessException;
+	public List<Paciente> buscarPorBuscaPaciente(String busca)throws BusinessException;
+	public List<Paciente>buscaInfoPorFiltroPaciente(String busca) throws BusinessException;
 	
 	public void salvarPagamento(Pagamento pagamento) throws BusinessException;
 	public void editarPagamento(Pagamento pagamento) throws BusinessException;
@@ -174,7 +187,7 @@ public interface IFachada {
 	public void editarServico(Servico servico) throws BusinessException;
 	public Servico buscarPorIdServico(int id)  throws BusinessException;
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
-	public List<Servico> buscarPorBuscaServico(String tipo,String descricao)throws BusinessException;
+	public List<Servico> buscarPorBuscaServico(String busca)throws BusinessException;
 	
 	public void salvarServicos_vendas(Servicos_vendas servico) throws BusinessException;
 	public void editarServicos_vendas(Servicos_vendas servico) throws BusinessException;
@@ -195,4 +208,8 @@ public interface IFachada {
 	//public Medicamento buscaPorHorario(String horario) throws DaoException;
 	public List<ItemProduto> buscarPorBuscaItemProduto()throws BusinessException;
 	public List<ItemProduto> buscarPorId_produto(int id)  throws BusinessException;
+	public void editarQtd(ItemProduto itemProduto) throws BusinessException;
+	public int somaQtd() throws BusinessException;
+	public void deleteLinha(int id) throws  BusinessException;
+	
 }

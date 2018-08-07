@@ -3,6 +3,7 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -24,25 +25,27 @@ public class CadastroFornecedoresFrame extends JFrame {
 	private JFormattedTextField cepField;
 	private JTextField logradouroField;
 	private JTextField numeroField;
-	private JTextField complementoField;
+	private JTextField complementoField,estadoField,cidadeField;
 	private JTextField ruaField;
 	private JTextField textField_12;
 	private JTextField bairroField;
 	private JTextField textField_14;
-	private JComboBox ufBox,cidadeBox,paisBox;
+	private JComboBox paisBox;
 	private JButton btnSalvar,buscarButton;
 
 	/**
 	 * Create the panel.
 	 */
 	public CadastroFornecedoresFrame() {
-		setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setLayout(null);
 		setSize(660,558);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		Panell panel = new Panell(Propiedade.cor1,Color.BLACK);
 		panel.setBackground(Propiedade.cor1);
 		panel.setBounds(0, 0, 644, 81);
-		add(panel);
+		getContentPane().add(panel);
 			panel.setLayout(null);
 			JLabel lblCadastroDeFornecedores = new JLabel("Cadastro de Fornecedores");
 			lblCadastroDeFornecedores.setForeground(Color.WHITE);
@@ -55,65 +58,65 @@ public class CadastroFornecedoresFrame extends JFrame {
 		JLabel lblCdigo = new JLabel("C\u00F3digo");
 		lblCdigo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblCdigo.setBounds(10, 92, 72, 16);
-		add(lblCdigo);
+		getContentPane().add(lblCdigo);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblNome.setBounds(106, 94, 94, 14);
-		add(lblNome);
+		getContentPane().add(lblNome);
 		
 		JLabel lblTelefone = new JLabel("Telefone");
 		lblTelefone.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblTelefone.setBounds(480, 94, 77, 14);
-		add(lblTelefone);
+		getContentPane().add(lblTelefone);
 		
 		
 		
 		JLabel lblInscEstadual = new JLabel("Insc. Estadual");
 		lblInscEstadual.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblInscEstadual.setBounds(10, 152, 97, 14);
-		add(lblInscEstadual);
+		getContentPane().add(lblInscEstadual);
 		
 		JLabel lblInscMunicipal = new JLabel("Insc. Municipal");
 		lblInscMunicipal.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblInscMunicipal.setBounds(154, 152, 97, 14);
-		add(lblInscMunicipal);
+		getContentPane().add(lblInscMunicipal);
 		
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblCpf.setBounds(304,152, 97, 14);
-		add(lblCpf);
+		getContentPane().add(lblCpf);
 		
 		JLabel lblEndereco = new JLabel("Endere\u00E7o");
 		lblEndereco.setFont(new Font("Berlin Sans FB", Font.PLAIN, 18));
 		lblEndereco.setBounds(10, 212, 153, 26);
-		add(lblEndereco);
+		getContentPane().add(lblEndereco);
 		
 		JLabel lblCep = new JLabel("CEP");
 		lblCep.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblCep.setBounds(278, 249, 46, 14);
-		add(lblCep);
+		getContentPane().add(lblCep);
 		
 		JLabel lblLogradouro = new JLabel("Logradouro");
 		lblLogradouro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblLogradouro.setBounds(446, 248, 79, 16);
-		add(lblLogradouro);
+		getContentPane().add(lblLogradouro);
 		
 		JLabel lblNumero = new JLabel("Numero");
 		lblNumero.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblNumero.setBounds(446, 320, 46, 14);
-		add(lblNumero);
+		getContentPane().add(lblNumero);
 		
 		JLabel lblComplemento = new JLabel("Complemento");
 		lblComplemento.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblComplemento.setBounds(10, 320, 83, 14);
-		add(lblComplemento);
+		getContentPane().add(lblComplemento);
 		
 		
 		JLabel lblBairro = new JLabel("Bairro");
 		lblBairro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblBairro.setBounds(10, 249, 46, 14);
-		add(lblBairro);
+		getContentPane().add(lblBairro);
 		
 		JLabel lblUf = new JLabel("UF");
 		lblUf.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
@@ -123,32 +126,32 @@ public class CadastroFornecedoresFrame extends JFrame {
 		JLabel lblCidade = new JLabel("Cidade");
 		lblCidade.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblCidade.setBounds(278, 320, 46, 14);
-		add(lblCidade);
+		getContentPane().add(lblCidade);
 		
 		codigoField = new JTextField();
 		codigoField.setBounds(10, 109, 86, 32);
-		add(codigoField);
+		getContentPane().add(codigoField);
 		codigoField.setColumns(10);
 		
 		nomeField = new JTextField();
 		nomeField.setBounds(106, 109, 364, 32);
-		add(nomeField);
+		getContentPane().add(nomeField);
 		nomeField.setColumns(10);
 		
 		telefoneField = new JFormattedTextField();
 		this.mascaraTelefone();
 		telefoneField.setBounds(480, 109, 140, 32);
-		add(telefoneField);
+		getContentPane().add(telefoneField);
 		telefoneField.setColumns(10);
 		
 		InscEstadualField = new JTextField();
 		InscEstadualField.setBounds(10, 171, 140, 32);
-		add(InscEstadualField);
+		getContentPane().add(InscEstadualField);
 		InscEstadualField.setColumns(10);
 		
 		InscMunicipalField = new JTextField();
 		InscMunicipalField.setBounds(153, 171, 140, 32);
-		add(InscMunicipalField);
+		getContentPane().add(InscMunicipalField);
 		InscMunicipalField.setColumns(10);
 		
 		cpfField = new JFormattedTextField();
@@ -160,16 +163,17 @@ public class CadastroFornecedoresFrame extends JFrame {
 		cepField = new JFormattedTextField();
 		this.mascaraCep();
 		cepField.setBounds(278, 265, 113, 32);
-		add(cepField);
+		getContentPane().add(cepField);
 		cepField.setColumns(10);
 		
-		buscarButton = new JButton("New button");
-		buscarButton.setBounds(401, 265, 27, 32);
+		buscarButton = new JButton(new ImageIcon("Res/pesquisa.png"));
+		buscarButton.setBackground(Color.WHITE);
+		buscarButton.setBounds(401, 265, 32, 32);
 		getContentPane().add(buscarButton);
 		
 		logradouroField = new JTextField("123");
 		logradouroField.setBounds(446, 265, 174, 32);
-		add(logradouroField);
+		getContentPane().add(logradouroField);
 		logradouroField.setColumns(10);
 		
 		numeroField = new JTextField();
@@ -179,49 +183,45 @@ public class CadastroFornecedoresFrame extends JFrame {
 		
 		complementoField = new JTextField("ssdd");
 		complementoField.setBounds(10, 337, 185, 32);
-		add(complementoField);
+		getContentPane().add(complementoField);
 		complementoField.setColumns(10);
 		
 		
 		bairroField = new JTextField();
 		bairroField.setBounds(10, 265, 258, 32);
-		add(bairroField);
+		getContentPane().add(bairroField);
 		bairroField.setColumns(10);
 		
-		ufBox = new JComboBox(new String[]{
-				"PE"
-		});
-		ufBox.setBounds(205, 337, 66, 32);
-		add(ufBox);
+		estadoField = new JTextField();
+		estadoField .setBounds(205, 337, 66, 32);
+		getContentPane().add(estadoField );
 		
 		JLabel ruaLabel = new JLabel("Rua");
 		ruaLabel.setBounds(10,380,46,14);
-		add(ruaLabel);
+		getContentPane().add(ruaLabel);
 		
 		ruaField = new JTextField();
 		ruaField.setBounds(10,400, 258, 32);
-		add(ruaField);
+		getContentPane().add(ruaField);
 		ruaField.setColumns(10);
 		
 		JLabel paisLabel = new JLabel("Pais");
 		paisLabel.setBounds(288,380,46,14);
-		add(paisLabel);
+		getContentPane().add(paisLabel);
 		
-		paisBox = new JComboBox<>(new String[]{
-				"Brasil"
-		});
+		paisBox = new JComboBox<>();
+		paisBox.addItem("Brasil");
+				
 		paisBox.setBounds(288, 400, 80, 32);
-		add(paisBox);
+		getContentPane().add(paisBox);
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(10, 450, 89, 35);
-		add(btnSalvar);
+		getContentPane().add(btnSalvar);
 		
-		cidadeBox =  new JComboBox(new String[]{
-				"Carnaiba"
-		});
-		cidadeBox.setBounds(278, 337, 150, 32);
-		add(cidadeBox);
+		cidadeField =  new JTextField();
+		cidadeField.setBounds(278, 337, 150, 32);
+		getContentPane().add(cidadeField);
 		setBackground(Color.WHITE);
 
 	}
@@ -384,20 +384,22 @@ public class CadastroFornecedoresFrame extends JFrame {
 		this.textField_14 = textField_14;
 	}
 
-	public JComboBox getUfBox() {
-		return ufBox;
+	public JTextField getEstadoField() {
+		return estadoField;
 	}
 
-	public void setUfBox(JComboBox ufBox) {
-		this.ufBox = ufBox;
+	public void setEstadoField(JTextField estadoField) {
+		this.estadoField = estadoField;
 	}
 
-	public JComboBox getCidadeBox() {
-		return cidadeBox;
+
+
+	public JTextField getCidadeField() {
+		return cidadeField;
 	}
 
-	public void setCidadeBox(JComboBox cidadeBox) {
-		this.cidadeBox = cidadeBox;
+	public void setCidadeField(JTextField cidadeField) {
+		this.cidadeField = cidadeField;
 	}
 
 	public JButton getBtnSalvar() {

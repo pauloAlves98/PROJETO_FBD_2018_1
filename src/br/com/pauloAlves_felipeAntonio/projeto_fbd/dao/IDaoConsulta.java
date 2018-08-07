@@ -1,6 +1,6 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.dao;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Consulta;
@@ -15,4 +15,7 @@ public interface IDaoConsulta {
 	public List<Consulta> buscaInfoConsultaPorData(java.util.Date busca) throws DaoException;//falta
 	public List<Consulta> buscaInfoConsultaPorFiltro(String busca) throws DaoException;//falta
 	public List<Consulta> buscarPorBusca(String busca)throws DaoException;
+	
+	public List<Consulta> buscaPorFiltroMedico(int id ,String busca) throws DaoException;
+	public List<Consulta> buscaInfoConsultaPorDataMedico(java.util.Date busca,int id) throws DaoException;
 }

@@ -18,7 +18,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 
 
 public class TelaPrincipal extends JFrame {
-	private JButton btnFinanceiro ;
+	private JButton btnFinanceiro,btnEstoque,btnCadastros,btnAgenda,sairButton ;
 	private PacientesPanel p;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -33,7 +33,8 @@ public class TelaPrincipal extends JFrame {
 	private EstoquePanel estoquePanel;
 	private FinanceiroPanel financeiroPanel;
 	private AgendaPanel agendaPanel;
-
+	JTabbedPane tabbedPane ;
+	private static TelaPrincipal instance;
 	public TelaPrincipal() {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -46,7 +47,7 @@ public class TelaPrincipal extends JFrame {
 		getContentPane().add(panel,BorderLayout.WEST);
 		panel.setPreferredSize(new Dimension(183,600));
 
-		JButton btnCadastros = new JButton("    Cadastros",new ImageIcon("Res//mais.png"));
+		btnCadastros = new JButton("    Cadastros",new ImageIcon("Res//mais.png"));
 		btnCadastros.setOpaque(false);
 		btnCadastros.setFont(Propiedade.FONT1);
 		btnCadastros.setHorizontalAlignment(SwingConstants.LEFT);
@@ -57,7 +58,7 @@ public class TelaPrincipal extends JFrame {
 		btnCadastros.setFocusPainted(false);
 		panel.add(btnCadastros);
 
-		JButton btnEstoque = new JButton("    Estoque",new ImageIcon("Res//est.png"));
+		 btnEstoque = new JButton("    Estoque",new ImageIcon("Res//est.png"));
 		btnEstoque.setHorizontalAlignment(SwingConstants.LEFT);
 		btnEstoque.setFont(Propiedade.FONT1);
 		btnEstoque.setForeground(Color.WHITE);
@@ -80,7 +81,7 @@ public class TelaPrincipal extends JFrame {
 
 		panel.add(btnFinanceiro);
 
-		JButton btnAgenda = new JButton("   Agenda",new ImageIcon("Res//images.png"));
+		btnAgenda = new JButton("   Agenda",new ImageIcon("Res//images.png"));
 		btnAgenda.setOpaque(false);
 		btnAgenda.setForeground(Color.WHITE);
 		btnAgenda.setBackground(new Color(0, 128, 255));
@@ -90,7 +91,17 @@ public class TelaPrincipal extends JFrame {
 		btnAgenda.setBorder(null);
 		btnAgenda.setFont(Propiedade.FONT1);
 		panel.add(btnAgenda);
-
+		sairButton  = new  JButton("Sair",new ImageIcon("Res//sair64.png"));
+		sairButton.setOpaque(false);
+		sairButton.setForeground(Color.WHITE);
+		sairButton.setBackground(new Color(0, 128, 255));
+		sairButton.setHorizontalAlignment(SwingConstants.LEFT);
+		sairButton.setBounds(5, 420, 181, 68);
+		sairButton.setFocusPainted(false);
+		sairButton.setBorder(null);
+		sairButton.setFont(Propiedade.FONT1);
+		sairButton.setPreferredSize(new Dimension(50, 50));
+		panel.add(sairButton);
 		App.lookNimbus();
 
 		JPanel panel_1 = new JPanel();
@@ -99,7 +110,8 @@ public class TelaPrincipal extends JFrame {
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		App.lookPadrao();
-		JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
+		 tabbedPane = new JTabbedPane(SwingConstants.TOP);
+		 
 		panel_1.add(tabbedPane);
 		tabbedPane.setFont(Propiedade.FONT1);
 		App.lookNimbus();
@@ -118,11 +130,14 @@ public class TelaPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(false);
-
-
-
 	}
-
+	public static TelaPrincipal getInstance(){
+		if(instance ==null){
+			instance  = new TelaPrincipal();
+		}
+		return instance;
+			
+	}
 	public JButton getBtnFinanceiro() {
 		return btnFinanceiro;
 	}
@@ -241,6 +256,37 @@ public class TelaPrincipal extends JFrame {
 
 	public void setFinanceiroPanel(FinanceiroPanel financeiroPanel) {
 		this.financeiroPanel = financeiroPanel;
+	}
+
+	public JButton getBtnEstoque() {
+		return btnEstoque;
+	}
+	public void setBtnEstoque(JButton btnEstoque) {
+		this.btnEstoque = btnEstoque;
+	}
+	public JButton getBtnCadastros() {
+		return btnCadastros;
+	}
+	public void setBtnCadastros(JButton btnCadastros) {
+		this.btnCadastros = btnCadastros;
+	}
+	public JButton getBtnAgenda() {
+		return btnAgenda;
+	}
+	public void setBtnAgenda(JButton btnAgenda) {
+		this.btnAgenda = btnAgenda;
+	}
+	public JButton getSairButton() {
+		return sairButton;
+	}
+	public void setSairButton(JButton sairButton) {
+		this.sairButton = sairButton;
+	}
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
 	}
 
 	private class Panell extends JGradientePanel{

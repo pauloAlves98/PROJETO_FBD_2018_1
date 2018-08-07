@@ -1,6 +1,8 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -19,13 +21,18 @@ public class PacientesPanel extends JPanel{
 	private JTableButton table;
 	private JButton pacienteButton,buscaButton ;
 	public PacientesPanel() {
-    	//setBounds(141, 0, 657, 493);
- 		setLayout(null); 
+    	setBounds(141, 0, 657, 493);
+		setLayout(new BorderLayout(0, 0));
+		JPanel panelNorth = new JPanel();
+ 		panelNorth.setBackground(Color.WHITE);
+ 		add(panelNorth,BorderLayout.NORTH);
+ 		panelNorth.setPreferredSize(new Dimension(600,150));
+ 		panelNorth.setLayout(null); 
  		
  		JLabel lblCadastroDePacientes = new JLabel("Cadastro de Pacientes");
  		lblCadastroDePacientes.setFont(new Font("Franklin Gothic Book", Font.BOLD, 23));
  		lblCadastroDePacientes.setBounds(3, 11, 365, 27);
- 		add(lblCadastroDePacientes);
+ 		panelNorth.add(lblCadastroDePacientes);
  		
  		pacienteButton = new JButton("Novo Paciente");
  		pacienteButton.setFont(Propiedade.FONT2);
@@ -33,34 +40,26 @@ public class PacientesPanel extends JPanel{
  		pacienteButton.setBounds(3, 39, 208, 43);
  		pacienteButton.setBorder(null);
  		pacienteButton.setFocusPainted(false);
- 		add(pacienteButton);
+ 		panelNorth.add(pacienteButton);
  		
  		JLabel lblFiltro = new JLabel("Filtro");
  		lblFiltro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
  		lblFiltro.setBounds(10, 93, 46, 32);
- 		add(lblFiltro);
+ 		panelNorth.add(lblFiltro);
  		
  		filtroField = new JTextField();
  		filtroField.setBounds(66, 95, 145, 32);
- 		add(filtroField);
+ 		panelNorth.add(filtroField);
  		setBackground(Color.WHITE);
  		filtroField.setColumns(10);
  		
- 		descricaoField = new JTextField();
- 		descricaoField.setBounds(221, 95, 176, 32);
- 		add(descricaoField);
- 		descricaoField.setColumns(10);
  		
- 		textField_2 = new JTextField();
- 		textField_2.setBounds(407, 95, 176, 32);
- 		add(textField_2);
- 		textField_2.setColumns(10);
  		
  		buscaButton = new JButton(new ImageIcon("Res/pesquisa.png"));
  		
- 		buscaButton.setBounds(600, 95, 32, 32);
+ 		buscaButton.setBounds(221, 95, 32, 32);
  		buscaButton.setBackground(Color.white);
- 		add(buscaButton);
+ 		panelNorth.add(buscaButton);
  		
  		JTableButtonModel jTableButtonModel = new JTableButtonModel();
  		jTableButtonModel.adcionar(new Object[][] {
@@ -74,7 +73,13 @@ public class PacientesPanel extends JPanel{
  		table.getTable().setShowGrid(true);
  		
  		table.getScrollPane().setBounds(10, 146, 737, 200);
- 		add(table.getScrollPane());
+ 		JPanel panelTabela = new JPanel();
+ 		panelTabela.setBackground(Color.WHITE);
+ 	
+ 		panelTabela.setPreferredSize(new Dimension(600,150));;
+ 		panelTabela.setLayout(new BorderLayout(0, 0));
+ 		panelTabela.add(table.getScrollPane(),BorderLayout.CENTER);
+ 		add(panelTabela,BorderLayout.CENTER);
  		
 // 		JScrollPane scrollPane = new JScrollPane(table);
 // 		scrollPane.setBounds(10, 146, 737, 200);

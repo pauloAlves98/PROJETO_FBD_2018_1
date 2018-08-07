@@ -97,7 +97,7 @@ public class DaoItemProduto implements IDaoItemProduto{
 			statement = conexao.prepareStatement(SQLUtil.ItemProduto.SELECT_ALL);
 			result = statement.executeQuery();
 			ArrayList<ItemProduto> itemProdutos = new ArrayList<ItemProduto>();
-			if(result.next()) {
+			while(result.next()) {
 				ItemProduto i = new ItemProduto();
 				i.setId(result.getInt(1));
 				i.setId_produto(result.getInt(2));
@@ -130,7 +130,7 @@ public class DaoItemProduto implements IDaoItemProduto{
 			statement.setInt(1, id);
 			result = statement.executeQuery();
 			ArrayList<ItemProduto> itemProdutos = new ArrayList<ItemProduto>();
-			if(result.next()) {
+			while(result.next()) {
 				ItemProduto i = new ItemProduto();
 				i.setId(result.getInt(1));
 				i.setId_produto(result.getInt(2));
@@ -151,6 +151,71 @@ public class DaoItemProduto implements IDaoItemProduto{
 			e.printStackTrace();
 			throw new DaoException("Erro ao buscar no banco!!!Contate o adm.");
 		}
+	}
+
+
+	@Override
+	public void editarQtd(ItemProduto itemProduto) throws DaoException {
+		try {	
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.ItemProduto.UPDATE_QTD);
+			
+			statement.setInt(1, itemProduto.getQuantidade());
+			statement.setInt(2,itemProduto.getId());
+			
+			statement.execute();
+			conexao.close();
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	@Override
+	public int somaQtd() throws DaoException {
+		try {	
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.ItemProduto.SELECT_SOMA);
+			
+			result = statement.executeQuery();
+			ItemProduto i = new ItemProduto();
+			if(result.next()) {
+				i.setQuantidade(result.getInt(1));
+					
+			}
+			conexao.close();
+			statement.close();
+			
+			return i.getQuantidade();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DaoException("Erro ao buscar no banco!!!Contate o adm.");
+		}
+	}
+
+
+	@Override
+	public void deleteLinha(int id) throws DaoException {
+		try {	
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.ItemProduto.DELET);
+			
+			statement.setInt(1,id);
+			
+			statement.execute();
+			conexao.close();
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		
 	}
 
 }

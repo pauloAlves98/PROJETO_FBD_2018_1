@@ -1,6 +1,6 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.business.BusinessCaixa;
@@ -113,6 +113,7 @@ public class Fachada implements IFachada{
 	private IBusinessServicos_vendas businessServicos_vendas;
 	private IBusinessVenda businessVenda;
 	private IBusinessItemProduto businessItemProduto;
+	
 
 	private static Fachada fachada;
 	
@@ -160,14 +161,13 @@ public class Fachada implements IFachada{
 
 	@Override
 	public void editarCaixa(Caixa caixa) throws BusinessException {
-		// TODO Auto-generated method stub
+		businessCaixa.editar(caixa);
 		
 	}
 
 	@Override
 	public Caixa buscarPorIdCaixa(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return businessCaixa.buscarPorId(id);
 	}
 
 	@Override
@@ -236,24 +236,24 @@ public class Fachada implements IFachada{
 
 	@Override
 	public void editarConsulta(Consulta consulta) throws BusinessException {
-		// TODO Auto-generated method stub	
+		businessConsulta.editar(consulta);	
 	}
 	@Override
 	public Consulta buscarPorIdConsulta(int id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessConsulta.buscarPorId(id);
 	}
 
 	@Override
 	public Consulta buscaPorDataConsulta(Date data) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessConsulta.buscaPorData(data);
 	}
 
 	@Override
 	public List<Consulta> buscarPorBuscaConsulta(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessConsulta.buscarPorBusca(busca);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class Fachada implements IFachada{
 
 	@Override
 	public void editarContas_pagar(Contas_pagar contas_pagar) throws BusinessException {
-		// TODO Auto-generated method stub
+		businessContas_pagar.editar(contas_pagar);
 		
 	}
 
@@ -276,28 +276,25 @@ public class Fachada implements IFachada{
 
 	@Override
 	public List<Contas_pagar> buscarPorBuscaContas_pagar(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return businessContas_pagar.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarContas_receber(Contas_receber contas_receber) throws BusinessException {
-		// TODO Auto-generated method stub
+		businessContas_receber.salvar(contas_receber);
 		
 	}
 	@Override
 	public void editarContas_receber(Contas_receber contas_receber) throws BusinessException {
-		// TODO Auto-generated method stub
+		businessContas_receber.editar(contas_receber);
 		
 	}
 	@Override
 	public Contas_receber buscarPorIdContas_receber(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return businessContas_receber.buscarPorId(id);
 	}
 	@Override
 	public List<Contas_receber> buscarPorBuscaContas_receber(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return businessContas_receber.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarDespesa(Despesa despesa) throws BusinessException {
@@ -384,22 +381,22 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void editarLaudo(Laudo laudo) throws BusinessException {
-		
+		businessLaudo.editar(laudo);
 	}
 	@Override
 	public Laudo buscarPorILaudo(int id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessLaudo.buscarPorId(id);
 	}
 	@Override
 	public Laudo buscaPorHorarioLaudo(String horario) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessLaudo.buscaPorHorario(horario);
 	}
 	@Override
 	public List<Laudo> buscarPorBuscaLaudo(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return businessLaudo.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarLocal_end(Local_end local_end) throws BusinessException {
@@ -437,7 +434,7 @@ public class Fachada implements IFachada{
 	@Override
 	public Log_acesso buscaPorDataLog_acesso(Date data) throws BusinessException {
 		// TODO Auto-generated method stub
-		return businessLogAcesso.buscaPorData(data);
+		return null;
 	}
 	@Override
 	public List<Log_acesso> buscarPorBuscaLog_acesso(String busca) throws BusinessException {
@@ -463,24 +460,24 @@ public class Fachada implements IFachada{
 		return businessMedicamento.buscarPorBusca(busca);
 	}
 	@Override
-	public void salvarMedico(Medico medico) throws DaoException {
+	public void salvarMedico(Medico medico) throws BusinessException {
 		businessMedico.salvar(medico);
 	}
 	@Override
-	public void editarMedico(Medico medico) throws DaoException {
+	public void editarMedico(Medico medico) throws BusinessException  {
 		businessMedico.editar(medico);
 	}
 	@Override
-	public Medico buscarPorIdMedico(int id) throws DaoException {
+	public Medico buscarPorIdMedico(int id) throws BusinessException {
 		return businessMedico.buscarPorId(id);
 	}
 	@Override
-	public Medico buscarPorCpfMedico(String cpf) throws DaoException {
+	public Medico buscarPorCpfMedico(String cpf) throws BusinessException {
 		// TODO Auto-generated method stub
 		return businessMedico.buscarPorCpf(cpf);
 	}
 	@Override
-	public List<Medico> buscarPorBuscaMedico(String busca) {
+	public List<Medico> buscarPorBuscaMedico(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
 		return businessMedico.buscarPorBusca(busca);
 	}
@@ -508,9 +505,9 @@ public class Fachada implements IFachada{
 		return businessPaciente.buscarIdPorCpf(cpf);
 	}
 	@Override
-	public List<Paciente> buscarPorBuscaPaciente(String nome,String cpf) throws BusinessException {
+	public List<Paciente> buscarPorBuscaPaciente(String busca) throws BusinessException {
 		
-		return businessPaciente.buscarPorBusca(nome, cpf);
+		return businessPaciente.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarPagamento(Pagamento pagamento) throws BusinessException {
@@ -642,7 +639,7 @@ public class Fachada implements IFachada{
 	}
 	@Override
 	public void editarServico(Servico servico) throws BusinessException {
-		// TODO Auto-generated method stub
+		businessServico.editar(servico);
 		
 	}
 	@Override
@@ -651,9 +648,9 @@ public class Fachada implements IFachada{
 		return null;
 	}
 	@Override
-	public List<Servico> buscarPorBuscaServico(String tipo,String descricao) throws BusinessException {
+	public List<Servico> buscarPorBuscaServico(String busca) throws BusinessException {
 		// TODO Auto-generated method stub
-		return businessServico.buscarPorBusca(tipo, descricao);
+		return businessServico.buscarPorBusca(busca);
 	}
 	@Override
 	public void salvarServicos_vendas(Servicos_vendas servico) throws BusinessException {
@@ -730,7 +727,83 @@ public class Fachada implements IFachada{
 	public List<ItemProduto> buscarPorId_produto(int id) throws BusinessException {
 		return businessItemProduto.buscarPorId_produto(id);
 	}
-
+	@Override
+	public float soma() throws BusinessException {
+		return businessContas_receber.soma();
+	}
+	@Override
+	public float somaValorPago() throws BusinessException {
+		return businessContas_receber.somaValorPago();
+	}
+	@Override
+	public void editarQtd(ItemProduto itemProduto) throws BusinessException {
+		businessItemProduto.editarQtd(itemProduto);
+		
+	}
+	@Override
+	public int somaQtd() throws BusinessException {
+		return businessItemProduto.somaQtd();
+	}
+	@Override
+	public void deleteLinha(int id) throws BusinessException {
+		businessItemProduto.deleteLinha(id);
+		
+	}
+	
+	
+	//Medico
+	@Override
+	public List<Medico> buscarInfoPorFiltroMedico(String busca) throws BusinessException {
+		return businessMedico.buscarInfoPorFiltro(busca);
+	}
+	@Override
+	public Medico buscaPorLogin_senhaMedico(String login, String senha) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessMedico.buscaPorLogin_senha(login, senha);
+	}
+	
+	//Consulta
+	public List<String> buscaHorariosConsulta(java.util.Date date, int id_medico) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessConsulta.buscaHorarios(date, id_medico);
+	}
+	public List<Consulta> buscaInfoConsultaPorData(java.util.Date busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessConsulta.buscaInfoConsultaPorData(busca);
+	}
+	@Override
+	public List<Consulta> buscaPorFiltroConsultaMedico(int id, String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessConsulta.buscaPorFiltroMedico(id, busca);
+	}	
+	@Override
+	public List<Consulta> buscaInfoConsultaPorFiltro(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessConsulta.buscaInfoConsultaPorFiltro(busca);
+	}
+	@Override
+	public List<Consulta> buscaInfoConsultaPorDataMedico(java.util.Date busca, int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessConsulta.buscaInfoConsultaPorDataMedico(busca, id);
+	}
+	//Paciente
+	@Override
+	public List<Paciente> buscaInfoPorFiltroPaciente(String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessPaciente.buscaInfoPorFiltro(busca);
+	}
+	/**Laudo   */
+	@Override
+	public List<Laudo> buscarParaEdicaoLaudo(int id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessLaudo.buscarParaEdicao(id);
+	}
+	@Override
+	public List<Laudo> buscarInfoPorPeriodoLaudo(int id, Date inicio, Date fim, String busca) throws BusinessException {
+		// TODO Auto-generated method stub
+		return businessLaudo.buscarInfoPorPeriodo(id, inicio, fim, busca);
+	}
+	
 	
 
 }

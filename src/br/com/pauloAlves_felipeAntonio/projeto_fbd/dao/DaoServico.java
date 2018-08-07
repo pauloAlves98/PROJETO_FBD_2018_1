@@ -38,7 +38,22 @@ public class DaoServico implements IDaoServico{
 
 	@Override
 	public void editar(Servico servico) throws DaoException {
-		// TODO Auto-generated method stub
+		try {
+			conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = conexao.prepareStatement(SQLUtil.Servico.UPDATE_ALL);
+			
+			
+			statement.setFloat(1,servico.getValor());
+			statement.setString(2,servico.getTipo());
+			statement.setString(3,servico.getDescricao());
+			statement.setInt(4,servico.getId());
+			statement.execute();
+			statement.close();
+			conexao.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao inserir no banco!!!Contate o adm.");
+		}
 		
 	}
 
@@ -49,11 +64,13 @@ public class DaoServico implements IDaoServico{
 	}
 
 	@Override
-	public List<Servico> buscarPorBusca(String tipo,String descricao ) throws DaoException {
+	public List<Servico> buscarPorBusca(String busca ) throws DaoException {
 		try {
-			if(tipo.equals("")&&descricao.equals("")){
 				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Servico.SELECT_ALL_EXCETO_ID);
+				statement = conexao.prepareStatement(SQLUtil.Servico.SELECT_ALL_EXCETO_ID_POR_TIPO_DESCRICAO);
+				
+				statement.setString(1, busca);
+				statement.setString(2, busca);
 				
 				result = statement.executeQuery();
 				
@@ -64,6 +81,7 @@ public class DaoServico implements IDaoServico{
 					servico.setTipo(result.getString(1));
 					servico.setDescricao(result.getString(2));
 					servico.setValor(result.getFloat(3));
+					servico.setId(result.getInt(4));
 					
 					servicos.add(servico);
 				}
@@ -71,73 +89,7 @@ public class DaoServico implements IDaoServico{
 				statement.close();
 				conexao.close();
 				return servicos;
-			}else if(tipo.equals("")){
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Servico.SELECT_ALL_EXCETO_ID_POR_DESCRICAO);
-				statement.setString(1, descricao);
-				
-				result = statement.executeQuery();
-				
-				ArrayList<Servico> servicos  = new ArrayList<Servico>();
-				
-				while(result.next()){
-					Servico servico = new Servico();
-					servico.setTipo(result.getString(1));
-					servico.setDescricao(result.getString(2));
-					servico.setValor(result.getFloat(3));
-					
-					servicos.add(servico);
-				}
-				
-				statement.close();
-				conexao.close();
-				return servicos;
-			}else if(descricao.equals("")){
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Servico.SELECT_ALL_EXCETO_ID_POR_TIPO);
-				
-				statement.setString(1, tipo);
-				
-				result = statement.executeQuery();
-				
-				ArrayList<Servico> servicos  = new ArrayList<Servico>();
-				
-				while(result.next()){
-					Servico servico = new Servico();
-					servico.setTipo(result.getString(1));
-					servico.setDescricao(result.getString(2));
-					servico.setValor(result.getFloat(3));
-					
-					servicos.add(servico);
-				}
-				
-				statement.close();
-				conexao.close();
-				return servicos;
-			}else{
-				conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-				statement = conexao.prepareStatement(SQLUtil.Servico.SELECT_ALL_EXCETO_ID_POR_TIPO_E_DESCRICAO);
-				
-				statement.setString(1, tipo);
-				statement.setString(2, descricao);
-				
-				result = statement.executeQuery();
-				
-				ArrayList<Servico> servicos  = new ArrayList<Servico>();
-				
-				while(result.next()){
-					Servico servico = new Servico();
-					servico.setTipo(result.getString(1));
-					servico.setDescricao(result.getString(2));
-					servico.setValor(result.getFloat(3));
-					
-					servicos.add(servico);
-				}
-				
-				statement.close();
-				conexao.close();
-				return servicos;
-			}
+			
 			
 		}catch (SQLException e) {
 			e.printStackTrace();

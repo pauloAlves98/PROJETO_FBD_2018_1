@@ -3,12 +3,21 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade;
 import java.util.List;
 
 public class Medico {
-	private int id;
+	private int id,id_endereco;
 	private String cpf,area,especialidade,nome_usuario,senha,nome,rg,admin;
 	private List<Receita>receitas;
 	private List<Consulta>consultas;
 	private Endereco endereco;
 	
+	public Medico (){
+		endereco = new Endereco();
+	}
+	public int getId_endereco() {
+		return id_endereco;
+	}
+	public void setId_endereco(int id_endereco) {
+		this.id_endereco = id_endereco;
+	}
 	public Endereco getEndereco() {
 		return endereco;
 	}

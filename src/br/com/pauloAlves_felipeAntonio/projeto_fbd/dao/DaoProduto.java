@@ -76,6 +76,8 @@ public class DaoProduto implements IDaoProduto{
 			
 			if(result.next()) {
 				p.setNome(result.getString(1));
+				p.setVendaVarejo(result.getInt(2));
+				p.setVendaAtacado(result.getInt(3));
 			}
 			return p;
 		} catch (SQLException e) {
@@ -118,5 +120,7 @@ public class DaoProduto implements IDaoProduto{
 				throw new DaoException("Erro ao buscar no banco!!!Contate o adm.");
 		}
 	}
+
+	
 
 }

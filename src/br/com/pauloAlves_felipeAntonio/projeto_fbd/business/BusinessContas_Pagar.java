@@ -28,7 +28,13 @@ public class BusinessContas_Pagar implements IBusinessContas_Pagar {
 
 	@Override
 	public void editar(Contas_pagar contas_pagar) throws BusinessException {
-		// TODO Auto-generated method stub
+		try {
+			daoContas_Pagar.editar(contas_pagar);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
 		
 	}
 
@@ -40,7 +46,12 @@ public class BusinessContas_Pagar implements IBusinessContas_Pagar {
 
 	@Override
 	public List<Contas_pagar> buscarPorBusca(String busca) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoContas_Pagar.buscarPorBusca(busca);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
 	}
 }

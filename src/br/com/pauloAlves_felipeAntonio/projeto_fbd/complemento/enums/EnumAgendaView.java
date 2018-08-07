@@ -1,7 +1,7 @@
 package br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.enums;
 
 public enum EnumAgendaView {
-	VISUALIZAR("Visualizar"),CONSULTA("Consulta");
+	VISUALIZAR("Visualizar"),CONSULTA("Consulta"),AGENDA("AgendaPanel"),LAUDO("LaudoPanel");
 	
 	private String valor;
 	

@@ -25,6 +25,8 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.ValidacaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.Fachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.parg.viacep.ViaCEP;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.parg.viacep.ViaCEPException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroFuncionarioDialog;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.FuncionarioPanel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButtonModel;
@@ -39,6 +41,8 @@ public class ControleFuncionario {
 		this.cdtFuncDialog = cdtFuncDialog;
 		cdtFuncDialog.setModal(true);
 		funcionarioCorrente = new Funcionario();
+		funcionarioCorrente.setCargo(new Cargo());
+		funcionarioCorrente.setEndereco(new Endereco());
 		fachada = Fachada.getInstance();
 		this.funcPanel = funcPanel;
 
@@ -52,7 +56,9 @@ public class ControleFuncionario {
 					editarFunc();
 			}
 		});
+		this.cdtFuncDialog.getBuscaCepButton().addActionListener((ActionEvent e)->buscarCep());
 		this.funcPanel.getBuscaButton().addActionListener((ActionEvent e) -> buscarFuncionario());
+		
 		JTableButtonMouseListener tableListner = new JTableButtonMouseListener(funcPanel.getTable().getTable(),cdtFuncDialog);
 		funcPanel.getTable().getTable().addMouseListener(tableListner);
 		cdtFuncDialog.addWindowListener(new WindowAdapter() {
@@ -63,7 +69,18 @@ public class ControleFuncionario {
 		}
 		});
 	}
-
+	private void buscarCep(){
+		try {
+			ViaCEP via = new ViaCEP(this.cdtFuncDialog.getCepField().getText().replace("-", ""));
+			this.cdtFuncDialog.getCidadeField().setText(via.getLocalidade());
+			this.cdtFuncDialog.getEstadoField().setText(via.getUf());
+			this.cdtFuncDialog.getLogradouroField().setText(via.getLogradouro());
+			this.cdtFuncDialog.getBairroField().setText(via.getBairro());
+		} catch (ViaCEPException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e.getMessage()+", preencha o dados manualmente!");
+		}
+	}
 	private void buscarFuncionario() {
 		try {
 			String busca = funcPanel.getFiltroField().getText();//Busca Info
@@ -118,16 +135,18 @@ public class ControleFuncionario {
 		}
 
 		JTableButtonModel jtableButtonModel = new JTableButtonModel();
-		jtableButtonModel.adcionar(linha, new String[] { "Nome", "CPF", "Telefone", "Nascimento", "Cadastro" });
+		jtableButtonModel.adcionar(linha, new String[] { "<html><table><tr><td height=50>Nome</td></tr></table></html>", "CPF", "Telefone", "Nascimento", "Cadastro" });
 
-		funcPanel.getTable().getTable().setModel(jtableButtonModel);
+		
 		funcPanel.getTable().getTable().setRowHeight(40);
 
 		funcPanel.getTable().getTable().setShowGrid(true);
 		funcPanel.getTable().getTable().setShowHorizontalLines(true);
 		funcPanel.getTable().getTable().setShowVerticalLines(true);
 		funcPanel.getTable().getTable().setBackground(Color.white);
+		funcPanel.getTable().getTable().getTableHeader().setFont(Propiedade.FONT2);
 		funcPanel.getTable().getTable().setFont(Propiedade.FONT2);
+		funcPanel.getTable().getTable().setModel(jtableButtonModel);
 	}
 	public class JTableButtonMouseListener implements MouseListener {
 		private JTable table;
@@ -187,6 +206,7 @@ public class ControleFuncionario {
 					cdFuncDialog.getDescricaoArea().setText(funcionarioCorrente.getCargo().getDescricao_cargo());
 					cdFuncDialog.getBairroField().setText(funcionarioCorrente.getEndereco().getBairro());
 					cdFuncDialog.getCepField().setText(funcionarioCorrente.getEndereco().getCep());
+					cdFuncDialog.getEstadoField().setText(funcionarioCorrente.getEndereco().getEstado());
 					cdFuncDialog.getCidadeField().setText(funcionarioCorrente.getEndereco().getCidade());
 					cdFuncDialog.getComplementoField().setText(funcionarioCorrente.getEndereco().getComplemento());
 					cdFuncDialog.getLogradouroField().setText(funcionarioCorrente.getEndereco().getLogradouro());
@@ -195,7 +215,7 @@ public class ControleFuncionario {
 					
 					cdtFuncDialog.setVisible(true);
 				} catch (BusinessException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 					e1.printStackTrace();
 				}
 			}
@@ -232,7 +252,7 @@ public class ControleFuncionario {
 			// __forwardEventToButton(e);
 		}
 	}
-	private void preencherSalvar(){
+	private void preencherSalvar() throws Exception{
 		try {
 			
 			//Funcionario corrente foi preenchido quando se realizou o clik no botão abrir!
@@ -253,7 +273,7 @@ public class ControleFuncionario {
 			end.setCidade(cdtFuncDialog.getCidadeField().getText());
 			end.setComplemento(cdtFuncDialog.getComplementoField().getText());
 			end.setEstado(""
-					+ cdtFuncDialog.getEstadoBox().getItemAt(cdtFuncDialog.getEstadoBox().getSelectedIndex()));
+					+ cdtFuncDialog.getEstadoField().getText());
 			end.setLogradouro(cdtFuncDialog.getLogradouroField().getText().trim().replace(" ", ""));
 			end.setNumero(Integer.parseInt(cdtFuncDialog.getNumeroField().getText()));
 			end.setPais(
@@ -267,9 +287,8 @@ public class ControleFuncionario {
 			funcionarioCorrente.setSenha(cdtFuncDialog.getSenhaField().getText().replace(" ", ""));
 			funcionarioCorrente.setTelefone(cdtFuncDialog.getTelField().getText().trim());
 			
-		} catch (ValidacaoException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,e.getMessage());
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 	}
 	public void salvarFunc(){
@@ -283,7 +302,7 @@ public class ControleFuncionario {
 				cdtFuncDialog.setVisible(false);
 				limparCampos(cdtFuncDialog);
 			}
-		}catch (BusinessException e1) {
+		}catch (Exception e1) {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, e1.getMessage());
 		}
@@ -294,7 +313,7 @@ public class ControleFuncionario {
 			preencherSalvar();
 			fachada.editarFuncionario(funcionarioCorrente);
 			JOptionPane.showMessageDialog(null,"Funcionario Editado com sucesso!");
-		} catch (BusinessException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,e.getMessage());
 		}finally{

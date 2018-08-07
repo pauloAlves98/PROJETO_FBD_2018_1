@@ -51,18 +51,19 @@ public class EstoquePanel extends JPanel {
 		btnMovimentacao.setBorder(null);
 		panel_6.add(btnMovimentacao);
 		
+	
+		
+		panel_8 = new MovimentacaoPanel();
+		panel_8.setBackground(Color.WHITE);
+		panel_8.setBounds(0, 98,  745, 397);
+		add(panel_8,BorderLayout.CENTER);
+		
 		panel_7 = new ProdutoPanel();
 		//panel_7.getFiltroField().setSize(181, 32);
 	//	panel_7.getFiltroField().setLocation(257, 139);
 		panel_7.setBackground(Color.WHITE);
 		panel_7.setBounds(0, 98,  745, 397);
-		add(panel_7);
-		panel_7.setLayout(null);
-		
-		panel_8 = new MovimentacaoPanel();
-		panel_8.setBackground(Color.WHITE);
-		panel_8.setBounds(0, 98,  745, 397);
-		add(panel_8);
+		add(panel_7,BorderLayout.CENTER);
 		
 	}
 

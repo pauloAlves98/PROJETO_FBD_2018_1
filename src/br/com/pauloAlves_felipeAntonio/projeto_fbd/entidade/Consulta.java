@@ -7,10 +7,13 @@ public class Consulta {
 	private int id,id_paciente,id_medico;
 	private String tipo,horario;
 	private Date _data;
-	private boolean situacao;
+	private String situacao;
 	private Paciente paciente;
 	private Medico medico;
-	
+	public Consulta(){
+		paciente = new Paciente();
+		medico = new Medico();
+	}
 	//Só não precisa registra no Objeto!!
 	//private Paciente paciente;
 	//private Medico medico;
@@ -80,10 +83,10 @@ public Paciente getPaciente() {
 	public void set_data(Date _data) {
 		this._data = _data;
 	}
-	public boolean isSituacao() {
+	public String isSituacao() {
 		return situacao;
 	}
-	public void setSituacao(boolean situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 	

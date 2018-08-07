@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
@@ -29,7 +31,6 @@ import javax.swing.table.TableColumnModel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Horario;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.enums.EnumAgendaView;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.controller.ControlePacientesPanel.JTableButtonMouseListener;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoConsulta;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoMedico;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoPaciente;
@@ -46,12 +47,12 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.AgendaPanel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.BuscaDialog;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroConsultaPanel;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroPacienteFrame;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButton;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.ConsultaFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButtonModel;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.RemarcarConsultaDialog;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.VisualizarAgendaPanel;
 
-public class ControlerAgenda {
+public class ControlerAbaAgenda {
 	private AgendaPanel agendaPanel;
 	private CadastroConsultaPanel cConsultaP;
 	private VisualizarAgendaPanel vAgendaPanel;
@@ -59,8 +60,10 @@ public class ControlerAgenda {
 	private IFachada fachada;//Corrigir busines de paciente e consulta
 	private String QUEM_DISPAROU_A_BUSCA = " ";
 	private Consulta consultaCorrente;
-	
-	public ControlerAgenda(AgendaPanel agendaP){
+	private ConsultaFrame consultaF;
+	private RemarcarConsultaDialog rcD;
+
+	public ControlerAbaAgenda(AgendaPanel agendaP){
 		
 		this.buscarDialog = new BuscaDialog();
 		this.agendaPanel = agendaP;
@@ -68,9 +71,79 @@ public class ControlerAgenda {
 		this.vAgendaPanel = agendaPanel.getvAgendaPanel();
 		this.fachada = Fachada.getInstance();
 		this.consultaCorrente = new Consulta();
+		this.consultaF = new ConsultaFrame();
+		this.rcD = new RemarcarConsultaDialog();
+		//RemarcarConsultaDialog
+		this.rcD.getCdtC().getDataC().addPropertyChangeListener(new PropertyChangeListener(){
+			public void propertyChange(PropertyChangeEvent e) {
+			atualizarHorario(rcD.getCdtC());}});
+		this.rcD.getBtnCancelarRemarcao().addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				rcD.setVisible(false);
+			}	
+		});
+		this.rcD.getCdtC().getConcluirButton().addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				if(rcD.getCdtC().getHorarioBox().getSelectedItem() == null || rcD.getCdtC().getHorarioBox().getSelectedItem().toString().equals("")){
+					JOptionPane.showMessageDialog(null,"Hórario Inválido!");
+				}else{
+					try {
+						consultaCorrente.setSituacao("Não Realizada");
+						consultaCorrente.set_data(rcD.getCdtC().getDataC().getDate());
+						consultaCorrente.setHorario(rcD.getCdtC().getHorarioBox().getSelectedItem().toString());
+						fachada.editarConsulta(consultaCorrente);
+						JOptionPane.showMessageDialog(null,"Consulta Remarcada");
+						
+					} catch (BusinessException e1) {
+						JOptionPane.showMessageDialog(null,e1.getMessage());
+						e1.printStackTrace();
+					}
+					finally{
+						consultaCorrente = new Consulta();
+						rcD.setVisible(false);
+						consultaF.setVisible(false);
+						limparCamposConsulta();
+					}
+				}
+					
+			}
+		});
+			
 		
+		//Eventos ConsultaFrame
+		consultaF.getRemarcarButton().addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				atualizarHorario(rcD.getCdtC());
+				rcD.getCdtC().getCodMedicoField().setText(consultaCorrente.getId_medico()+"");
+				rcD.getCdtC().getCodPacienteField().setText(consultaCorrente.getId_paciente()+"");
+				rcD.getCdtC().getPacienteField().setText(consultaCorrente.getPaciente().getNome());
+				rcD.getCdtC().getMedicoField().setText(consultaCorrente.getMedico().getNome());
+				rcD.setVisible(true);
+			}});
+		consultaF.getBtnCancelar().addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				if(JOptionPane.showConfirmDialog(null,"Deseja realmente Cancelar a consulta?")==JOptionPane.YES_OPTION){
+					try {
+						consultaCorrente.setSituacao("Cancelada");
+						fachada.editarConsulta(consultaCorrente);
+						consultaF.setVisible(false);
+						limparCamposConsulta();
+						JOptionPane.showMessageDialog(null,"Consulta cancelada");
+					} catch (BusinessException e1) {
+						JOptionPane.showMessageDialog(null,e1.getMessage());
+						e1.printStackTrace();
+					}
+				}
+			}});
+		this.consultaF.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+					limparCamposConsulta();
+					consultaCorrente = new  Consulta();
+		}
+		});
 		//Eventos  Cabeçario Agenda
 		this.agendaPanel.getBtnNovaConsulta().addActionListener((ActionEvent e)->agendaPanel.getCard().show(agendaPanel.getpCard(),EnumAgendaView.CONSULTA.getValor())
+		
 		);
 		this.agendaPanel.getVisualizarAgendaButton().addActionListener((ActionEvent e)->agendaPanel.getCard().show(agendaPanel.getpCard(),EnumAgendaView.VISUALIZAR.getValor()));
 		
@@ -88,7 +161,7 @@ public class ControlerAgenda {
 						Consulta consulta = new Consulta();
 						consulta.set_data(cConsultaP.getDataC().getDate());
 						consulta.setHorario(cConsultaP.getHorarioBox().getSelectedItem().toString());
-						consulta.setSituacao(false);
+						consulta.setSituacao("Não Realizada");
 						int id_m = Integer.parseInt(cConsultaP.getCodMedicoField().getText());
 						int id_p = Integer.parseInt(cConsultaP.getCodPacienteField().getText());
 					
@@ -108,7 +181,7 @@ public class ControlerAgenda {
 		
 		this.cConsultaP.getDataC().addPropertyChangeListener(new PropertyChangeListener(){
 			public void propertyChange(PropertyChangeEvent e) {
-			atualizarHorario();}});
+			atualizarHorario(cConsultaP);}});
 		
 		this.cConsultaP.getBuscarPacienteButton().addActionListener((ActionEvent e) ->{
 		buscarDialog.getScrollPane().setVisible(false);buscarDialog.getResultadoLabel().setVisible(false);QUEM_DISPAROU_A_BUSCA = "PACIENTE";montarTabela(new String[][]{},"Telefone"); buscarDialog.setVisible(true);});
@@ -158,7 +231,7 @@ public class ControlerAgenda {
 					JOptionPane.showMessageDialog(null,"NENHUM "+QUEM_DISPAROU_A_BUSCA+" SELECIONADO!");
 					buscarDialog.setVisible(false);
 				}	
-				atualizarHorario();
+				atualizarHorario(cConsultaP);
 			}});
 		
 		//Tela Visualizar Agenda
@@ -168,31 +241,33 @@ public class ControlerAgenda {
 			}});
 		vAgendaPanel.getPesquisaButton().addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				IDaoConsulta daoC = new DaoConsulta();
 				String busca = vAgendaPanel.getFiltroField().getText();
 				vAgendaPanel.getLblExtenso().setText("'"+"Resultados para "+busca+"'");
 				busca = "%"+busca+"%";
 				ArrayList<Consulta>cons = new ArrayList<Consulta>();
 				try {
-					cons=(ArrayList<Consulta>) daoC.buscaInfoConsultaPorFiltro(busca);
-				} catch (DaoException e1) {
+					cons=(ArrayList<Consulta>) fachada.buscaInfoConsultaPorFiltro(busca);//falta  Bussines e fachada
+				} 
+			    catch (BusinessException e1) {
 					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null,e1.getMessage());
 				}
 				montarTabelaInfoVisualizar(cons);
 				
 			}
 		});
 		JTableButtonMouseListener tableListner = new JTableButtonMouseListener(vAgendaPanel.getTable().getTable(),vAgendaPanel);
+		vAgendaPanel.getTable().getTable().addMouseListener(tableListner);
 	}
 	public void buscaDialog(){
 		String busca = buscarDialog.getFiltroField().getText();
 		System.out.println(busca + QUEM_DISPAROU_A_BUSCA );
 		if(QUEM_DISPAROU_A_BUSCA.equalsIgnoreCase("PACIENTE")){
 			try {
-				IDaoPaciente daoP = new DaoPaciente();//Ainda não fiz o businnes,Fachada do metodo que eu vou usar agr
+			
 				busca = "%"+busca+"%";
 				System.out.println(busca);
-				List<Paciente>pacientes = daoP.buscaInfoPorFiltro(busca);
+				List<Paciente>pacientes = fachada.buscaInfoPorFiltroPaciente(busca);
 				System.out.println(pacientes);
 				if(pacientes.size() <=0 ){
 					buscarDialog.getScrollPane().setVisible(false);
@@ -210,8 +285,8 @@ public class ControlerAgenda {
 					}
 					montarTabela(dados,"Telefone");
 				}
-					
-			} catch (DaoException e) {
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally{
 				
@@ -220,8 +295,8 @@ public class ControlerAgenda {
 		}else{//Foi Medico
 			try {
 				
-				IDaoMedico daoM = new DaoMedico();//Ainda não fiz o businnes,Fachada do metodo que eu vou usar agr
-				List<Medico>medicos = daoM.buscarInfoPorFiltro(busca);
+		
+				List<Medico>medicos = fachada.buscarInfoPorFiltroMedico(busca);
 				if(medicos.size() <=0 ){
 					buscarDialog.getScrollPane().setVisible(false);
 					buscarDialog.getResultadoLabel().setVisible(true);
@@ -239,8 +314,8 @@ public class ControlerAgenda {
 					montarTabela(dados,"Especialidade");
 					buscarDialog.getScrollPane().setVisible(true);
 				}
-					
-			} catch (DaoException e) {
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally{
 			
@@ -248,7 +323,7 @@ public class ControlerAgenda {
 		}		
 		
 	}
-	private void atualizarHorario(){
+	private void atualizarHorario(CadastroConsultaPanel cConsultaP){
 		if(cConsultaP.getCodMedicoField().getText().length()<=0){
 			cConsultaP.getHorarioBox().removeAllItems();
 			//JOptionPane.showMessageDialog(null,"Selecione um médico Primeiro!!!");
@@ -257,8 +332,8 @@ public class ControlerAgenda {
 			try {
 				cConsultaP.getHorarioBox().removeAllItems();
 				Horario hor = new Horario();
-				IDaoConsulta dConsulta = new DaoConsulta(); //Falta jogar no businnes e na fachada o metodo que vou usar
-				List<String>horarios = dConsulta.buscaHorarios(cConsultaP.getDataC().getDate(),Integer.parseInt(cConsultaP.getCodMedicoField().getText()));
+			
+				List<String>horarios = fachada.buscaHorariosConsulta(cConsultaP.getDataC().getDate(),Integer.parseInt(cConsultaP.getCodMedicoField().getText()));
 				if(horarios.size()>=0 || horarios.size() < hor.getHorarios().size()){
 					if(horarios.size()==0 )
 						for(String h:hor.getHorarios()){
@@ -278,9 +353,12 @@ public class ControlerAgenda {
 					}
 				}else //Lotado
 					cConsultaP.getHorarioBox().removeAllItems();
-			} catch (NumberFormatException | DaoException e1) {
+			} catch (NumberFormatException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
@@ -322,45 +400,44 @@ public class ControlerAgenda {
 		vAgendaPanel.getLblExtenso().setText(weekDay(c)+", "+dateFormat.format(c.getTime()));
 		
 		//Buscar a consulta do dia;
-		IDaoConsulta daoC = new DaoConsulta();//Falta businners e fachada
+
 		try {
 				ArrayList<Consulta> p = new ArrayList<Consulta>();
-				p=(ArrayList<Consulta>) daoC.buscaInfoConsultaPorData(vAgendaPanel.getCalendario().getDate());
-				 montarTabelaInfoVisualizar(p);
-				 
-			
-		} catch (DaoException e) {
+				p=(ArrayList<Consulta>) fachada.buscaInfoConsultaPorData(vAgendaPanel.getCalendario().getDate());
+				 montarTabelaInfoVisualizar(p); 
+		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	private void montarTabelaInfoVisualizar(List<Consulta>p){
 		Calendar c = Calendar.getInstance();
-		Object [][] linha = new Object[p.size()][7];
+		Object [][] linha = new Object[p.size()][8];
 		System.out.println(p);
 			System.out.println(vAgendaPanel.getCalendario().getDate());
 			int i=0;
 			for(Consulta pac:p){
-				linha[i][0] = pac.getHorario();
-				linha[i][1] = pac.getPaciente().getNome();
+				linha[i][0] = pac.getId()+"";
+				linha[i][1] = pac.getHorario();
+				linha[i][2] = pac.getPaciente().getNome();
 				Calendar c2 = Calendar.getInstance();
 				c2.setTime(pac.get_data());
-				linha[i][2] = (c2.get(c2.DAY_OF_MONTH)<10?"0"+c2.get(c2.DAY_OF_MONTH):c2.get(c2.DAY_OF_MONTH))+"/"+((c2.get(c.MONTH)+1)<10?"0"+(c2.get(c.MONTH)+1):(c2.get(c.MONTH)+1))+"/"+c2.get(c.YEAR);
-				linha[i][3] = pac.getPaciente().getTelefone();
-				linha[i][4] = pac.getMedico().getNome();
-				linha[i][5] = pac.isSituacao() == false?"Não Realizada":"Realizada";
+				linha[i][3] = (c2.get(c2.DAY_OF_MONTH)<10?"0"+c2.get(c2.DAY_OF_MONTH):c2.get(c2.DAY_OF_MONTH))+"/"+((c2.get(c.MONTH)+1)<10?"0"+(c2.get(c.MONTH)+1):(c2.get(c.MONTH)+1))+"/"+c2.get(c.YEAR);
+				linha[i][4] = pac.getPaciente().getTelefone();
+				linha[i][5] = pac.getMedico().getNome();
+				linha[i][6] = pac.isSituacao();
 				
 				JButton b = new JButton("Abrir");
 				b.setForeground(Color.BLACK);
 				b.setBackground(Color.white);
 				b.setFont(Propiedade.FONT2);
-				linha[i][6] = b;
+				linha[i][7] = b;
 				i++;
 			}
 			JTableButtonModel jtableButtonModel = new JTableButtonModel();
 			jtableButtonModel.adcionar(linha,
-			new String[] {"<html><table><tr><td height=50>Horário</td></tr></table></html>"
-					,"Paciente", "Data", "Telefone","Médico", "Status","Detalhes"
+			new String[] {"<html><table><tr><td height=50>Id</td></tr></table></html>",
+					"Horário","Paciente", "Data", "Telefone","Médico", "Status","Detalhes"
 			});
  	
 		vAgendaPanel.getTable().getTable().setBackground(Color.WHITE);
@@ -416,33 +493,25 @@ public class ControlerAgenda {
 
 			button.dispatchEvent(buttonEvent);
 			if(button == buttonEvent.getSource()) { 
-
-//				try {
-//					condicao = fachada.buscarIdPorCpfPaciente(""+getTable().getValueAt(getTable().getSelectedRow(),1));
-//					paciente = fachada.buscarPorCpfPaciente(""+getTable().getValueAt(getTable().getSelectedRow(),1));
-//					pacienteCdastro.getNomeField().setText(paciente.getNome());
-//					pacienteCdastro.getCpfField().setText(paciente.getCpf());
-//					pacienteCdastro.getRgField().setText(paciente.getRg());
-//					pacienteCdastro.getTelField().setText(paciente.getTelefone());
-//					pacienteCdastro.getNomeMField().setText(paciente.getNome_mae());
-//					pacienteCdastro.getNomePField().setText(paciente.getNome_pai());
-//					pacienteCdastro.getBairroField().setText(paciente.getEndereco().getBairro());
-//					pacienteCdastro.getCepField().setText(paciente.getEndereco().getCep());
-//					pacienteCdastro.getCidadeField().setText(paciente.getEndereco().getCidade());
-//					pacienteCdastro.getComplementoField().setText(paciente.getEndereco().getComplemento());
-//					pacienteCdastro.getLogradouroField().setText(paciente.getEndereco().getLogradouro());
-//					pacienteCdastro.getNumeroField().setText(""+paciente.getEndereco().getNumero());
-//					pacienteCdastro.getRuaField().setText(paciente.getEndereco().getRua());
-//					Calendar c = Calendar.getInstance();
-//					c.setTime(paciente.getDataNascimento());
-//					String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
-//					String mes = formatandoData((c.get(c.MONTH)+1)+"");
-//					pacienteCdastro.getNascField().setText(""+dia+""+mes+""+c.get(c.YEAR));
-//					vAgenda.setVisible(true);
-//				} catch (BusinessException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+				try {
+					
+					consultaCorrente = fachada.buscarPorIdConsulta(Integer.parseInt(""+getTable().getValueAt(getTable().getSelectedRow(),0)));
+					consultaF.getCodField().setText(consultaCorrente.getPaciente().getCpf());
+					consultaF.getEspField().setText(consultaCorrente.getMedico().getEspecialidade());
+					consultaF.getMedicoField().setText(consultaCorrente.getMedico().getNome());
+					consultaF.getPacienteField().setText(consultaCorrente.getPaciente().getNome());
+					consultaF.getTipoField().setText(consultaCorrente.getHorario());
+					consultaF.getStatusField().setText(consultaCorrente.isSituacao());
+					consultaF.getDataField().setText(""+getTable().getValueAt(getTable().getSelectedRow(),3));
+					consultaF.setVisible(true);
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null,e1.getMessage());
+					e1.printStackTrace();
+				}  catch (BusinessException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null,e1.getMessage());
+					e1.printStackTrace();
+				}
 		}
 			// This is necessary so that when a button is pressed and released
 			// it gets rendered properly.  Otherwise, the button may still appear
@@ -477,7 +546,16 @@ public class ControlerAgenda {
 			// __forwardEventToButton(e);
 		}
 	}
-	
+	private void limparCamposConsulta(){
+		consultaF.getCodField().setText("");
+		consultaF.getEspField().setText("");
+		consultaF.getMedicoField().setText("");
+		consultaF.getPacienteField().setText("");
+		consultaF.getTipoField().setText("");
+		consultaF.getStatusField().setText("");
+		consultaF.getDataField().setText("");
+	}
+
 	
 }
 

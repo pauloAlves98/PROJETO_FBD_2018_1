@@ -27,13 +27,23 @@ public class BusinessCaixa implements IBusinessCaixa{
 	}
 	@Override
 	public void editar(Caixa caixa) throws BusinessException {
-		// TODO Auto-generated method stub
+		try {
+			daoCaixa.editar(caixa);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public Caixa buscarPorId(int id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoCaixa.buscarPorId(id);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException("Erro no Business!!!"+e.getMessage());
+		}
 	}
 	@Override
 	public List<Caixa> buscarPorBusca(String busca) throws BusinessException {

@@ -10,6 +10,10 @@ public class Funcionario {
 	private Cargo cargo;
 	private int id_endereco;
 	
+	public Funcionario(){
+		endereco = new Endereco();
+		cargo = new Cargo();
+	}
 	
 	public int getId_endereco() {
 		return id_endereco;

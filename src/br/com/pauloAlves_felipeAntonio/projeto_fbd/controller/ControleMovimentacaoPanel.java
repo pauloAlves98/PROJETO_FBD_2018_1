@@ -18,16 +18,16 @@ import javax.swing.table.TableColumnModel;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.TratadorDeMascara;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Fornecedor;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoComum;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Contas_pagar;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.ItemProduto;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Produto;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.ValidacaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.Fachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroAdcionarNoEstoque;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroPacienteFrame;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroProdutoFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButtonModel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.MovimentacaoPanel;
 
@@ -86,13 +86,21 @@ public class ControleMovimentacaoPanel {
 						if((JOptionPane.showConfirmDialog(null, "Deseja Cadastrar Mais algum?"))==0){
 							limparCampos(cadastroAdcionarNoEstoque);
 						}else {
+							DaoComum  daoComum = new DaoComum();
+							int x = daoComum.getCurrentValorTabela("item_produto");
+							int y = daoComum.getCurrentValorTabela("caixa");
+							Contas_pagar contasApagar = new Contas_pagar();
+							contasApagar.setId_caixas(y);
+							contasApagar.setValor(itemProduto.getPrecoCompra()*itemProduto.getQuantidade());
+							contasApagar.setId_item_produto(x);
+							contasApagar.setParcela(0);
+							fachada.salvarContas_pagar(contasApagar);
 							cadastroAdcionarNoEstoque.setVisible(false);
 							limparCampos(cadastroAdcionarNoEstoque);
 						}
 					}else {
 						itemProduto = new ItemProduto();
 						ArrayList<Produto> produtos =  new ArrayList<Produto>(); 
-					
 						produtos = (ArrayList<Produto>) fachada.buscarPorBuscaProduto("%"+cadastroAdcionarNoEstoque.getProdutoBox().getItemAt(cadastroAdcionarNoEstoque.getProdutoBox().getSelectedIndex())+"%");
 						itemProduto.setId_produto(produtos.get(0).getId());
 						itemProduto.setDataCompra(TratadorDeMascara.coletorDeData(cadastroAdcionarNoEstoque.getDataCompraField().getText()));
@@ -109,6 +117,9 @@ public class ControleMovimentacaoPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 				} catch (ValidacaoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (DaoException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

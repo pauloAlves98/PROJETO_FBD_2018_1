@@ -26,7 +26,7 @@ public class CadastroConsultaPanel extends JPanel{
 	private JButton buscarMedicoButton;
 	private JTextField codPacienteField;
 	private JTextField codMedicoField;
-	
+	private JLabel lblCadastroDeConsultas;
 	public CadastroConsultaPanel(){
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout(0, 0));
@@ -38,7 +38,7 @@ public class CadastroConsultaPanel extends JPanel{
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(1000,600));
 		
-		JLabel lblCadastroDeConsultas = new JLabel("Cadastro de Consulta");
+		 lblCadastroDeConsultas = new JLabel("Cadastro de Consulta");
 		lblCadastroDeConsultas.setFont(new Font("Segoe UI Light", Font.BOLD, 26));
 		lblCadastroDeConsultas.setBounds(10, 11, 336, 23);
 		panel.add(lblCadastroDeConsultas);
@@ -120,6 +120,14 @@ public class CadastroConsultaPanel extends JPanel{
 		codMedicoField.setBounds(71, 160, 55, 32);
 		panel.add(codMedicoField);
 		codMedicoField.setColumns(10);
+	}
+
+	public JLabel getLblCadastroDeConsultas() {
+		return lblCadastroDeConsultas;
+	}
+
+	public void setLblCadastroDeConsultas(JLabel lblCadastroDeConsultas) {
+		this.lblCadastroDeConsultas = lblCadastroDeConsultas;
 	}
 
 	public JTextField getPacienteField() {

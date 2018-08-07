@@ -23,6 +23,8 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.ValidacaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.Fachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.parg.viacep.ViaCEP;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.parg.viacep.ViaCEPException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroFornecedoresFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.FornecedoresPanel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButtonModel;
@@ -69,9 +71,9 @@ public class ControleFornecedor {
 						Endereco end = new Endereco();
 						end.setBairro(cadastro.getBairroField().getText());
 						end.setCep(cadastro.getCepField().getText());
-						end.setCidade(""+cadastro.getCidadeBox().getItemAt(cadastro.getCidadeBox().getSelectedIndex()));
+						end.setCidade(""+cadastro.getCidadeField().getText());
 						end.setComplemento(cadastro.getComplementoField().getText());
-						end.setEstado(""+cadastro.getUfBox().getItemAt(cadastro.getUfBox().getSelectedIndex()));
+						end.setEstado(""+cadastro.getEstadoField().getText());
 						end.setLogradouro(cadastro.getLogradouroField().getText());
 						end.setNumero(Integer.parseInt(cadastro.getNumeroField().getText()));
 						end.setPais(""+cadastro.getPaisBox().getItemAt(cadastro.getPaisBox().getSelectedIndex()));
@@ -99,9 +101,9 @@ public class ControleFornecedor {
 						
 						fornecedor.getEndereco().setBairro(forncedorrCdt.getBairroField().getText());
 						fornecedor.getEndereco().setCep(forncedorrCdt.getCepField().getText());
-						fornecedor.getEndereco().setCidade(forncedorrCdt.getCidadeBox().getSelectedItem().toString());
+						fornecedor.getEndereco().setCidade(forncedorrCdt.getCidadeField().getText());
 						fornecedor.getEndereco().setComplemento(forncedorrCdt.getComplementoField().getText());
-						fornecedor.getEndereco().setEstado(""+forncedorrCdt.getUfBox().getSelectedItem().toString());
+						fornecedor.getEndereco().setEstado(""+forncedorrCdt.getEstadoField().getText());
 						fornecedor.getEndereco().setLogradouro(forncedorrCdt.getLogradouroField().getText().trim().replace(" ",""));
 						fornecedor.getEndereco().setNumero(Integer.parseInt(forncedorrCdt.getNumeroField().getText()));
 						fornecedor.getEndereco().setPais(""+forncedorrCdt.getPaisBox().getItemAt(forncedorrCdt.getPaisBox().getSelectedIndex()));
@@ -174,6 +176,7 @@ public class ControleFornecedor {
 		
 		fornecedoresPanel.getTable().getTable().addMouseListener(new JTableButtonMouseListener(fornecedoresPanel.getTable().getTable(),cadastro));
 		
+		forncedorrCdt.getBuscarButton().addActionListener((ActionEvent e)->buscarCep());
 	}
 	private void limparCampos(CadastroFornecedoresFrame CadastroFornecedor) {
 		CadastroFornecedor.getNomeField().setText("");
@@ -183,7 +186,8 @@ public class ControleFornecedor {
 		CadastroFornecedor.getInscMunicipalField().setText("");
 		CadastroFornecedor.getBairroField().setText("");
 		CadastroFornecedor.getCepField().setText("");
-		
+		CadastroFornecedor.getCidadeField().setText("");
+		CadastroFornecedor.getEstadoField().setText("");
 		CadastroFornecedor.getComplementoField().setText("");
 		CadastroFornecedor.getLogradouroField().setText("");
 		CadastroFornecedor.getNumeroField().setText("");
@@ -239,6 +243,8 @@ public class ControleFornecedor {
 					fornecedoresTela.getNumeroField().setText(""+fornecedor.getEndereco().getNumero());
 					fornecedoresTela.getRuaField().setText(fornecedor.getEndereco().getRua());
 					fornecedoresTela.getCodigoField().setText(fornecedor.getId()+"");
+					fornecedoresTela.getEstadoField().setText(fornecedor.getEndereco().getEstado());
+					fornecedoresTela.getCidadeField().setText(fornecedor.getEndereco().getCidade());
 					fornecedoresTela.setVisible(true);
 					
 		    	} catch (BusinessException e1) {
@@ -280,5 +286,16 @@ public class ControleFornecedor {
 		   // __forwardEventToButton(e);
 		  }
 		}
-
+	 private void buscarCep(){
+			try {
+				ViaCEP via = new ViaCEP(this.forncedorrCdt.getCepField().getText().replace("-", ""));
+				this.forncedorrCdt.getCidadeField().setText(via.getLocalidade());
+				this.forncedorrCdt.getEstadoField().setText(via.getUf());
+				this.forncedorrCdt.getLogradouroField().setText(via.getLogradouro());
+				this.forncedorrCdt.getBairroField().setText(via.getBairro());
+			} catch (ViaCEPException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null,e.getMessage()+", preencha o dados manualmente!");
+			}
+		}
 }
