@@ -59,6 +59,8 @@ public class ControleContasPagar {
 						linha[j][4] = conta.getValorPago();
 						if(conta.getValor() - conta.getValorPago() == 0) {
 							status  = "Paga";
+						}else {
+							status = "Não paga";
 						}
 						linha[j][5] = status;
 						JButton b = new JButton("Abrir");
@@ -137,45 +139,51 @@ public class ControleContasPagar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(!pagamentoContaApagarPanel.getChckbxParcelado().isSelected()) {
-					pagamentoContaApagarPanel.getParcelaSpinner().setVisible(false);
-					pagamentoContaApagarPanel.getParcelasRestantesField().setVisible(false);
-					pagamentoContaApagarPanel.getLblParcelas().setVisible(false);
-					pagamentoContaApagarPanel.getLblParcelasRestantes().setVisible(false);
-					pagamentoContaApagarPanel.getLblNDeParcelas().setVisible(false);
-					pagamentoContaApagarPanel.getTextField().setVisible(false);
+				
+			
 					
-					pagamentoContaApagarPanel.getLblValorRestante().setBounds(10, 155, 114, 14);
-					pagamentoContaApagarPanel.getLblPagar().setBounds(134, 151, 94, 23);
-					pagamentoContaApagarPanel.getValorRestanteField().setBounds(10, 180, 102, 32);
-					pagamentoContaApagarPanel.getPagarField().setBounds(134, 180, 102, 32);
-					//lblPagar.setBounds(306, 155, 46, 14);
-					pagamentoContaApagarPanel.getBtnPagar().setBounds(246, 180, 110, 32);
-					valor = Float.parseFloat(pagamentoContaApagarPanel.getValorRestanteField().getText());
-					pagamentoContaApagarPanel.getPagarField().setText(""+valor);
-					
-				}else {
-					pagamentoContaApagarPanel.getParcelaSpinner().setVisible(true);
-					pagamentoContaApagarPanel.getParcelasRestantesField().setVisible(true);
-					pagamentoContaApagarPanel.getLblParcelas().setVisible(true);
-					pagamentoContaApagarPanel.getLblParcelasRestantes().setVisible(true);
-					pagamentoContaApagarPanel.getLblNDeParcelas().setVisible(true);
-					pagamentoContaApagarPanel.getTextField().setVisible(true);
-					pagamentoContaApagarPanel.getLblValorRestante().setBounds(194, 219, 114, 14);
-					pagamentoContaApagarPanel.getLblPagar().setBounds(306, 219, 46, 14);
-					pagamentoContaApagarPanel.getValorRestanteField().setBounds(194, 244, 102, 32);
-					pagamentoContaApagarPanel.getPagarField().setBounds(306, 244, 102, 32);
-					//valorRestanteField.setBounds(194, 180, 102, 32);
-				//	pagarField.setBounds(306, 180, 102, 32);
-					//lblPagar.setBounds(306, 155, 46, 14);
-					pagamentoContaApagarPanel.getBtnPagar().setBounds(10, 289, 89, 32);
-					pagamentoContaApagarPanel.getLblFornecedor().setBounds(10, 91, 102, 14);
-					pagamentoContaApagarPanel.getCaixaBox().setBounds(268, 112, 156, 32);
-					pagamentoContaApagarPanel.getPacienteField().setBounds(10, 112, 248, 32);
-					pagamentoContaApagarPanel.getLblCaixa().setBounds(268, 87, 46, 22);
-					valor = Float.parseFloat(pagamentoContaApagarPanel.getValorRestanteField().getText())/contasP.get(contasApagarPanel.getTable().getTable().getSelectedRow()).getParcela();
-					pagamentoContaApagarPanel.getPagarField().setText(""+valor);
-				}
+					//float saldo =fachada.buscarPorIdCaixa(1).getSaldo();
+					if(!pagamentoContaApagarPanel.getChckbxParcelado().isSelected()) {
+						pagamentoContaApagarPanel.getParcelaSpinner().setVisible(false);
+						pagamentoContaApagarPanel.getParcelasRestantesField().setVisible(false);
+						pagamentoContaApagarPanel.getLblParcelas().setVisible(false);
+						pagamentoContaApagarPanel.getLblParcelasRestantes().setVisible(false);
+						pagamentoContaApagarPanel.getLblNDeParcelas().setVisible(false);
+						pagamentoContaApagarPanel.getTextField().setVisible(false);
+						
+						pagamentoContaApagarPanel.getLblValorRestante().setBounds(10, 155, 114, 14);
+						pagamentoContaApagarPanel.getLblPagar().setBounds(134, 151, 94, 23);
+						pagamentoContaApagarPanel.getValorRestanteField().setBounds(10, 180, 102, 32);
+						pagamentoContaApagarPanel.getPagarField().setBounds(134, 180, 102, 32);
+						//lblPagar.setBounds(306, 155, 46, 14);
+						pagamentoContaApagarPanel.getBtnPagar().setBounds(246, 180, 110, 32);
+						valor = Float.parseFloat(pagamentoContaApagarPanel.getValorRestanteField().getText());
+						pagamentoContaApagarPanel.getPagarField().setText(""+valor);
+						
+					}else {
+						
+						pagamentoContaApagarPanel.getParcelaSpinner().setVisible(true);
+						pagamentoContaApagarPanel.getParcelasRestantesField().setVisible(true);
+						pagamentoContaApagarPanel.getLblParcelas().setVisible(true);
+						pagamentoContaApagarPanel.getLblParcelasRestantes().setVisible(true);
+						pagamentoContaApagarPanel.getLblNDeParcelas().setVisible(true);
+						pagamentoContaApagarPanel.getTextField().setVisible(true);
+						pagamentoContaApagarPanel.getLblValorRestante().setBounds(194, 219, 114, 14);
+						pagamentoContaApagarPanel.getLblPagar().setBounds(306, 219, 46, 14);
+						pagamentoContaApagarPanel.getValorRestanteField().setBounds(194, 244, 102, 32);
+						pagamentoContaApagarPanel.getPagarField().setBounds(306, 244, 102, 32);
+						//valorRestanteField.setBounds(194, 180, 102, 32);
+					//	pagarField.setBounds(306, 180, 102, 32);
+						//lblPagar.setBounds(306, 155, 46, 14);
+						pagamentoContaApagarPanel.getBtnPagar().setBounds(10, 289, 89, 32);
+						pagamentoContaApagarPanel.getLblFornecedor().setBounds(10, 91, 102, 14);
+						pagamentoContaApagarPanel.getCaixaBox().setBounds(268, 112, 156, 32);
+						pagamentoContaApagarPanel.getPacienteField().setBounds(10, 112, 248, 32);
+						pagamentoContaApagarPanel.getLblCaixa().setBounds(268, 87, 46, 22);
+						valor = Float.parseFloat(pagamentoContaApagarPanel.getValorRestanteField().getText())/contasP.get(contasApagarPanel.getTable().getTable().getSelectedRow()).getParcela();
+						pagamentoContaApagarPanel.getPagarField().setText(""+valor);
+					}
+				
 				
 			}});
 		

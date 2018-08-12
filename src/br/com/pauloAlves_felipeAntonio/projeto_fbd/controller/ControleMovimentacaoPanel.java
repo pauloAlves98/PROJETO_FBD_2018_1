@@ -139,29 +139,39 @@ public class ControleMovimentacaoPanel {
 						ArrayList<ItemProduto> itemProdutos = new ArrayList<ItemProduto>();
 						itemProdutos = (ArrayList<ItemProduto>) fachada.buscarPorBuscaItemProduto();
 					
-						int j = 0;
-						Object [][] linha = new Object[itemProdutos.size()][6];
+
+						int j = 0,tamanho = itemProdutos.size();
+						
+						for(int i =0;i<itemProdutos.size();i++) {
+							if(itemProdutos.get(i).getQuantidade() == 0) {
+								tamanho--;
+							}
+						}
+						
+						Object [][] linha = new Object[tamanho][6];
 						for(ItemProduto i:itemProdutos) {
-							linha[j][0] = i.getId();
-							String s = ""+fachada.buscarPorIdProduto(i.getId_produto()).getNome();
-							linha[j][1] = s;
-							
-							Calendar c = Calendar.getInstance();
-							c.setTime(i.getVencimento());
-							String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
-							String mes = formatandoData((c.get(c.MONTH)+1)+"");
-							linha[j][2] =""+dia+"/"+mes+"/"+c.get(c.YEAR);
-							
-							linha[j][3] = i.getPrecoCompra();
-							
-							linha[j][4] = i.getQuantidade();
-							
-							JButton b = new JButton("Abrir");
-							b.setForeground(Color.BLACK);
-							b.setBackground(Color.white);
-							b.setFont(Propiedade.FONT2);
-							linha[j][5] = b;
-							j++;
+							if(i.getQuantidade() > 0) {
+								linha[j][0] = i.getId();
+								String s = ""+fachada.buscarPorIdProduto(i.getId_produto()).getNome();
+								linha[j][1] = s;
+								
+								Calendar c = Calendar.getInstance();
+								c.setTime(i.getVencimento());
+								String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
+								String mes = formatandoData((c.get(c.MONTH)+1)+"");
+								linha[j][2] =""+dia+"/"+mes+"/"+c.get(c.YEAR);
+								
+								linha[j][3] = i.getPrecoCompra();
+								
+								linha[j][4] = i.getQuantidade();
+								
+								JButton b = new JButton("Abrir");
+								b.setForeground(Color.BLACK);
+								b.setBackground(Color.white);
+								b.setFont(Propiedade.FONT2);
+								linha[j][5] = b;
+								j++;
+							}
 						}
 						JTableButtonModel jtableButtonModel = new JTableButtonModel();
 						jtableButtonModel.adcionar(linha,new String[] {
@@ -189,28 +199,38 @@ public class ControleMovimentacaoPanel {
 							}
 						}
 						
-						int j = 0;
-						Object [][] linha = new Object[itemProdutos.size()][6];
+						int j = 0,tamanho = itemProdutos.size();
+						
+						for(int i =0;i<itemProdutos.size();i++) {
+							if(itemProdutos.get(i).getQuantidade() == 0) {
+								tamanho--;
+							}
+						}
+						
+						Object [][] linha = new Object[tamanho][6];
 						for(ItemProduto i:itemProdutos) {
-							linha[j][0] = i.getId();
-							linha[j][1] = ""+fachada.buscarPorIdProduto(i.getId_produto()).getNome();
-							
-							Calendar c = Calendar.getInstance();
-							c.setTime(i.getVencimento());
-							String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
-							String mes = formatandoData((c.get(c.MONTH)+1)+"");
-							linha[j][2] =""+dia+"/"+mes+"/"+c.get(c.YEAR);
-							
-							linha[j][3] = i.getPrecoCompra();
-							
-							linha[j][4] = i.getQuantidade();
-							
-							JButton b = new JButton("Abrir");
-							b.setForeground(Color.BLACK);
-							b.setBackground(Color.white);
-							b.setFont(Propiedade.FONT2);
-							linha[j][5] = b;
-							j++;
+							if(i.getQuantidade() > 0) {
+								linha[j][0] = i.getId();
+								linha[j][1] = ""+fachada.buscarPorIdProduto(i.getId_produto()).getNome();
+								
+								Calendar c = Calendar.getInstance();
+								c.setTime(i.getVencimento());
+								String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
+								String mes = formatandoData((c.get(c.MONTH)+1)+"");
+								linha[j][2] =""+dia+"/"+mes+"/"+c.get(c.YEAR);
+								
+								linha[j][3] = i.getPrecoCompra();
+								
+								linha[j][4] = i.getQuantidade();
+								
+								JButton b = new JButton("Abrir");
+								b.setForeground(Color.BLACK);
+								b.setBackground(Color.white);
+								b.setFont(Propiedade.FONT2);
+								linha[j][5] = b;
+								j++;
+							}
+						
 						}
 						JTableButtonModel jtableButtonModel = new JTableButtonModel();
 						jtableButtonModel.adcionar(linha,new String[] {
@@ -271,7 +291,7 @@ public class ControleMovimentacaoPanel {
 		    button.dispatchEvent(buttonEvent);
 		    if(button ==buttonEvent.getSource()) { 
 		    	try {
-	
+		    		adcionarEstoque.getProdutoBox().removeAllItems();
 		    		ArrayList<Produto> produtos = new ArrayList<Produto>();
 					produtos =(ArrayList<Produto>) fachada.buscarPorBuscaProduto(""+table.getValueAt(table.getSelectedRow(), 1));
 					for(Produto p : produtos) {
@@ -284,10 +304,14 @@ public class ControleMovimentacaoPanel {
 					condicao = itemProduto.getId();
 					Calendar c = Calendar.getInstance();
 					c.setTime(itemProduto.getDataCompra());
-					adcionarEstoque.getDataCompraField().setText( c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR));
+					String dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
+					String mes = formatandoData((c.get(c.MONTH)+1)+"");
+					adcionarEstoque.getDataCompraField().setText(dia+""+mes+""+c.get(c.YEAR));
 					c.setTime(itemProduto.getVencimento());
-					adcionarEstoque.getVencimentoField().setText(c.get(c.DAY_OF_MONTH)+"/"+(c.get(c.MONTH)+1)+"/"+c.get(c.YEAR));
-					adcionarEstoque.getProdutoBox().setSelectedIndex(itemProduto.getId_produto()-1);
+					dia = formatandoData(c.get(c.DAY_OF_MONTH)+"");
+					mes = formatandoData((c.get(c.MONTH)+1)+"");
+					adcionarEstoque.getVencimentoField().setText(dia+""+mes+""+c.get(c.YEAR));
+					adcionarEstoque.getProdutoBox().addItem(itemProduto.getProduto().getNome());
 					adcionarEstoque.getPrecoCompraField().setText(""+itemProduto.getPrecoCompra());
 					adcionarEstoque.getQuantidadeField().setText(""+itemProduto.getQuantidade());
 					
@@ -338,4 +362,6 @@ public class ControleMovimentacaoPanel {
 			adcionarEstoque.getVencimentoField().setText("");
 			adcionarEstoque.getQuantidadeField().setText("");
 	 }
+	 
+		
 }

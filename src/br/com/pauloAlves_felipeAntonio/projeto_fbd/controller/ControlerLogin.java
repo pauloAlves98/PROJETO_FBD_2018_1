@@ -3,17 +3,14 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.app.App;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Corrente;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.dao.DaoMedico;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Funcionario;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.BusinessException;
-import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.Fachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.fachada.IFachada;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.CadastroAdcionarNoEstoque;
@@ -28,6 +25,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.JTableButtonModel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.LoginFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.MedicoFrame;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.PagamentoContReceberPanel;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.PagamentoContaApagarPanel;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.TelaPrincipal;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.VendaFrame;
 
@@ -43,6 +41,9 @@ public class ControlerLogin {
 	private CadastroServicoFrame cadastroServicoFrame;
 	private CadastroFornecedoresFrame cadastro = new CadastroFornecedoresFrame();
 	private ConsultaFrame consulta ;
+	private PagamentoContReceberPanel pagamentoContReceberPanel;
+	private PagamentoContaApagarPanel pagamentoContaApagarPanel;
+	
 	public ControlerLogin(){
 		//Colocar buttoes de Logoff aki
 		this.loginFrame = new LoginFrame();
@@ -162,12 +163,15 @@ public class ControlerLogin {
 		pacientePanel = new CadastroPacienteFrame();
 		vendaFrame = new VendaFrame();
 		cadastroServicoFrame = new CadastroServicoFrame();
+		pagamentoContaApagarPanel = new PagamentoContaApagarPanel();
+		pagamentoContReceberPanel = new PagamentoContReceberPanel();
 		cadastro = new CadastroFornecedoresFrame();
 		consulta = new ConsultaFrame();//ainda tem q criar a agenda
 		new ControleFuncionario(tela.getCadatrosPanel().getFuncionarioPanel(), new CadastroFuncionarioDialog());
 		new ControlerAbaAgenda(tela.getAgendaPanel());
 		ControlePacientesPanel controlePacientesPanel = new ControlePacientesPanel(tela.getCadatrosPanel().getTelaPacientes(), pacientePanel);
-		new ControleFinanceiro(tela.getFinanceiroPanel(), vendaFrame,new PagamentoContReceberPanel());
+		ControleFinanceiro financeiro = new ControleFinanceiro(tela.getFinanceiroPanel(), vendaFrame,new PagamentoContReceberPanel());
+		ControleContasPagar controleContasPagar = new ControleContasPagar(tela.getFinanceiroPanel().getContasApagarPanel(), tela.getFinanceiroPanel(),pagamentoContaApagarPanel);
 		ControleCadastros controleCadastro = new ControleCadastros(tela.getCadatrosPanel());
 		ControleServico controleServico = new ControleServico(tela.getCadatrosPanel().getTelaServico(), cadastroServicoFrame);
 		ControleFornecedor controleFornecedor = new ControleFornecedor(tela.getCadatrosPanel().getTelaFornecedor(), cadastro);
@@ -176,7 +180,7 @@ public class ControlerLogin {
 		ControleMovimentacaoPanel controleMovimentacaoPanel = new ControleMovimentacaoPanel(tela.getEstoquePanel().getPanel_8(),cadastroAdcionarNoEstoque );
 		//ControleContasPagar controleContasPagar = new ControleContasPagar(tela.getFinanceiroPanel().getContasApagarPanel(),tela.getFinanceiroPanel(),pagamentoContaApagarPanel);
 		ControleMedicoPanel ctm = new ControleMedicoPanel(tela.getCadatrosPanel().getMedicoPanel(),new CadastroMedicoDialog());
-	
+		new ControleTelaPrincipal(tela);
 	}
 	private void iniciarControlesMed(){
 		new ControlerMedicoFrame(medicoF);

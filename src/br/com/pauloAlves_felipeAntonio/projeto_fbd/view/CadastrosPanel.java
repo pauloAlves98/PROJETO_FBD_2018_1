@@ -47,7 +47,7 @@ public class CadastrosPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		fornecedorButton.setBounds(5, 55, 138, 33);
+		fornecedorButton.setBounds(5, 55, 142, 33);
 		fornecedorButton.setFont(Propiedade.FONT2);
 		fornecedorButton.setHorizontalAlignment(SwingConstants.LEFT);
 		fornecedorButton.setBackground(Color.WHITE);
@@ -56,7 +56,7 @@ public class CadastrosPanel extends JPanel{
 		menuCadastro.add(fornecedorButton);
 		
 		servicoButton = new JButton("  Serviços");
-		servicoButton.setBounds(147, 55, 125, 33);
+		servicoButton.setBounds(fornecedorButton.getX() + fornecedorButton.getWidth() + 3, 55, 125, 33);
 		servicoButton.setFont(Propiedade.FONT2);
 		servicoButton.setHorizontalAlignment(SwingConstants.LEFT);
 		servicoButton.setBackground(Color.WHITE);

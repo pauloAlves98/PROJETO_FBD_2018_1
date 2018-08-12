@@ -36,8 +36,8 @@ public class VendaFrame extends JFrame {
 	 */
 	public VendaFrame() {
 		getContentPane().setLayout(null);
-		setSize(884,602);
-		
+		setSize(880,602);
+		setResizable(false);
 		JLabel lblPaciente = new JLabel("Paciente");
 		lblPaciente.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblPaciente.setBounds(10, 102, 65, 14);
@@ -94,7 +94,7 @@ public class VendaFrame extends JFrame {
 		getContentPane().add(btnAdicionarProduto);
 		
 		JLabel lblDesconto = new JLabel("Desconto");
-		lblDesconto.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblDesconto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDesconto.setBounds(462, 421, 68, 14);
 		getContentPane().add(lblDesconto);
 		
@@ -104,12 +104,12 @@ public class VendaFrame extends JFrame {
 		DescontoField.setColumns(10);
 		
 		JLabel lblTotal = new JLabel("Total");
-		lblTotal.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTotal.setBounds(573, 421, 46, 14);
 		getContentPane().add(lblTotal);
 		
 		JLabel lblRecebido = new JLabel("Recebido");
-		lblRecebido.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+		lblRecebido.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblRecebido.setBounds(237, 421, 79, 14);
 		getContentPane().add(lblRecebido);
 		
@@ -133,7 +133,7 @@ public class VendaFrame extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		
 		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.BLACK);
-		panel.setBounds(0, 0, 868, 91);
+		panel.setBounds(0, 0, 889, 91);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		JLabel lblVenda = new JLabel("Venda");
@@ -163,6 +163,7 @@ public class VendaFrame extends JFrame {
 		getContentPane().add(lblProduto);
 		
 		JLabel lblEntrada = new JLabel("Entrada");
+		lblEntrada.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblEntrada.setBounds(29, 421, 46, 14);
 		getContentPane().add(lblEntrada);
 		
@@ -172,7 +173,8 @@ public class VendaFrame extends JFrame {
 		entradaField.setColumns(10);
 		
 		JLabel lblParcelas = new JLabel("Parcelas");
-		lblParcelas.setBounds(123, 421, 46, 14);
+		lblParcelas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblParcelas.setBounds(123, 421, 86, 14);
 		getContentPane().add(lblParcelas);
 		
 		parcelasField = new JTextField();
@@ -195,8 +197,8 @@ public class VendaFrame extends JFrame {
 		getContentPane().add(servicoBox);
 		
 		JLabel lblRestante = new JLabel("Restante");
-		lblRestante.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-		lblRestante.setBounds(333, 421, 46, 14);
+		lblRestante.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblRestante.setBounds(357, 421, 79, 14);
 		getContentPane().add(lblRestante);
 		
 		restanteField = new JTextField();
@@ -211,26 +213,27 @@ public class VendaFrame extends JFrame {
 		getContentPane().add(spinner);
 		
 		JLabel lblR = new JLabel("R$");
-		lblR.setFont(new Font("Berlin Sans FB", Font.PLAIN, 12));
+		lblR.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblR.setBounds(10, 455, 46, 14);
 		getContentPane().add(lblR);
 		
 		JLabel lblR_1 = new JLabel("R$");
-		lblR_1.setFont(new Font("Berlin Sans FB", Font.PLAIN, 12));
+		lblR_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblR_1.setBounds(219, 455, 46, 14);
 		getContentPane().add(lblR_1);
 		
 		JLabel lblR_2 = new JLabel("R$");
+		lblR_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblR_2.setBounds(446, 455, 46, 14);
 		getContentPane().add(lblR_2);
 		
 		JLabel lblR_3 = new JLabel("R$");
-		lblR_3.setFont(new Font("Berlin Sans FB", Font.PLAIN, 12));
+		lblR_3.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblR_3.setBounds(333, 455, 46, 14);
 		getContentPane().add(lblR_3);
 		
 		JLabel lblR_4 = new JLabel("R$");
-		lblR_4.setFont(new Font("Berlin Sans FB", Font.PLAIN, 12));
+		lblR_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblR_4.setBounds(558, 455, 46, 14);
 		getContentPane().add(lblR_4);
 

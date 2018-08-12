@@ -43,7 +43,7 @@ public class PagamentoContReceberPanel extends JFrame {
 		
 		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.black);
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 434, 68);
+		panel.setBounds(0, 0, 534, 68);
 		panel.setPreferredSize(new Dimension(809,99));
 		getContentPane().add(panel);
 		panel.setLayout(null);

@@ -43,9 +43,10 @@ public class PagamentoContaApagarPanel extends JFrame{
 		contentPane.setLayout(null);
 		
 		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.black);
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 434, 68);
+	
+		panel.setBounds(0, 0, 534, 68);
 		panel.setPreferredSize(new Dimension(809,99));
+		panel.setBackground(Color.WHITE);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -139,7 +140,7 @@ public class PagamentoContaApagarPanel extends JFrame{
 		lblNDeParcelas.setFont(new Font("Berlin Sans FB", Font.PLAIN, 14));
 		lblNDeParcelas.setBounds(10, 155, 114, 22);
 		contentPane.add(lblNDeParcelas);
-		
+		contentPane.setBackground(Color.WHITE);
 		setSize(450, 349);
 		
 	}

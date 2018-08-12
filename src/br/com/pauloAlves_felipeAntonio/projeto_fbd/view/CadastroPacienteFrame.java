@@ -2,26 +2,20 @@ package br.com.pauloAlves_felipeAntonio.projeto_fbd.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.complemento.Propiedade;
 
-
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-public class CadastroPacienteFrame extends JFrame {
+public class CadastroPacienteFrame extends JDialog {
 	private JTextField prontuarioField;
 	private JTextField nomeField;
 	private JFormattedTextField  nascField;
@@ -60,8 +54,9 @@ public class CadastroPacienteFrame extends JFrame {
 	public CadastroPacienteFrame() {
 		
 		setBackground(Color.CYAN);
-		setSize(748,558);
+		setSize(700,558);
 		getContentPane().setLayout(null);
+		setResizable(false);
 		
 		PaneGradiente panel = new PaneGradiente(Propiedade.cor1,Color.BLACK);
 		panel.setBounds(2, 1, 730, 76);
@@ -188,7 +183,7 @@ public class CadastroPacienteFrame extends JFrame {
 								getContentPane().add(lblBairro);
 						
 								JLabel lblLogradouro = new JLabel("Logradouro");
-								lblLogradouro.setBounds(580, 321, 120, 15);
+								lblLogradouro.setBounds(526, 321, 120, 15);
 								lblLogradouro.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 								getContentPane().add(lblLogradouro);
 				
@@ -203,12 +198,12 @@ public class CadastroPacienteFrame extends JFrame {
 				complementoField.setColumns(10);
 						
 								bairroField = new JTextField();
-								bairroField.setBounds(405, 341, 165, 32);
+								bairroField.setBounds(405, 341, 111, 32);
 								getContentPane().add(bairroField);
 								bairroField.setColumns(10);
 								
 										logradouroField = new JTextField();
-										logradouroField.setBounds(580, 341, 120, 32);
+										logradouroField.setBounds(526, 341, 116, 32);
 										getContentPane().add(logradouroField);
 										logradouroField.setColumns(10);
 						
@@ -279,6 +274,7 @@ public class CadastroPacienteFrame extends JFrame {
 		buscarCEPButton.setBounds(139, 341, 32, 32);
 		getContentPane().add(buscarCEPButton);
 		//setVisible(true);
+		setModal(true);
 	}
 	private void mascaraCPF() {
 

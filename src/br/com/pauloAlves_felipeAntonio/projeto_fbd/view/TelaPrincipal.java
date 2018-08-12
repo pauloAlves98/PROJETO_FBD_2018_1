@@ -46,7 +46,7 @@ public class TelaPrincipal extends JFrame {
 		panel.setBackground(new Color(0,128,255));
 		getContentPane().add(panel,BorderLayout.WEST);
 		panel.setPreferredSize(new Dimension(183,600));
-
+		App.lookPadrao();
 		btnCadastros = new JButton("    Cadastros",new ImageIcon("Res//mais.png"));
 		btnCadastros.setOpaque(false);
 		btnCadastros.setFont(Propiedade.FONT1);

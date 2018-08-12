@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.ItemProduto;
+import br.com.pauloAlves_felipeAntonio.projeto_fbd.entidade.Produto;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.exception.DaoException;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLConnection;
 import br.com.pauloAlves_felipeAntonio.projeto_fbd.sql.SQLUtil;
@@ -76,6 +77,9 @@ public class DaoItemProduto implements IDaoItemProduto{
 				i.setVencimento(result.getDate(4));
 				i.setPrecoCompra(result.getFloat(5));
 				i.setQuantidade(result.getInt(6));
+				Produto p = new Produto();
+				i.setProduto(p);
+				i.getProduto().setNome(result.getString(7));
 				
 				
 			}
