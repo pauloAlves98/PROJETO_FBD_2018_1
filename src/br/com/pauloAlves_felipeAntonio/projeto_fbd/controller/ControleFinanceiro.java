@@ -94,7 +94,7 @@ public class ControleFinanceiro {
 
 					caixa = new Caixa();
 					caixa = (Caixa) fachada.buscarPorIdCaixa(1);
-
+					vendaFrame.getBoxCaixa().removeAllItems();
 					vendaFrame.getBoxCaixa().addItem("");
 					vendaFrame.getBoxCaixa().addItem(caixa.getNome());
 
@@ -332,6 +332,7 @@ public class ControleFinanceiro {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				DecimalFormat f = new DecimalFormat(".00");
 				if(Float.parseFloat(vendaFrame.getTotalField().getText())-Float.parseFloat(vendaFrame.getEntradaField().getText())>0) {
 					vendaFrame.getParcelasField().setEditable(true);
 					vendaFrame.getParcelasField().grabFocus();
@@ -340,7 +341,7 @@ public class ControleFinanceiro {
 					}else {
 						vendaFrame.getRecebidoField().setText(vendaFrame.getEntradaField().getText());
 					}
-					vendaFrame.getRestanteField().setText(""+(Float.parseFloat(vendaFrame.getTotalField().getText())-Float.parseFloat(vendaFrame.getRecebidoField().getText())));
+					vendaFrame.getRestanteField().setText(""+f.format(Float.parseFloat(vendaFrame.getTotalField().getText())-Float.parseFloat(vendaFrame.getRecebidoField().getText())).replace(",", "."));
 				}else {
 					vendaFrame.getParcelasField().setEditable(false);
 					vendaFrame.getDescontoField().grabFocus();
@@ -349,7 +350,7 @@ public class ControleFinanceiro {
 					}else {
 						vendaFrame.getRecebidoField().setText(vendaFrame.getEntradaField().getText());
 					}
-					vendaFrame.getRestanteField().setText(""+(Float.parseFloat(vendaFrame.getTotalField().getText())-Float.parseFloat(vendaFrame.getRecebidoField().getText())));
+					vendaFrame.getRestanteField().setText(""+f.format(Float.parseFloat(vendaFrame.getTotalField().getText())-Float.parseFloat(vendaFrame.getRecebidoField().getText())).replace(",", "."));
 				}
 
 			}
