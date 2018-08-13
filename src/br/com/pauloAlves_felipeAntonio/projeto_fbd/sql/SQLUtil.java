@@ -166,7 +166,7 @@ public class SQLUtil {
 		public static String SELECT_ALL = "select nome,cnpj,incs_municipal,telefone from fornecedor order by id";
 		public static String SELECT_NOME_POR_ID = "select nome from fornecedor where id =? order by id";
 		//public static String SELECT_ALL_POR_CNPJ = "select nome,cnpj,incs_municipal,telefone,id_endereco,fornecedor.id,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,insc_estadual from fornecedor, endereco where fornecedor.cnpj = ? and fornecedor.id_endereco = endereco.id";
-		public static String SELECT_ALL_POR_NOME_CNPJ  = "select distinct nome,cnpj,incs_municipal,telefone,fornecedor.id,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,endereco.id from fornecedor, endereco  where  endereco.id = fornecedor.id_endereco and (nome ilike ? or cnpj ilike ? ) order by id";
+		public static String SELECT_ALL_POR_NOME_CNPJ  = "select distinct nome,cnpj,incs_municipal,telefone,fornecedor.id,cep,estado,logradouro,complemento,bairro,pais,cidade,rua,numero,endereco.id from fornecedor, endereco  where  endereco.id = fornecedor.id_endereco and (nome ilike ? or cnpj ilike ? ) order by fornecedor.id";
 	}
 	public static class Estoque{
 		public static String INSERT_ALL = "insert into estoque(id_fornecedores, id_produtos, total_produtos)"+

@@ -166,7 +166,7 @@ public class ControleServico {
 		    		//Falta o id
 		    		ArrayList<Servico> servicoss = new ArrayList<Servico>();
 			    	Servico servico = new Servico();
-					servicoss = (ArrayList<Servico>)fachada.buscarPorBuscaServico("%"+table.getValueAt(table.getSelectedRow(), 0)+"%");
+					servicoss = (ArrayList<Servico>)fachada.buscarPorBuscaServico("%"+table.getValueAt(table.getSelectedRow(), 1)+"%");
 					servico = servicoss.get(0);
 					condicao  = servico.getId();
 					servicos.getTipoField().setText(servico.getTipo());

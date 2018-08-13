@@ -82,7 +82,7 @@ public class CadastroFornecedoresFrame extends JFrame {
 		lblInscMunicipal.setBounds(154, 152, 97, 14);
 		getContentPane().add(lblInscMunicipal);
 		
-		JLabel lblCpf = new JLabel("CPF");
+		JLabel lblCpf = new JLabel("CNPJ");
 		lblCpf.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 		lblCpf.setBounds(304,152, 97, 14);
 		getContentPane().add(lblCpf);

@@ -33,7 +33,7 @@ import br.com.pauloAlves_felipeAntonio.projeto_fbd.view.PagamentoContaApagarPane
 public class ControleContasPagar {
 	IFachada fachada;
 	float valor = 0;
-	int indexPagar = 0,i;
+	int indexPagar = 0,i=-1;
 	ArrayList<Contas_pagar> contasP ;
 	public ControleContasPagar(ContasApagarPanel contasApagarPanel,FinanceiroPanel financeiroPanel, PagamentoContaApagarPanel pagamentoContaApagarPanel) {
 		fachada = Fachada.getInstance();
@@ -117,8 +117,13 @@ public class ControleContasPagar {
 						
 						caixa = new Caixa();
 						caixa = (Caixa) fachada.buscarPorIdCaixa(1);
-						financeiroPanel.getLblValorCaixa().setText(df.format(caixa.getSaldo()));
-
+						if(caixa.getSaldo() == 0) {
+							financeiroPanel.getLblValorCaixa().setText("R$ 0,00");
+						}else {
+							financeiroPanel.getLblValorCaixa().setText(df.format(caixa.getSaldo()));
+						}
+						
+						i=-1;
 						JOptionPane.showMessageDialog(null, "Pagamento feito Com sucesso");
 						pagamentoContaApagarPanel.setVisible(false);
 					}else {
@@ -211,7 +216,7 @@ public class ControleContasPagar {
 				SpinnerNumberModel model = new SpinnerNumberModel(0, 0,y,1);   
 				pagamentoContaApagarPanel.getParcelaSpinner().setModel(model);
 				pagamentoContaApagarPanel.getParcelasRestantesField().setText(""+y);
-				i = (Integer)pagamentoContaApagarPanel.getParcelaSpinner().getValue();
+				//i = (Integer)pagamentoContaApagarPanel.getParcelaSpinner().getValue();
 				valor =( Float.parseFloat(pagamentoContaApagarPanel.getValorRestanteField().getText())/y);
 				pagamentoContaApagarPanel.getPagarField().setText(""+valor);
 			}

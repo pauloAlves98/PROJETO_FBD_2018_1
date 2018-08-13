@@ -113,6 +113,7 @@ public class ControleFuncionario {
 		cdtFuncDialog.getNascField().setText("");
 		cdtFuncDialog.getDescricaoArea().setText("");
 		cdtFuncDialog.getCodField().setText("");
+		cdtFuncDialog.getCargoField().setText("");
 	}
 
 	private void preencherCamposBuscaTabela(ArrayList<Funcionario> p) {

@@ -105,6 +105,8 @@ public class FinanceiroPanel extends JPanel {
 			}else {
 				lblValorReceber = new JLabel(df.format((fachada.soma()-fachada.somaValorPago())));
 			}
+			
+			
 			lblValorReceber.setForeground(Color.WHITE);
 			lblValorReceber.setBounds(270, 36, 200, 28);
 			panel_3.add(lblValorReceber);

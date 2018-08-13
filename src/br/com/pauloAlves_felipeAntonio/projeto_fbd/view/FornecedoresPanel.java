@@ -59,7 +59,7 @@ public class FornecedoresPanel extends JPanel {
  		JTableButtonModel jtableButtonModel= new JTableButtonModel();
  		jtableButtonModel.adcionar(new Object[][] {
 		},new String[] {
-				"Nome", "CPF", "Incs. municipal","Telefone", "Cadastro"
+				"Nome", "CNPJ", "Incs. municipal","Telefone", "Cadastro"
 			});
 		table = new JTableButton(jtableButtonModel);
 		table.getTable().setBackground(Color.WHITE);

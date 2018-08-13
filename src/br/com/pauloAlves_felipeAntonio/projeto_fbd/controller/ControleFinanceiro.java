@@ -163,6 +163,7 @@ public class ControleFinanceiro {
 			public void actionPerformed(ActionEvent arg0) {
 				float valor = 0;
 				//System.out.print("Passei");
+				DecimalFormat fd = new DecimalFormat(".00");
 				for(Servico s : servicos) {
 					if(s.getId() == vendaFrame.getServicoBox().getSelectedIndex()) {
 						valor=s.getValor();
@@ -170,11 +171,11 @@ public class ControleFinanceiro {
 							vendaFrame.getAreaServicos().setText(vendaFrame.getAreaServicos().getText()+"\n"+s.getDescricao()+"     R$"+valor+"0");
 							vendaFrame.getTotalField().setText(""+(Float.parseFloat(vendaFrame.getTotalField().getText())+valor));
 						}else if(vendaFrame.getAreaProduto().getText().length()>0) {
-							vendaFrame.getAreaServicos().setText(s.getDescricao()+"     R$"+valor+"0");
+							vendaFrame.getAreaServicos().setText(s.getDescricao()+"     R$"+fd.format(valor));
 							vendaFrame.getTotalField().setText(""+(Float.parseFloat(vendaFrame.getTotalField().getText())+valor));
 						}
 						else {
-							vendaFrame.getAreaServicos().setText(s.getDescricao()+"     R$"+valor+"0");
+							vendaFrame.getAreaServicos().setText(s.getDescricao()+"     R$"+fd.format(valor));
 							vendaFrame.getTotalField().setText(""+valor);
 						}
 					}
@@ -245,17 +246,19 @@ public class ControleFinanceiro {
 								if(vendaFrame.getMercadoBox().getSelectedIndex()==0) {
 									//System.out.print( "passei");
 									valor = ((i.getPrecoCompra() * i.getProduto().getVendaVarejo())/100) + i.getPrecoCompra();
+									DecimalFormat f = new DecimalFormat(".0");
+									DecimalFormat fd = new DecimalFormat(".00");
 									int y =0;
 									while(y<(Integer)vendaFrame.getSpinner().getValue()) {
 										if(vendaFrame.getAreaProduto().getText().length()>0) {
-											vendaFrame.getAreaProduto().setText(vendaFrame.getAreaProduto().getText()+"\n"+i.getProduto().getNome()+"     R$"+valor+"0");
-											vendaFrame.getTotalField().setText(""+(Float.parseFloat(vendaFrame.getTotalField().getText())+valor));
+											vendaFrame.getAreaProduto().setText(vendaFrame.getAreaProduto().getText()+"\n"+i.getProduto().getNome()+"     R$"+fd.format(valor));
+											vendaFrame.getTotalField().setText(""+(Float.parseFloat(vendaFrame.getTotalField().getText())+Float.parseFloat(f.format(valor).replaceAll(",","."))));
 										}else if(vendaFrame.getAreaServicos().getText().length()>0) {
-											vendaFrame.getAreaProduto().setText(vendaFrame.getAreaProduto().getText()+i.getProduto().getNome()+"     R$"+valor+"0");
-											vendaFrame.getTotalField().setText(""+(Float.parseFloat(vendaFrame.getTotalField().getText())+valor));
+											vendaFrame.getAreaProduto().setText(vendaFrame.getAreaProduto().getText()+i.getProduto().getNome()+"     R$"+fd.format(valor));
+											vendaFrame.getTotalField().setText(""+(Float.parseFloat(vendaFrame.getTotalField().getText())+Float.parseFloat(f.format(valor).replaceAll(",","."))));
 										}
 										else {
-											vendaFrame.getAreaProduto().setText(i.getProduto().getNome()+"     R$"+valor+"0");
+											vendaFrame.getAreaProduto().setText(i.getProduto().getNome()+"     R$"+fd.format(valor));
 											vendaFrame.getTotalField().setText(""+valor);
 										}
 										y++;
@@ -555,7 +558,12 @@ public class ControleFinanceiro {
 
 					caixa = new Caixa();
 					caixa = (Caixa) fachada.buscarPorIdCaixa(1);
-					financeiroPanel.getLblValorCaixa().setText(df.format(caixa.getSaldo()));
+					if(caixa.getSaldo()==0) {
+						financeiroPanel.getLblValorCaixa().setText("R$ 0,00");
+					}else {
+						financeiroPanel.getLblValorCaixa().setText(df.format(caixa.getSaldo()));
+					}
+					
 
 					JOptionPane.showMessageDialog(null, "Pagamento recebido Com sucesso");
 					pagamentoContReceberPanel.setVisible(false);
